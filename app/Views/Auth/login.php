@@ -1,7 +1,7 @@
     <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
         <div class="row w-100 justify-content-center align-items-center">
             
-            <div class="col-md-5 col-lg-4 d-flex justify-content-center order-2 order-md-1">
+            <div class="col-md-5 col-lg-4 d-flex justify-content-center order-2 order-md-1 me-md-2">
                 <div class="login-box text-white">
                     <h2 class="fw-bold text-center mb-3">Bienvenido</h2>
                     <p class="text-center mb-4">Inicia sesión para acceder a tu espacio de trabajo</p>
@@ -37,7 +37,8 @@
                 </div>
             </div>
 
-            <div class="col-md-4 col-lg-4 d-flex justify-content-center align-items-center order-1 order-md-2">
+            <div class="col-md-4 col-lg-4 d-flex justify-content-center align-items-center order-1 order-md-2
+            ms-md-5">
                 <img src="<?= base_url('assets/images/logo.jpeg'); ?>" alt="Logo futurista"
                     class="rounded-circle shadow logo-img">
             </div>
