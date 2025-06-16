@@ -250,6 +250,25 @@ class Login extends BaseController
 
             $email = strtolower(trim($this->request->getPost('email')));
             $password = $this->request->getPost('password');
+            $captchaResponse = $this->request->getPost('g-recaptcha-response');
+
+            if (!$captchaResponse) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Captcha no completado'
+                ]);
+            }
+
+            $secretKey = env('RECAPTCHA_SECRET_KEY');
+            $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$captchaResponse}");
+            $captchaSuccess = json_decode($verify);
+
+            if (!$captchaSuccess->success) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Captcha inválido. Inténtalo de nuevo.'
+                ]);
+            }
 
             if (empty($email) || empty($password)) {
                 return $this->response->setJSON([
@@ -305,7 +324,7 @@ class Login extends BaseController
         {
             $session = session();
             $session->destroy();
-            return redirect()->to('/login');
+            return redirect()->to('/');
         }
 
 

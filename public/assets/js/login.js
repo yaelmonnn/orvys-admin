@@ -14,9 +14,18 @@ document.querySelector('#form-login').addEventListener('submit', async (e) => {
         return;
     }
 
+    const captchaToken = grecaptcha.getResponse();
+
+    if (!captchaToken) {
+        mostrarError('Por favor, completa el captcha');
+        resetearBoton(btnLogin, 'INGRESAR');
+        return;
+    }
+
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', pass);
+    formData.append('g-recaptcha-response', captchaToken);
 
     try {
         const response = await fetch('http://localhost/orvys-admin/public/login/validar', {
@@ -34,6 +43,7 @@ document.querySelector('#form-login').addEventListener('submit', async (e) => {
             window.location.href = 'http://localhost/orvys-admin/public/dashboard';
         } else {
             mostrarError(data.message || 'Credenciales incorrectas');
+            grecaptcha.reset();
         }
     } catch (error) {
         console.error('Error:', error);
@@ -42,6 +52,7 @@ document.querySelector('#form-login').addEventListener('submit', async (e) => {
         resetearBoton(btnLogin, 'INGRESAR');
     }
 });
+
 
 function mostrarError(mensaje) {
     alert('Error: ' + mensaje);

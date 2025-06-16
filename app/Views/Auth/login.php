@@ -12,7 +12,7 @@
                             <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
                         </div>
                         
-                        <div class="mb-5">
+                        <div class="mb-3">
                             <label for="password" class="form-label small">Contraseña<span class="ms-2"><i class="fa-solid fa-lock"></i></span></label>
                             <div class="input-group input-group-sm">
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required oninput="mostrarEye()">
@@ -21,6 +21,11 @@
                                 </button>
                             </div>
                         </div>
+
+                        <div class="mb-1 text-center">
+                        <div class="g-recaptcha d-inline-block" data-sitekey="6LfGNWIrAAAAANM--z_aPGoslnkktbx-uYqJbxUs">
+                        </div>
+                    </div>
                         
                         <button type="submit" class="btn btn-primary btn-sm w-100 mb-3 mt-3 btn-login">Iniciar sesión</button>
                     </form>
@@ -38,3 +43,5 @@
             </div>
         </div>
     </div>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
