@@ -1,0 +1,225 @@
+body {
+  background-image: url("http://localhost/orvys-admin/public/assets/images/fondo-login.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 500px;
+  min-height: 500px;
+  display: flex;
+  border-radius: 20px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #0e1742;
+  padding: 2rem;
+}
+
+.login-box h2, .login-box p {
+  font-family: "Times New Roman", Times, serif;
+}
+
+.login-box .form-control {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  font-family: "Times New Roman", Times, serif;
+  border-radius: 10px;
+}
+
+.login-box .form-label {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto 0.8rem auto;
+  font-family: "Times New Roman", Times, serif;
+  text-align: left;
+}
+
+.login-box .input-group {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+.input-group .form-control {
+  border-radius: 10px 10px 10px 10px !important;
+  border-right: none;
+  flex: 1;
+  min-width: 0;
+}
+
+.input-group-text {
+  border-radius: 0 10px 10px 0 !important;
+  border-left: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-left: none;
+  width: 36px;
+  min-width: 36px;
+  flex: 0 0 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.password-toggle {
+  background: transparent;
+  border: none;
+  color: #939191;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  padding: 8px 0;
+  margin: 0;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.password-toggle i {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.toggle-desaparecer {
+  display: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ccc;
+  outline: none;
+}
+
+.input-group .form-control:focus {
+  border-right: none;
+  box-shadow: none;
+}
+
+.login-box button[type="submit"] {
+  max-width: 130px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  margin: 3rem auto 0 auto;
+  display: block;
+}
+
+.enlace {
+  transition: color 0.3s ease-in-out;
+}
+
+.enlace:hover {
+  color: #127c7f !important;
+}
+
+.logo-img {
+  object-fit: cover;
+  border: 3px solid #00cfff;
+  box-shadow: 0 0 20px #00cfff, 0 0 40px #00aaff;
+  width: 500px;
+  height: 500px;
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+  .logo-img {
+    width: 450px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  .logo-img {
+    width: 400px;
+    height: 400px;
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 1rem;
+  }
+
+  .login-box {
+    max-width: 100%;
+    min-height: auto;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .logo-img {
+    width: 280px;
+    height: 280px;
+    margin-top: 10rem;
+  }
+
+  .login-box .form-control,
+  .login-box .form-label,
+  .login-box .input-group {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .login-box {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .logo-img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .login-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .login-box p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-img {
+    width: 180px;
+    height: 180px;
+  }
+
+  .login-box {
+    margin: 0.5rem 0;
+  }
+
+  .container-fluid {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .container-fluid {
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .login-box {
+    min-height: auto;
+  }
+
+  .logo-img {
+    width: 360px;
+    height: 360px;
+    margin-left: 70px;
+  }
+}
