@@ -8,12 +8,12 @@
                     
                     <form action="#" method="post" id="form-login">
                         <div class="mb-4">
-                            <label for="email" class="form-label small">Email<span class="ms-2"><i class="fa-solid fa-envelope"></i></span></label>
+                            <label for="email" class="form-label small">Email<span class="ms-2"><i class="fa-solid fa-envelope"></i></span><span class="ms-2 obligatorio">*Obligatorio*</span></label>
                             <input type="email" class="form-control form-control-sm" id="email" name="email" placeholder="Ingrese su correo electrónico" required>
                         </div>
                         
                         <div class="mb-3">
-                            <label for="password" class="form-label small">Contraseña<span class="ms-2"><i class="fa-solid fa-lock"></i></span></label>
+                            <label for="password" class="form-label small">Contraseña<span class="ms-2"><i class="fa-solid fa-lock"></i></span><span class="ms-2 obligatorio">*Obligatorio*</span></label>
                             <div class="input-group input-group-sm">
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña" required oninput="mostrarEye()">
                                 <button class="input-group-text password-toggle toggle-desaparecer" type="button" onclick="togglePassword()">

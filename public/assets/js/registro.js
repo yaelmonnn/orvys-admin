@@ -23,8 +23,33 @@ document.querySelector('#form-registro').addEventListener('submit', async (e) =>
         return;
     }
 
+    // Validación robusta de contraseña
     if (pass.length < 8) {
         mostrarError('La contraseña debe tener al menos 8 caracteres');
+        resetearBoton(btnEnviar);
+        return;
+    }
+
+    if (!/[a-z]/.test(pass)) {
+        mostrarError('La contraseña debe incluir al menos una letra minúscula');
+        resetearBoton(btnEnviar);
+        return;
+    }
+
+    if (!/[A-Z]/.test(pass)) {
+        mostrarError('La contraseña debe incluir al menos una letra mayúscula');
+        resetearBoton(btnEnviar);
+        return;
+    }
+
+    if (!/[0-9]/.test(pass)) {
+        mostrarError('La contraseña debe incluir al menos un número');
+        resetearBoton(btnEnviar);
+        return;
+    }
+
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pass)) {
+        mostrarError('La contraseña debe incluir al menos un carácter especial (!@#$%^&*()_+-=[]{}|;:,.<>?)');
         resetearBoton(btnEnviar);
         return;
     }
@@ -36,7 +61,7 @@ document.querySelector('#form-registro').addEventListener('submit', async (e) =>
     formData.append('password', pass);
 
     try {
-        const response = await fetch('http://localhost/orvys-admin/public/usuario/registrar', {
+        const response = await fetch(`${window.BASE_URL}usuario/registrar`, {
             method: 'POST',
             body: formData,
             headers: {
@@ -47,29 +72,82 @@ document.querySelector('#form-registro').addEventListener('submit', async (e) =>
         const data = await response.json();
 
         if (data.success) {
-            mostrarExito(data.message || 'Usuario registrado exitosamente');
-            document.querySelector('#form-registro').reset();
-            window.location.href = 'http://localhost/orvys-admin/public/login';
+            Swal.fire({
+                title: '¡Registro exitoso!',
+                text: data.message || 'Usuario registrado exitosamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            }).then(() => {
+                document.querySelector('#form-registro').reset();
+                window.location.href = `${window.BASE_URL}login`;
+            });
         } else {
-            mostrarError(data.message || 'Error al registrar usuario');
+            Swal.fire({
+                title: 'Error',
+                text: data.message || 'No se pudo registrar el usuario.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
         }
     } catch (error) {
         console.error('Error:', error);
-        mostrarError('Error de conexión. Intenta nuevamente.');
+        Swal.fire({
+            title: 'Error de conexión',
+            text: 'Ocurrió un problema al conectar con el servidor. Intenta nuevamente.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+        });
     } finally {
         resetearBoton(btnEnviar);
     }
 });
 
 function mostrarError(mensaje) {
-    alert('Error: ' + mensaje);
-}
-
-function mostrarExito(mensaje) {
-    alert('Éxito: ' + mensaje);
+    Swal.fire({
+        title: 'Error',
+        text: mensaje,
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    });
 }
 
 function resetearBoton(btn) {
     btn.removeAttribute('disabled');
     btn.innerText = 'REGISTRAR';
 }
+
+function toggleObligatorioLabel(input, span) {
+    if (input.value.trim() !== '') {
+        span.style.display = 'none';
+    } else {
+        span.style.display = 'inline';
+    }
+}
+
+function initObligatorioLabels() {
+    const obligatoriosSpans = document.querySelectorAll('.obligatorio');
+    
+    obligatoriosSpans.forEach(span => {
+        const label = span.closest('label');
+        if (label) {
+            const forAttribute = label.getAttribute('for');
+            const input = document.querySelector(`#${forAttribute}`);
+            
+            if (input) {
+                input.addEventListener('input', function() {
+                    toggleObligatorioLabel(this, span);
+                });
+                
+                input.addEventListener('blur', function() {
+                    toggleObligatorioLabel(this, span);
+                });
+                
+                toggleObligatorioLabel(input, span);
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    initObligatorioLabels();
+});

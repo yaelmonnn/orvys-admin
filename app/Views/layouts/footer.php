@@ -1,5 +1,8 @@
     <script src="<?=base_url('bootstrap/js/bootstrap.bundle.min.js');?>"></script>
     <script src="https://kit.fontawesome.com/1e0bbd4af0.js" crossorigin="anonymous"></script>
+    <script>
+        window.BASE_URL = '<?= base_url(); ?>';
+    </script>
     <?php
         if ($cargarJS) {
             echo '<script src="' . base_url('assets/js/' . $js) . '"></script>';
