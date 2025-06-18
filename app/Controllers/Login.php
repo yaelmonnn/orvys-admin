@@ -48,6 +48,7 @@ class Login extends BaseController
         $css = 'dashboard.css';
         $cargarJS = true;
         $js = 'dashboard.js';
+        $tituloTopbar = 'Inicio';
 
         $view = view('layouts/header', [
             'titulo'   => $titulo,
@@ -60,7 +61,9 @@ class Login extends BaseController
 
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
-            'user' => $session->get('email')
+            'user' => $session->get('email'),
+            'vistaExtra' => view('Dashboard/bienvenida'),
+            'tituloTop' => $tituloTopbar
         ]);
 
         $view .= view('layouts/footer');

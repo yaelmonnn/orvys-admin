@@ -1,0 +1,287 @@
+.sidebar {
+  width: 280px;
+  min-height: 100vh;
+  transition: width 0.3s ease;
+}
+
+.nav-lateral {
+  background-color: #012b73 !important;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+/* Estilos para sobrescribir los estilos por defecto de DataTables Bootstrap */
+.dt-buttons {
+  margin-bottom: 1rem !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* Forzar estilos de Bootstrap en los botones de DataTables */
+.dt-buttons .btn {
+  border-radius: 0.375rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.025em !important;
+  transition: all 0.2s ease-in-out !important;
+  padding: 0.25rem 0.5rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  user-select: none !important;
+  border: 1px solid transparent !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+}
+
+/* Botón outline-secondary */
+.dt-buttons .btn-outline-secondary {
+  color: #6c757d !important;
+  border-color: #6c757d !important;
+  background-color: transparent !important;
+}
+
+.dt-buttons .btn-outline-secondary:hover {
+  color: #fff !important;
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Botón success */
+.dt-buttons .btn-success {
+  color: #fff !important;
+  background-color: #198754 !important;
+  border-color: #198754 !important;
+}
+
+.dt-buttons .btn-success:hover {
+  color: #fff !important;
+  background-color: #157347 !important;
+  border-color: #146c43 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Botón info */
+.dt-buttons .btn-info {
+  color: #000 !important;
+  background-color: #0dcaf0 !important;
+  border-color: #0dcaf0 !important;
+}
+
+.dt-buttons .btn-info:hover {
+  color: #000 !important;
+  background-color: #31d2f2 !important;
+  border-color: #25cff2 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Botón danger */
+.dt-buttons .btn-danger {
+  color: #fff !important;
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+.dt-buttons .btn-danger:hover {
+  color: #fff !important;
+  background-color: #bb2d3b !important;
+  border-color: #b02a37 !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Márgenes entre botones */
+.dt-buttons .me-2 {
+  margin-right: 0.5rem !important;
+}
+
+/* Sombra sutil */
+.dt-buttons .shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+/* Animación para los iconos */
+.dt-buttons .btn i {
+  transition: transform 0.2s ease-in-out !important;
+}
+
+.dt-buttons .btn:hover i {
+  transform: scale(1.1) !important;
+}
+
+.dt-buttons .btn:active {
+  transform: translateY(0) !important;
+}
+
+/* Asegurar que los botones no tengan estilos conflictivos de DataTables */
+.dt-buttons .btn.dt-button {
+  background-image: none !important;
+  border-radius: 0.375rem !important;
+}
+
+.btn-urgencia-alto {
+  color: #856404;
+  border-color: #ffc107;
+  background-color: transparent;
+}
+.btn-urgencia-alto:hover,
+.btn-urgencia-alto:focus,
+.btn-urgencia-alto.active,
+.btn-urgencia-alto:checked {
+  color: #fff;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.btn-urgencia-medio {
+  color: #827717;
+  border-color: #ffeb3b;
+  background-color: transparent;
+}
+.btn-urgencia-medio:hover,
+.btn-urgencia-medio:focus,
+.btn-urgencia-medio.active,
+.btn-urgencia-medio:checked {
+  color: #000;
+  background-color: #ffeb3b;
+  border-color: #ffeb3b;
+}
+
+.btn-urgencia-informativo {
+  color: #0d47a1;
+  border-color: #42a5f5;
+  background-color: transparent;
+}
+.btn-urgencia-informativo:hover,
+.btn-urgencia-informativo:focus,
+.btn-urgencia-informativo.active,
+.btn-urgencia-informativo:checked {
+  color: #fff;
+  background-color: #42a5f5;
+  border-color: #42a5f5;
+}
+
+.btn-agregar {
+  background-color: #6bd098 !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #57b07d !important; /* un verde un poco más oscuro */
+  box-shadow: 0 8px 20px rgba(107, 208, 152, 0.6);
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dt-buttons .btn {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.875rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .dt-buttons .btn .me-1 {
+    margin-right: 0.25rem !important;
+  }
+}
+
+.sidebar .sidebar-text {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar.collapsed .sidebar-text {
+  display: none;
+}
+
+.sidebar .nav-link {
+  transition: all 0.2s ease;
+  border-radius: 8px;
+}
+
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transform: translateX(5px);
+}
+
+.sidebar-submenu .nav-link {
+  font-size: 0.95rem;
+  padding-left: 1.5rem;
+}
+
+.hamburger-container {
+  justify-content: flex-end;
+  transition: justify-content 0.3s ease;
+}
+
+.sidebar.collapsed .hamburger-container {
+  justify-content: center;
+}
+
+/* Aumentar tamaño del checkbox */
+.table-container tbody input[type="checkbox"] {
+  width: 22px; /* ancho más grande */
+  height: 22px; /* alto más grande */
+  cursor: pointer;
+}
+
+.btn-guardar {
+  background-color: #5ec3f3;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.btn-guardar:hover {
+  background-color: #38a6da;
+}
+  .modal-dialog {
+    border-radius: 5rem;
+  }
+
+/* Aumentar tamaño del texto en las celdas de esa columna (Seleccionada) */
+.table-container tbody td:first-child {
+  font-size: 1.25rem; /* texto más grande */
+  vertical-align: middle;
+}
+
+/* Centrar texto en todas las celdas de la tabla */
+.table-container table {
+  text-align: center;
+}
+
+/* Aumentar tamaño y centrar los checkboxes */
+.table-container tbody input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  display: block;
+  margin: 0 auto; /* centrar checkbox dentro de la celda */
+}
+
+/* Centrar verticalmente y aumentar texto en todas las celdas */
+.table-container tbody td {
+  vertical-align: middle;
+  font-size: 1rem; /* Ajusta el tamaño de letra aquí */
+}
+
+.user-info {
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar.collapsed .sidebar-text {
+  display: none;
+}
+
+.logout-btn i {
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.logout-btn:hover i {
+  transform: translateX(5px) !important;
+}

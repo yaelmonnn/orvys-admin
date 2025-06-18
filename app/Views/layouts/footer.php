@@ -1,5 +1,24 @@
+    <script src="<?=base_url('bootstrap/js/jquery-3.7.1.js');?>"></script>
+    <script src="<?=base_url('bootstrap/js/dataTables.js');?>"></script>
+    <script src="<?=base_url('bootstrap/js/dataTables.buttons.js');?>"></script>
+
+    <script src="<?=base_url('bootstrap/js/buttons.dataTables.js');?>"></script>
+
+
+    <script src="<?=base_url('bootstrap/js/jszip.min.js');?>"></script>
+
+    <script src="<?=base_url('bootstrap/js/pdfmake.min.js');?>"></script>
+
+    <script src="<?=base_url('bootstrap/js/vfs_fonts.js');?>"></script>
+
+    <script src="<?=base_url('bootstrap/js/buttons.html5.min.js');?>"></script>
+
+
+    <script src="<?=base_url('bootstrap/js/dataTables.bootstrap5.js');?>"></script>
     <script src="<?=base_url('bootstrap/js/bootstrap.bundle.min.js');?>"></script>
     <script src="https://kit.fontawesome.com/1e0bbd4af0.js" crossorigin="anonymous"></script>
+    
+
     <script>
         window.BASE_URL = '<?= base_url(); ?>';
     </script>

@@ -21,12 +21,12 @@
 
     <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item mb-4 mt-3">
-            <a href="#" class="nav-link text-white sidebar-link" data-tooltip="Inicio">
+            <a href="<?=base_url('dashboard');?>" class="nav-link text-white sidebar-link" data-tooltip="Inicio">
                 <i class="fas fa-home me-2"></i> <span class="sidebar-text">Inicio</span>
             </a>
         </li>
         <li class="mb-4 nav-item mt-3">
-            <a href="#" class="nav-link text-white sidebar-link" data-tooltip="Proyectos">
+            <a href="<?=base_url('proyectos');?>" class="nav-link text-white sidebar-link" data-tooltip="Proyectos">
                 <i class="fa-solid fa-diagram-project me-2"></i> <span class="sidebar-text">Proyectos</span>
             </a>
         </li>
@@ -43,7 +43,7 @@
                 </a>
                 <div class="collapse sidebar-submenu mt-2" id="submenuConfig">
                     <ul class="nav flex-column ms-4">
-                        <li><a href="#" class="nav-link text-white sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Periodos</a></li>
+                        <li><a href="<?=base_url('periodos');?>" class="nav-link text-white sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Periodos</a></li>
                         <li><a href="#" class="nav-link text-white sidebar-link"><i class="fas fa-user me-2"></i> Usuarios</a></li>
                         <li><a href="#" class="nav-link text-white sidebar-link"><i class="fas fa-user-friends me-2"></i> Grupos</a></li>
                         <li><a href="#" class="nav-link text-white sidebar-link"><i class="fas fa-list me-2"></i> Catálogos</a></li>
