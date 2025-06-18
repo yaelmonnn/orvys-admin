@@ -1,7 +1,6 @@
 <div class="p-3">
 
 <div class="d-flex justify-content-end align-items-center mb-3 flex-wrap">
-  <!-- Botón Agregar -->
   <div class="mt-2 mt-sm-0">
     <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
       <i class="fas fa-plus me-2"></i> Agregar

@@ -1,7 +1,7 @@
 new DataTable('#example', {
   language: {
     url: "http://localhost/orvys-admin/public/bootstrap/js/es-ES.json",
-    search: "Buscar Proyecto:" // Aquí se agrega el label
+    search: "Buscar Proyecto:"
   },
   layout: {
     topStart: {

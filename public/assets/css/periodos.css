@@ -12,13 +12,11 @@
   width: 80px;
 }
 
-/* Estilos para sobrescribir los estilos por defecto de DataTables Bootstrap */
 .dt-buttons {
   margin-bottom: 1rem !important;
   padding: 0.5rem 0 !important;
 }
 
-/* Forzar estilos de Bootstrap en los botones de DataTables */
 .dt-buttons .btn {
   border-radius: 0.375rem !important;
   font-weight: 500 !important;
@@ -36,7 +34,6 @@
   display: inline-block !important;
 }
 
-/* Botón outline-secondary */
 .dt-buttons .btn-outline-secondary {
   color: #6c757d !important;
   border-color: #6c757d !important;
@@ -51,7 +48,6 @@
   box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Botón success */
 .dt-buttons .btn-success {
   color: #fff !important;
   background-color: #198754 !important;
@@ -66,7 +62,6 @@
   box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Botón info */
 .dt-buttons .btn-info {
   color: #000 !important;
   background-color: #0dcaf0 !important;
@@ -81,7 +76,6 @@
   box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Botón danger */
 .dt-buttons .btn-danger {
   color: #fff !important;
   background-color: #dc3545 !important;
@@ -96,17 +90,14 @@
   box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15) !important;
 }
 
-/* Márgenes entre botones */
 .dt-buttons .me-2 {
   margin-right: 0.5rem !important;
 }
 
-/* Sombra sutil */
 .dt-buttons .shadow-sm {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
-/* Animación para los iconos */
 .dt-buttons .btn i {
   transition: transform 0.2s ease-in-out !important;
 }
@@ -119,7 +110,6 @@
   transform: translateY(0) !important;
 }
 
-/* Asegurar que los botones no tengan estilos conflictivos de DataTables */
 .dt-buttons .btn.dt-button {
   background-image: none !important;
   border-radius: 0.375rem !important;
@@ -174,12 +164,11 @@
 }
 
 .btn-agregar:hover {
-  background-color: #57b07d !important; /* un verde un poco más oscuro */
+  background-color: #57b07d !important;
   box-shadow: 0 8px 20px rgba(107, 208, 152, 0.6);
   transform: translateY(-3px);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .dt-buttons .btn {
     padding: 0.25rem 0.5rem !important;
@@ -224,10 +213,9 @@
   justify-content: center;
 }
 
-/* Aumentar tamaño del checkbox */
 .table-container tbody input[type="checkbox"] {
-  width: 22px; /* ancho más grande */
-  height: 22px; /* alto más grande */
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 }
 
@@ -239,34 +227,30 @@
 .btn-guardar:hover {
   background-color: #38a6da;
 }
-  .modal-dialog {
-    border-radius: 5rem;
-  }
+.modal-dialog {
+  border-radius: 5rem;
+}
 
-/* Aumentar tamaño del texto en las celdas de esa columna (Seleccionada) */
 .table-container tbody td:first-child {
-  font-size: 1.25rem; /* texto más grande */
+  font-size: 1.25rem;
   vertical-align: middle;
 }
 
-/* Centrar texto en todas las celdas de la tabla */
 .table-container table {
   text-align: center;
 }
 
-/* Aumentar tamaño y centrar los checkboxes */
 .table-container tbody input[type="checkbox"] {
   width: 22px;
   height: 22px;
   cursor: pointer;
   display: block;
-  margin: 0 auto; /* centrar checkbox dentro de la celda */
+  margin: 0 auto;
 }
 
-/* Centrar verticalmente y aumentar texto en todas las celdas */
 .table-container tbody td {
   vertical-align: middle;
-  font-size: 1rem; /* Ajusta el tamaño de letra aquí */
+  font-size: 1rem;
 }
 
 .user-info {

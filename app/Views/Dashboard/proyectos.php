@@ -2,7 +2,6 @@
 
 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
   <div class="d-flex align-items-center flex-wrap gap-4">
-    <!-- Filtro por importancia -->
     <div class="d-flex align-items-center flex-wrap">
       <label class="fw-bold me-3 mb-0">Filtrar por importancia:</label>
       <div class="d-flex align-items-center flex-wrap gap-2">
@@ -20,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Filtro por urgencia -->
     <div class="d-flex align-items-center flex-wrap">
       <label class="fw-bold me-3 mb-0">Filtrar por urgencia:</label>
       <div class="d-flex align-items-center flex-wrap gap-2">
@@ -45,7 +43,6 @@
     </div>
   </div>
 
-  <!-- Botón Agregar -->
 <div class="mt-2 mt-sm-0">
   <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
     <i class="fas fa-plus me-2"></i> Agregar

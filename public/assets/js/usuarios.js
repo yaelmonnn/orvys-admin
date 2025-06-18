@@ -39,7 +39,6 @@ initComplete: function () {
     $(this).removeClass('dt-button');
   });
 
-
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"], [title]'))
   tooltipTriggerList.forEach(function (tooltipTriggerEl) {
     new bootstrap.Tooltip(tooltipTriggerEl)
@@ -66,26 +65,6 @@ initComplete: function () {
 }
 
 });
-
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const hoy = new Date();
-    const yyyy = hoy.getFullYear();
-    const mm = String(hoy.getMonth() + 1).padStart(2, '0');
-    const dd = String(hoy.getDate()).padStart(2, '0');
-
-    const fechaInicio = `${yyyy}-${mm}-${dd}`;
-
-    const unMesDespues = new Date(hoy);
-    unMesDespues.setMonth(unMesDespues.getMonth() + 1);
-    const mm2 = String(unMesDespues.getMonth() + 1).padStart(2, '0');
-    const dd2 = String(unMesDespues.getDate()).padStart(2, '0');
-    const fechaFin = `${unMesDespues.getFullYear()}-${mm2}-${dd2}`;
-
-    document.getElementById('fechaInicio').value = fechaInicio;
-    document.getElementById('fechaFin').value = fechaFin;
-  });
-
 
 
 const sidebar = document.getElementById("sidebar");
