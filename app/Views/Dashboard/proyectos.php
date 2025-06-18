@@ -1,5 +1,6 @@
 <div class="p-3">
 
+<!-- Contenedor de filtros -->
 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
   <div class="d-flex align-items-center flex-wrap gap-4">
     <div class="d-flex align-items-center flex-wrap">
@@ -42,13 +43,16 @@
       </div>
     </div>
   </div>
+</div>
 
-<div class="mt-2 mt-sm-0">
+<!-- Botón agregar en contenedor aparte alineado a la derecha -->
+<div class="mb-3 text-end">
   <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
     <i class="fas fa-plus me-2"></i> Agregar
   </button>
 </div>
-</div>
+
+
 
 
     <div class="table-container">                    

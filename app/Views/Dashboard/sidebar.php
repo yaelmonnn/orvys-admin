@@ -46,7 +46,7 @@
                         <li><a href="<?=base_url('periodos');?>" class="nav-link text-white sidebar-link"><i class="fas fa-calendar-alt me-2"></i> Periodos</a></li>
                         <li><a href="<?=base_url('usuarios');?>" class="nav-link text-white sidebar-link"><i class="fas fa-user me-2"></i> Usuarios</a></li>
                         <li><a href="<?=base_url('grupos');?>" class="nav-link text-white sidebar-link"><i class="fas fa-user-friends me-2"></i> Grupos</a></li>
-                        <li><a href="#" class="nav-link text-white sidebar-link"><i class="fas fa-list me-2"></i> Catálogos</a></li>
+                        <li><a href="<?=base_url('catalogos');?>" class="nav-link text-white sidebar-link"><i class="fas fa-list me-2"></i> Catálogos</a></li>
                     </ul>
                 </div>
             </li>

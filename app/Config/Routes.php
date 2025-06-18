@@ -14,6 +14,7 @@ $routes->get('/proyectos', 'Dashboard::proyectos');
 $routes->get('/periodos', 'Dashboard::periodos');
 $routes->get('/usuarios', 'Dashboard::usuarios');
 $routes->get('/grupos', 'Dashboard::grupos');
+$routes->get('/catalogos', 'Dashboard::catalogos');
 $routes->post('/usuario/registrar', 'Login::registrar_usuario');
 $routes->post('/login/validar', 'Login::validarLogin');
 
