@@ -21,6 +21,12 @@
             </p>
         </div>
     </div>
+
+        <div class="mt-4 text-center">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Regresar
+            </a>
+        </div>
 </div>
 
 

@@ -17,4 +17,7 @@ $routes->get('/grupos', 'Dashboard::grupos');
 $routes->get('/catalogos', 'Dashboard::catalogos');
 $routes->post('/usuario/registrar', 'Login::registrar_usuario');
 $routes->post('/login/validar', 'Login::validarLogin');
+$routes->post('/periodos/seleccionar', 'Dashboard::seleccionarPeriodo');
+$routes->post('/periodos/reset', 'Dashboard::resetearPeriodo');
+$routes->post('/periodos/insertar', 'Dashboard::insertarPeriodo');
 

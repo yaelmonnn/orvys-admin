@@ -10,26 +10,27 @@
         <div class="mb-3 row align-items-center">
           <label for="nombrePeriodo" class="col-sm-4 col-form-label fw-bold fs-5">Periodo:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control rounded-pill fs-5 fw-semibold" id="nombrePeriodo" value="2025-A">
+            <input type="text" class="form-control rounded-pill fs-5 fw-semibold" id="nombrePeriodo" disabled>
           </div>
         </div>
         <!-- Campo Fecha de inicio -->
         <div class="mb-3 row align-items-center">
           <label for="fechaInicio" class="col-sm-4 col-form-label fw-bold fs-5">Fecha de inicio:</label>
           <div class="col-sm-8">
-            <input type="date" class="form-control rounded-pill fs-5 fw-semibold" id="fechaInicio">
+            <input type="text" class="form-control rounded-pill fs-5 fw-semibold" id="fechaInicio" disabled>
           </div>
         </div>
         <!-- Campo Fecha de término -->
         <div class="mb-3 row align-items-center">
           <label for="fechaFin" class="col-sm-4 col-form-label fw-bold fs-5">Fecha de término:</label>
           <div class="col-sm-8">
-            <input type="date" class="form-control rounded-pill fs-5 fw-semibold" id="fechaFin">
+            <input type="text" class="form-control rounded-pill fs-5 fw-semibold" id="fechaFin" disabled>
           </div>
         </div>
+        <input type="hidden" id="idPeriodo">
         <!-- Botón Guardar -->
         <div class="text-center mt-4">
-          <button type="button" class="btn btn-guardar px-4 py-2 rounded-pill fw-bold fs-5">Guardar</button>
+          <button type="button" id="btn-modal-guardar" class="btn btn-guardar px-4 py-2 rounded-pill fw-bold fs-5">Guardar</button>
         </div>
       </div>
     </div>

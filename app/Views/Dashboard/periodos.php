@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-end align-items-center mb-3 flex-wrap">
   <div class="mt-2 mt-sm-0">
-    <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
+    <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#modalInsertarPeriodo">
       <i class="fas fa-plus me-2"></i> Agregar
     </button>
   </div>
@@ -23,81 +23,67 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><input type="checkbox" class="form-check-input" data-bs-toggle="modal" data-bs-target="#modalPeriodo" /></td>
-        <td>2025-A</td>
-        <td>2025-01-10</td>
-        <td>2025-03-15</td>
-        <td><span class="badge bg-success">Activo</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>
-          <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="form-check-input" /></td>
-        <td>2025-B</td>
-        <td>2025-04-01</td>
-        <td>2025-06-30</td>
-        <td><span class="badge bg-warning text-dark">En proceso</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>
-          <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="form-check-input" /></td>
-        <td>2025-C</td>
-        <td>2025-07-01</td>
-        <td>2025-09-30</td>
-        <td><span class="badge bg-danger">Retrasado</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>
-          <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="form-check-input" /></td>
-        <td>2025-D</td>
-        <td>2025-10-01</td>
-        <td>2025-12-15</td>
-        <td><span class="badge bg-secondary">Completado</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>
-          <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
-      <tr>
-        <td><input type="checkbox" class="form-check-input" /></td>
-        <td>2025-E</td>
-        <td>2026-01-05</td>
-        <td>2026-03-20</td>
-        <td><span class="badge bg-info text-dark">Pendiente</span></td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
-          <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
-          <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>
-          <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>
-          <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
-        </td>
-      </tr>
+
+      <?php
+          if (!empty($periodos)) {
+              foreach($periodos as $p) {
+                echo '<tr>';
+                echo '  <td>';
+                echo '<input 
+                        type="checkbox" 
+                        class="form-check-input" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#' . ($p['Id'] == $periodoSelect ? 'confirmarDeseleccionModal' : 'modalPeriodo') . '"  
+                        data-id="' . $p['Id'] . '"
+                        data-periodo="' . $p['periodo'] . '" 
+                        data-fecha-inicio="' . $p['fecha_inicio'] . '" 
+                        data-fecha-fin="' . $p['fecha_fin'] . '" ' 
+                        . ($p['Id'] == $periodoSelect ? 'checked' : '') . 
+                      '/>';
+                echo '  </td>';
+                echo '  <td>'.$p['periodo'].'</td>';
+                echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_inicio'])).'">'.date('d/m/Y', strtotime($p['fecha_inicio'])).'</td>';
+                echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_fin'])).'">'.date('d/m/Y', strtotime($p['fecha_fin'])).'</td>';
+
+
+                $estatus = $p['estatus'];
+                switch ($estatus) {
+                  case 'Activo':
+                    echo '<td><span class="badge bg-success">'.$p['estatus'].'</span></td>';
+                    break;
+                  case 'En Progreso':
+                    echo '<td><span class="badge bg-warning text-dark">'.$p['estatus'].'</span></td>';
+                    break;
+                  case 'Planificado':
+                    echo '<td><span class="badge bg-info text-dark">'.$p['estatus'].'</span></td>';
+                    break;
+                  case 'Completado':
+                    echo '<td><span class="badge bg-secondary">'.$p['estatus'].'</span></td>';
+                    break;
+                  default:
+                    echo '<td><span class="badge bg-danger">'.$p['estatus'].'</span></td>';
+                    break;
+                }
+                echo '  <td>';
+                echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
+                echo '  </td>';
+                echo '</tr>';
+
+              }
+          }
+      ?>
     </tbody>
   </table>
+      <div class="mt-4 text-center">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+            <i class="fas fa-arrow-left me-2"></i> Regresar
+        </a>
+    </div>
 </div>
-
-
 </div>
 
 

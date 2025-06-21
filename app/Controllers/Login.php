@@ -295,7 +295,8 @@ class Login extends BaseController
 
                         $session->set([
                             'isLoggedIn' => true,
-                            'email'      => $usuario['email']
+                            'email'      => $usuario['email'],
+                            'periodoSelect' => 0
                         ]);
 
                     return $this->response->setJSON([

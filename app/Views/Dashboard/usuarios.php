@@ -11,7 +11,7 @@
 
 
 <div class="table-container text-center">                    
-  <table id="example" class="table table-striped text-center align-middle">
+<table id="example" class="table table-striped text-center align-middle">
   <thead>
     <tr>
       <th>Nombre</th>
@@ -47,11 +47,11 @@
       <td>Grupo B</td>
       <td>Proyecto Beta</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-users"></i></button>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-lightbulb"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -62,11 +62,11 @@
       <td>Grupo C</td>
       <td>Proyecto Gamma</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-users"></i></button>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-lightbulb"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -77,11 +77,11 @@
       <td>Grupo A</td>
       <td>Proyecto Delta</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-users"></i></button>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-lightbulb"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -92,11 +92,11 @@
       <td>Grupo D</td>
       <td>Proyecto Épsilon</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-users"></i></button>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-lightbulb"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -107,15 +107,22 @@
       <td>Grupo B</td>
       <td>Proyecto Zeta</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-users"></i></button>
-        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-lightbulb"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>
+        <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
   </tbody>
 </table>
+
+    <div class="mt-4 text-center">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+            <i class="fas fa-arrow-left me-2"></i> Regresar
+        </a>
+    </div>
+
 
 
 </div>

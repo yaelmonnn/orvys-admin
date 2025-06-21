@@ -33,14 +33,18 @@ new DataTable('#example', {
       ]
     }
   },
-  initComplete: function () {
-    $('.dt-buttons .dt-button').each(function () {
-      $(this).addClass('shadow-sm');
-      $(this).removeClass('dt-button');
-    });
+initComplete: function () {
+  $('.dt-buttons .dt-button').each(function () {
+    $(this).addClass('shadow-sm');
+    $(this).removeClass('dt-button');
+  });
 
-    $('[data-bs-toggle="tooltip"], [title]').tooltip();
-  }
+  
+  document.querySelectorAll('[data-bs-toggle="tooltip"], [title]').forEach(el => {
+    new bootstrap.Tooltip(el);
+  });
+}
+
 });
 
 

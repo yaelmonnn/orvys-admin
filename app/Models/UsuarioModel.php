@@ -60,7 +60,6 @@ class UsuarioModel extends Model
             
             if ($result) {
                 $row = $result->getRow();
-                log_message('info', 'Resultado del SP: ' . json_encode($row));
                 
                 if ($row) {
                     if (isset($row->status) && $row->status === 'success') {
@@ -82,7 +81,6 @@ class UsuarioModel extends Model
             return false;
             
         } catch (\Exception $e) {
-            log_message('error', 'Error al insertar usuario con SP: ' . $e->getMessage());
 
             $errorMessage = $e->getMessage();
             

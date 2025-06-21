@@ -3,16 +3,19 @@
 namespace App\Controllers;
 
 use App\Models\UsuarioModel;
+use App\Models\PeriodoModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Dashboard extends BaseController
 {
 
     protected $usuarioModel;
+    protected $periodoModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
+        $this->periodoModel = new PeriodoModel();
     }
 
 
@@ -46,6 +49,7 @@ class Dashboard extends BaseController
             'tituloTop' => $tituloTopbar
         ]);
 
+        $view .= view('Dashboard/modal_tareas');
         $view .= view('layouts/footer');
         return $view;
 
@@ -66,6 +70,8 @@ class Dashboard extends BaseController
         $js = 'periodos.js';
         $tituloTopbar = 'Periodos';
 
+        $catPeriodos = $this->periodoModel->traerPeriodos();
+
         $view = view('layouts/header', [
             'titulo'   => $titulo,
             'css'      => $css,
@@ -78,14 +84,91 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/periodos'),
+            'vistaExtra' => view('Dashboard/periodos', [
+                'periodos' => $catPeriodos,
+                'periodoSelect' => $session->get('periodoSelect')
+            ]),
             'tituloTop' => $tituloTopbar
         ]);
 
+        $estados = $this->periodoModel->traerEstados();
+
         $view .= view('Dashboard/modal_periodo');
+        $view .= view('Dashboard/modal_resetPeriodo');
+        $view .= view('Dashboard/modal_periodoNuevo', [
+            'estados' => $estados
+        ]);
         $view .= view('layouts/footer');
         return $view;
     }
+
+
+    public function seleccionarPeriodo()
+    {
+        $session = session();
+        $id = $this->request->getPost('idPeriodo');
+        if ($id) {
+            $session->set('periodoSelect', $id);
+            return $this->response->setJSON(['success' => true]);
+        }
+        return $this->response->setJSON(['success' => false]);
+    }
+
+    public function resetearPeriodo() {
+        $session = session();
+        $session->set('periodoSelect', 0);
+        return $this->response->setJSON(['success' => true]);
+    }
+
+    public function insertarPeriodo()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $json = $this->request->getJSON();
+
+            $data = [
+                'periodo' => trim($json->periodo),
+                'fecha_inicio' => $json->fecha_inicio,
+                'fecha_fin' => $json->fecha_fin,
+                'estatus' => $json->estatus 
+            ];
+
+            $resultado = $this->periodoModel->insertarPeriodo($data);
+
+            if ($resultado === true) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Periodo insertado correctamente'
+                ]);
+            } else if (is_array($resultado) && isset($resultado['error'])) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Error del servidor: ' . $resultado['error']
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'No se pudo insertar el periodo. Verifica los datos enviados.'
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor. Intenta nuevamente.'
+            ]);
+        }
+    }
+
+
+
+
 
     public function usuarios() {
         $session = session();

@@ -83,7 +83,7 @@
             <td><span class="badge bg-danger rounded-pill">Crítico</span></td>
             <td><span class="badge bg-success">Activo</span></td>
             <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#kanbanModal"></i></button>
                 <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
                 <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
@@ -315,7 +315,16 @@
 
     </tbody>
 </table>
+
+    <div class="mt-4 text-center">
+        <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+            <i class="fas fa-arrow-left me-2"></i> Regresar
+        </a>
+    </div>
+
 </div>
+
+
 
 </div>
 

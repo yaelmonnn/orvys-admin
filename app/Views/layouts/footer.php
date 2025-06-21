@@ -21,6 +21,7 @@
 
     <script>
         window.BASE_URL = '<?= base_url(); ?>';
+        window.PERIODO_SESION_ID = <?php echo $periodoSelect ?? 0; ?>;
     </script>
     <?php
         if ($cargarJS) {

@@ -11,7 +11,7 @@
 
 
 <div class="table-container text-center">                    
-  <table id="example" class="table table-striped text-center align-middle">
+<table id="example" class="table table-striped text-center align-middle">
   <thead>
     <tr>
       <th>Catálogo</th>
@@ -36,9 +36,9 @@
       <td>2023-12-10</td>
       <td>2025-03-01</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -46,9 +46,9 @@
       <td>2024-04-22</td>
       <td>2025-05-14</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -56,9 +56,9 @@
       <td>2022-11-01</td>
       <td>2024-10-30</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -66,9 +66,9 @@
       <td>2023-05-10</td>
       <td>2025-01-17</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -76,9 +76,9 @@
       <td>2022-08-22</td>
       <td>2024-09-15</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -86,9 +86,9 @@
       <td>2023-01-04</td>
       <td>2025-03-20</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -96,9 +96,9 @@
       <td>2022-05-16</td>
       <td>2023-12-12</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -106,9 +106,9 @@
       <td>2023-03-10</td>
       <td>2024-07-21</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
     <tr>
@@ -116,13 +116,20 @@
       <td>2023-06-01</td>
       <td>2025-05-08</td>
       <td>
-        <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-        <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-        <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
+        <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>
+        <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>
       </td>
     </tr>
   </tbody>
 </table>
+
+        <div class="mt-4 text-center">
+            <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+                <i class="fas fa-arrow-left me-2"></i> Regresar
+            </a>
+        </div>
+
 
 
 
