@@ -1,7 +1,8 @@
 new DataTable('#example', {
   language: {
     url: "http://localhost/orvys-admin/public/bootstrap/js/es-ES.json",
-    search: "Buscar Proyecto:"
+    search: "Buscar Proyecto:",
+    emptyTable: "Ningún dato disponible en esta tabla, por favor, seleccione un periodo primero."
   },
   layout: {
     topStart: {

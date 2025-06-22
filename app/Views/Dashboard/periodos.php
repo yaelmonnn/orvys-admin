@@ -65,10 +65,12 @@
                     break;
                 }
                 echo '  <td>';
-                echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#kanbanModal"></i></button>';
                 echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>';
                 echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Ubicación"><i class="fas fa-map-marker-alt"></i></button>';
                 echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Cambiar"><i class="fas fa-exchange-alt"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1" title="Calendario"><i class="fas fa-calendar-alt"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-danger rounded-pill me-1" title="Alerta"><i class="fas fa-bell"></i></button>';
                 echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
                 echo '  </td>';
                 echo '</tr>';

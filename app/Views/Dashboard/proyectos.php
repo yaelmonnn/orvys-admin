@@ -72,247 +72,81 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>Sistema de Gestión</td>
-            <td>Automatización de procesos internos</td>
-            <td>Interno</td>
-            <td>2024-01-15</td>
-            <td>2024-06-30</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-danger rounded-pill">Crítico</span></td>
-            <td><span class="badge bg-success">Activo</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#kanbanModal"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Portal Web Corporativo</td>
-            <td>Renovación del sitio institucional</td>
-            <td>Corporativo</td>
-            <td>2024-02-01</td>
-            <td>2024-08-15</td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning text-dark">En Progreso</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>App Mobile</td>
-            <td>Aplicación móvil para clientes</td>
-            <td>Cliente</td>
-            <td>2024-03-10</td>
-            <td>2024-09-30</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning rounded-pill">Media</span></td>
-            <td><span class="badge bg-info text-dark">Planificado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Sistema de Inventario</td>
-            <td>Control de stock y almacén</td>
-            <td>Interno</td>
-            <td>2024-01-20</td>
-            <td>2024-07-20</td>
-            <td><span class="badge bg-success rounded-pill">Baja</span></td>
-            <td><span class="badge bg-info text-dark rounded-pill">Informativo</span></td>
-            <td><span class="badge bg-secondary">Pausado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Plataforma E-learning</td>
-            <td>Capacitación en línea</td>
-            <td>Educativo</td>
-            <td>2023-09-01</td>
-            <td>2024-01-31</td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-warning rounded-pill">Media</span></td>
-            <td><span class="badge bg-success">Completado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-                <tr>
-            <td>6</td>
-            <td>Rediseño de Marca</td>
-            <td>Actualizar identidad visual de la empresa</td>
-            <td>Corporativo</td>
-            <td>2024-05-01</td>
-            <td>2024-10-15</td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-danger rounded-pill">Crítico</span></td>
-            <td><span class="badge bg-info text-dark">Planificado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>API de Integración</td>
-            <td>Conexión con servicios externos</td>
-            <td>Tecnología</td>
-            <td>2024-04-10</td>
-            <td>2024-09-01</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning text-dark">En Progreso</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>8</td>
-            <td>Migración a la Nube</td>
-            <td>Transición de infraestructura a servicios cloud</td>
-            <td>Tecnología</td>
-            <td>2024-03-05</td>
-            <td>2024-11-10</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-info rounded-pill">Media</span></td>
-            <td><span class="badge bg-secondary">Pausado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>9</td>
-            <td>Gestión de Reclutamiento</td>
-            <td>Plataforma de selección de personal</td>
-            <td>RH</td>
-            <td>2024-06-01</td>
-            <td>2024-12-15</td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-success rounded-pill">Baja</span></td>
-            <td><span class="badge bg-info text-dark">Planificado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>10</td>
-            <td>Sistema de Tickets</td>
-            <td>Gestión de incidencias TI</td>
-            <td>Soporte</td>
-            <td>2024-02-20</td>
-            <td>2024-08-05</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning text-dark">En Progreso</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>11</td>
-            <td>Automatización de Nómina</td>
-            <td>Procesamiento automático de pagos</td>
-            <td>Finanzas</td>
-            <td>2024-04-15</td>
-            <td>2024-10-31</td>
-            <td><span class="badge bg-warning text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-info text-dark rounded-pill">Media</span></td>
-            <td><span class="badge bg-secondary">Pausado</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
-        <tr>
-            <td>12</td>
-            <td>Dashboard Gerencial</td>
-            <td>Panel de indicadores clave</td>
-            <td>Gerencial</td>
-            <td>2024-01-05</td>
-            <td>2024-07-31</td>
-            <td><span class="badge bg-danger rounded-pill">Alta</span></td>
-            <td><span class="badge bg-warning rounded-pill">Media</span></td>
-            <td><span class="badge bg-success">Activo</span></td>
-            <td>
-                <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>
-                <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>
-                <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>
-                <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>
-            </td>
-        </tr>
 
+        <?php
+            if (!empty($proyectos)) {
+                foreach($proyectos as $p) {
+                    echo '<tr>';
+                    echo '  <td>'.$p['Id'].'</td>';
+                    echo '  <td>'.$p['titulo'].'</td>';
+                    echo '  <td>'.$p['descripcion'].'</td>';
+                    echo '  <td>'.$p['tipo'].'</td>';
+                    echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_inicio'])).'">'.date('d/m/Y', strtotime($p['fecha_inicio'])).'</td>';
+                    echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_fin'])).'">'.date('d/m/Y', strtotime($p['fecha_fin'])).'</td>';
+
+                    switch ($p['importancia']) {
+                        case 'Alta':
+                             echo '<td><span class="badge bg-danger rounded-pill">'.$p['importancia'].'</span></td>';
+                            break;
+                        case 'Media':
+                             echo '<td><span class="badge bg-warning text-dark rounded-pill">'.$p['importancia'].'</span></td>';
+                            break;
+                        default:
+                            echo '<td><span class="badge bg-success rounded-pill">'.$p['importancia'].'</span></td>';
+                            break;
+                    }
+
+                    switch ($p['urgencia']) {
+                        case 'Crítico':
+                            echo '<td><span class="badge bg-danger rounded-pill">'.$p['urgencia'].'</span></td>';
+                            break;
+                        case 'Alto':
+                            echo '<td><span class="badge bg-warning text-dark rounded-pill">'.$p['urgencia'].'</span></td>';
+                            break;
+                        case 'Medio':
+                            echo '<td><span class="badge bg-warning rounded-pill">'.$p['urgencia'].'</span></td>';
+                            break;
+                        case 'Bajo':
+                            echo '<td><span class="badge bg-success rounded-pill">'.$p['urgencia'].'</span></td>';
+                            break;
+                        default:
+                            echo '<td><span class="badge bg-info text-dark rounded-pill">'.$p['urgencia'].'</span></td>';
+                            break;
+                    }
+
+                    switch ($p['estatus']) {
+                    case 'Activo':
+                        echo '<td><span class="badge bg-success">'.$p['estatus'].'</span></td>';
+                        break;
+                    case 'En Progreso':
+                        echo '<td><span class="badge bg-warning text-dark">'.$p['estatus'].'</span></td>';
+                        break;
+                    case 'Planificado':
+                        echo '<td><span class="badge bg-info text-dark">'.$p['estatus'].'</span></td>';
+                        break;
+                    case 'Completado':
+                        echo '<td><span class="badge bg-secondary">'.$p['estatus'].'</span></td>';
+                        break;
+                    default:
+                        echo '<td><span class="badge bg-danger">'.$p['estatus'].'</span></td>';
+                        break;
+                    }
+
+
+                    echo '  <td>';
+                    echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#kanbanModal"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>';
+                    echo '  </td>';
+                    echo '</tr>';
+                }
+            }
+
+        ?>
     </tbody>
 </table>
 

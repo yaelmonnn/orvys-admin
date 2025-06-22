@@ -44,6 +44,41 @@ class UsuarioModel extends Model
     protected $afterDelete = [];
 
 
+    public function traerUsuarios() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Usuarios";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function traerGrupos() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Grupos";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+
     public function insertarUsuario($datos)
     {
         try {

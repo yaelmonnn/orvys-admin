@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UsuarioModel;
 use App\Models\PeriodoModel;
+use App\Models\ProyectoModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Dashboard extends BaseController
@@ -11,11 +12,13 @@ class Dashboard extends BaseController
 
     protected $usuarioModel;
     protected $periodoModel;
+    protected $proyectoModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
         $this->periodoModel = new PeriodoModel();
+        $this->proyectoModel = new ProyectoModel();
     }
 
 
@@ -33,6 +36,8 @@ class Dashboard extends BaseController
         $js = 'proyectos.js';
         $tituloTopbar = 'Proyectos';
 
+        $proyectos = $this->proyectoModel->traerProyectos((int) $session->get('periodoSelect'));
+
         $view = view('layouts/header', [
             'titulo'   => $titulo,
             'css'      => $css,
@@ -45,7 +50,9 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/proyectos'),
+            'vistaExtra' => view('Dashboard/proyectos', [
+                'proyectos' => $proyectos
+            ]),
             'tituloTop' => $tituloTopbar
         ]);
 
@@ -177,6 +184,7 @@ class Dashboard extends BaseController
         }
 
         $rol = $this->usuarioModel->traerRol($session->get('email'));
+        $usuarios = $this->usuarioModel->traerUsuarios();
 
         $titulo = 'Usuarios';
         $css = 'usuarios.css';
@@ -196,7 +204,9 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/usuarios'),
+            'vistaExtra' => view('Dashboard/usuarios', [
+                'usuarios' => $usuarios
+            ]),
             'tituloTop' => $tituloTopbar
         ]);
 
@@ -212,6 +222,7 @@ class Dashboard extends BaseController
         }
 
         $rol = $this->usuarioModel->traerRol($session->get('email'));
+        $grupos = $this->usuarioModel->traerGrupos();
 
         $titulo = 'Grupos';
         $css = 'grupos.css';
@@ -231,7 +242,9 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/grupos'),
+            'vistaExtra' => view('Dashboard/grupos', [
+                'grupos' => $grupos
+            ]),
             'tituloTop' => $tituloTopbar
         ]);
 
