@@ -1,53 +1,83 @@
-new DataTable("#example", {
-  language: {
-    url: "http://localhost/orvys-admin/public/bootstrap/js/es-ES.json",
-    search: "Buscar Proyecto:",
-    emptyTable:
-      "Ningún dato disponible en esta tabla, por favor, seleccione un periodo primero.",
-  },
-  layout: {
-    topStart: {
-      buttons: [
-        {
-          extend: "copyHtml5",
-          text: '<i class="fas fa-copy me-1"></i>',
-          className: "dt-button btn btn-sm btn-outline-secondary me-2",
-          titleAttr: "Copiar datos al portapapeles",
-        },
-        {
-          extend: "excelHtml5",
-          text: '<i class="fas fa-file-excel me-1"></i>',
-          className: "dt-button btn btn-sm btn-success me-2",
-          titleAttr: "Exportar a Excel",
-        },
-        {
-          extend: "csvHtml5",
-          text: '<i class="fas fa-file-csv me-1"></i>',
-          className: "dt-button btn btn-sm btn-info me-2",
-          titleAttr: "Exportar a CSV",
-        },
-        {
-          extend: "pdfHtml5",
-          text: '<i class="fas fa-file-pdf me-1"></i>',
-          className: "dt-button btn btn-sm btn-danger",
-          titleAttr: "Exportar a PDF",
-        },
-      ],
+document.addEventListener("DOMContentLoaded", function () {
+  const tabla = new DataTable("#example", {
+    language: {
+      url: "http://localhost/orvys-admin/public/bootstrap/js/es-ES.json",
+      search: "Buscar Proyecto:",
+      emptyTable:
+        "Ningún dato disponible en esta tabla, por favor, seleccione un periodo primero.",
     },
-  },
-  initComplete: function () {
-    $(".dt-buttons .dt-button").each(function () {
-      $(this).addClass("shadow-sm");
-      $(this).removeClass("dt-button");
-    });
-
-    document
-      .querySelectorAll('[data-bs-toggle="tooltip"], [title]')
-      .forEach((el) => {
-        new bootstrap.Tooltip(el);
+    layout: {
+      topStart: {
+        buttons: [
+          {
+            extend: "copyHtml5",
+            text: '<i class="fas fa-copy me-1"></i>',
+            className: "dt-button btn btn-sm btn-outline-secondary me-2",
+            titleAttr: "Copiar datos al portapapeles",
+          },
+          {
+            extend: "excelHtml5",
+            text: '<i class="fas fa-file-excel me-1"></i>',
+            className: "dt-button btn btn-sm btn-success me-2",
+            titleAttr: "Exportar a Excel",
+          },
+          {
+            extend: "csvHtml5",
+            text: '<i class="fas fa-file-csv me-1"></i>',
+            className: "dt-button btn btn-sm btn-info me-2",
+            titleAttr: "Exportar a CSV",
+          },
+          {
+            extend: "pdfHtml5",
+            text: '<i class="fas fa-file-pdf me-1"></i>',
+            className: "dt-button btn btn-sm btn-danger",
+            titleAttr: "Exportar a PDF",
+          },
+        ],
+      },
+    },
+    initComplete: function () {
+      $(".dt-buttons .dt-button").each(function () {
+        $(this).addClass("shadow-sm");
+        $(this).removeClass("dt-button");
       });
-  },
+
+
+      document
+        .querySelectorAll('[data-bs-toggle="tooltip"], [title]')
+        .forEach((el) => {
+          new bootstrap.Tooltip(el);
+        });
+
+      document
+        .querySelectorAll('input[name="importancia"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const valor = this.id.replace("importancia-", "");
+            const texto = valor === "todas" ? "" : capitalizar(valor);
+            tabla.column(6).search(texto).draw();
+          });
+        });
+
+
+      document
+        .querySelectorAll('input[name="urgencia"]')
+        .forEach((radio) => {
+          radio.addEventListener("change", function () {
+            const valor = this.id.replace("urgencia-", "");
+            const texto = valor === "todas" ? "" : capitalizar(valor);
+            tabla.column(7).search(texto).draw();
+          });
+        });
+
+
+      function capitalizar(texto) {
+        return texto.charAt(0).toUpperCase() + texto.slice(1);
+      }
+    },
+  });
 });
+
 
 const sidebar = document.getElementById("sidebar");
 const toggleBtn = document.getElementById("toggleSidebar");
