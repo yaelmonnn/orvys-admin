@@ -20,4 +20,6 @@ $routes->post('/login/validar', 'Login::validarLogin');
 $routes->post('/periodos/seleccionar', 'Dashboard::seleccionarPeriodo');
 $routes->post('/periodos/reset', 'Dashboard::resetearPeriodo');
 $routes->post('/periodos/insertar', 'Dashboard::insertarPeriodo');
+$routes->post('/proyectos/insertar', 'Dashboard::insertarProyecto');
+$routes->get('/proyectos/traerPorPeriodo/(:num)', 'Dashboard::traerPorPeriodo/$1');
 

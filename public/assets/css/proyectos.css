@@ -18,6 +18,49 @@
   padding: 0.5rem 0 !important;
 }
 
+.bg-todo {
+  background-color: #e3f2fd; 
+}
+
+.bg-inprogress {
+  background-color: #fff3cd; 
+}
+
+.bg-review {
+  background-color: #e2e3e5; 
+}
+
+.bg-testing {
+  background-color: #d1ecf1; 
+}
+
+.bg-done {
+  background-color: #d4edda; 
+}
+
+.kanban-scroll {
+  scrollbar-width: thin;
+  padding-bottom: 1rem;
+}
+
+.kanban-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.kanban-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.kanban-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.kanban-scroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
 
 .dt-buttons .btn {
   border-radius: 0.375rem !important;

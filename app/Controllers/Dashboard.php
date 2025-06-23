@@ -37,6 +37,12 @@ class Dashboard extends BaseController
         $tituloTopbar = 'Proyectos';
 
         $proyectos = $this->proyectoModel->traerProyectos((int) $session->get('periodoSelect'));
+        $estados = $this->proyectoModel->traerEstados();
+        $importancias = $this->proyectoModel->traerImportancias();
+        $urgencias = $this->proyectoModel->traerUrgencias();
+        $periodos = $this->proyectoModel->traerPeriodos();
+        $grupos = $this->proyectoModel->traerGrupos();
+        $tipos = $this->proyectoModel->traerTipos();
 
         $view = view('layouts/header', [
             'titulo'   => $titulo,
@@ -57,11 +63,71 @@ class Dashboard extends BaseController
         ]);
 
         $view .= view('Dashboard/modal_tareas');
+        $view .= view('Dashboard/modal_proyectoNuevo', [
+            'estados' => $estados,
+            'importancias' => $importancias,
+            'urgencias' => $urgencias,
+            'periodos' => $periodos,
+            'grupos' => $grupos,
+            'tipos' => $tipos
+        ]);
+        $view .= view('Dashboard/modal_backlog');
         $view .= view('layouts/footer');
         return $view;
 
 
     }
+
+    public function insertarProyecto()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $json = $this->request->getJSON();
+
+            $data = [
+                'titulo'       => trim($json->titulo),
+                'tipo'         => trim($json->tipo),
+                'periodo'      => trim($json->periodo),
+                'descripcion'  => trim($json->descripcion),
+                'fecha_inicio' => $json->fecha_inicio,
+                'fecha_fin'    => $json->fecha_fin,
+                'estatus'      => trim($json->estatus),
+                'importancia'  => trim($json->importancia),
+                'urgencia'     => trim($json->urgencia),
+                'gruposJson'   => $json->gruposJson
+            ];
+
+            
+            $resultado = $this->proyectoModel->insertarProyecto($data);
+
+            if ($resultado === true || (is_array($resultado) && $resultado[0]['Result'] === 'CORRECTO')) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'Proyecto insertado correctamente',
+                    'data'    => $resultado
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'No se pudo insertar el proyecto.',
+                    'data'    => $resultado
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
 
     public function periodos() {
         $session = session();
@@ -102,11 +168,22 @@ class Dashboard extends BaseController
 
         $view .= view('Dashboard/modal_periodo');
         $view .= view('Dashboard/modal_resetPeriodo');
+        $view .= view('Dashboard/modal_proyectosYperiodos');
         $view .= view('Dashboard/modal_periodoNuevo', [
             'estados' => $estados
         ]);
         $view .= view('layouts/footer');
         return $view;
+    }
+
+    public function traerPorPeriodo($idPeriodo)
+    {
+        try {
+            $data = $this->proyectoModel->traerProyectos($idPeriodo);
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON(['error' => $e->getMessage()]);
+        }
     }
 
 

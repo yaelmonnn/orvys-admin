@@ -47,7 +47,7 @@
 
 <!-- Botón agregar en contenedor aparte alineado a la derecha -->
 <div class="mb-3 text-end">
-  <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
+  <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#modalInsertarProyecto">
     <i class="fas fa-plus me-2"></i> Agregar
   </button>
 </div>
@@ -134,10 +134,10 @@
 
 
                     echo '  <td>';
-                    echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1"><i class="fas fa-eye" data-bs-toggle="modal" data-bs-target="#kanbanModal"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#kanbanModal"><i class="fas fa-eye"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1"><i class="fas fa-exchange-alt"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal"><i class="fa-solid fa-clock-rotate-left"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>';

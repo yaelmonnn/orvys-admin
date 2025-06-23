@@ -201,6 +201,14 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+
+
+
+
+
+
+
 });
 
 document.querySelector("#btn-modal-guardar").addEventListener("click", (e) => {
@@ -315,5 +323,48 @@ document.querySelector('#formInsertarPeriodo').addEventListener('submit', async 
     btnEnviar.removeAttribute('disabled');
     btnEnviar.innerText = 'Guardar';
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modalProyectosPorPeriodo");
+  const tablaBody = modal.querySelector("tbody");
+
+  document.querySelectorAll(".ver-proyectos").forEach(btn => {
+    btn.addEventListener("click", async (e) => {
+      const periodoId = btn.getAttribute("data-id");
+      tablaBody.innerHTML = '<tr><td colspan="9">Cargando...</td></tr>';
+
+      try {
+        const response = await fetch(`${window.BASE_URL}proyectos/traerPorPeriodo/${periodoId}`);
+        const data = await response.json();
+
+        if (response.ok && Array.isArray(data) && data.length > 0) {
+          tablaBody.innerHTML = "";
+
+          data.forEach(p => {
+            const fila = `
+              <tr>
+                <td>${p.Id}</td>
+                <td>${p.titulo}</td>
+                <td>${p.descripcion}</td>
+                <td>${p.tipo}</td>
+                <td>${new Date(p.fecha_inicio).toLocaleDateString()}</td>
+                <td>${new Date(p.fecha_fin).toLocaleDateString()}</td>
+                <td>${p.importancia}</td>
+                <td>${p.urgencia}</td>
+                <td>${p.estatus}</td>
+              </tr>
+            `;
+            tablaBody.insertAdjacentHTML("beforeend", fila);
+          });
+        } else {
+          tablaBody.innerHTML = '<tr><td colspan="9">No se encontraron proyectos.</td></tr>';
+        }
+      } catch (err) {
+        tablaBody.innerHTML = '<tr><td colspan="9">Error al cargar los proyectos.</td></tr>';
+        console.error(err);
+      }
+    });
+  });
 });
 

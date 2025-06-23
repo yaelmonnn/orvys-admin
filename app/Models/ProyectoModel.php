@@ -61,4 +61,149 @@ class ProyectoModel extends Model
             return false;
         }
     }
+
+    public function traerEstados() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Estados";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function traerImportancias() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Importancias";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function traerUrgencias() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Urgencias";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function traerPeriodos() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Periodos";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function traerGrupos() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Grupos";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function traerTipos() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Tipos";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+    public function insertarProyecto($data)
+    {
+        $db = \Config\Database::connect();
+
+        $query = $db->query("EXEC pa_Insertar_Proyecto 
+            @titulo = ?, 
+            @descripcion = ?, 
+            @tipo = ?, 
+            @fecha_inicio = ?, 
+            @fecha_fin = ?, 
+            @importancia = ?, 
+            @urgencia = ?, 
+            @estatus = ?, 
+            @periodo = ?, 
+            @gruposJson = ?",
+            [
+                $data['titulo'],
+                $data['descripcion'],
+                $data['tipo'],
+                $data['fecha_inicio'],
+                $data['fecha_fin'],
+                $data['importancia'],
+                $data['urgencia'],
+                $data['estatus'],
+                $data['periodo'],
+                $data['gruposJson']
+            ]
+        );
+
+        return $query->getResultArray(); 
+    }
+
+
+
+
+
 }

@@ -8,86 +8,154 @@
       <div class="modal-body">
         <p class="mb-4">Desarrollo de una app móvil para seguimiento de citas médicas y control de salud.</p>
 
-        <div class="d-flex flex-wrap gap-3 justify-content-between">
-          <!-- Columna Backlog -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
-            <h6 class="text-center fw-bold">Backlog</h6>
-            <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 19</strong><br>
-              <b>Título:</b> Diseño inicial de interfaz...<br>
-              <b>Responsable:</b> Dario UX<br>
-              <b>Estimación:</b> 3 horas
-            </div>
-            <!-- Agrega más tareas aquí -->
-          </div>
+        <div class="kanban-scroll d-flex flex-nowrap gap-3 pb-3" 
+             style="max-height: 340px;">
 
-          <!-- Columna To Do -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
+          <!-- To Do -->
+          <div class="flex-shrink-0 p-2 rounded shadow-sm bg-todo" style="min-width: 250px;">
             <h6 class="text-center fw-bold">To Do</h6>
             <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 17</strong><br>
-              <b>Título:</b> Desarrollo de formulario...<br>
+              <strong>ID: 101</strong><br>
+              <b>Título:</b> Crear estructura de base de datos<br>
+              <b>Responsable:</b> Juan Dev<br>
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 102</strong><br>
+              <b>Título:</b> Esquematizar wireframes<br>
+              <b>Responsable:</b> Dario UX<br>
+              <b>Estimación:</b> 3h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 103</strong><br>
+              <b>Título:</b> Registrar endpoints de autenticación<br>
               <b>Responsable:</b> Sofía Dev<br>
-              <b>Estimación:</b> 5 horas
+              <b>Estimación:</b> 4h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 104</strong><br>
+              <b>Título:</b> Crear documentación inicial<br>
+              <b>Responsable:</b> Julio Doc<br>
+              <b>Estimación:</b> 1h
             </div>
           </div>
 
-          <!-- Columna In Progress -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
+          <!-- In Progress -->
+          <div class="flex-shrink-0 p-2 rounded shadow-sm bg-inprogress" style="min-width: 250px;">
             <h6 class="text-center fw-bold">In Progress</h6>
             <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 13</strong><br>
-              <b>Título:</b> Programación de funcionalidades...<br>
+              <strong>ID: 201</strong><br>
+              <b>Título:</b> Formularios de registro<br>
+              <b>Responsable:</b> Luisa<br>
+              <b>Estimación:</b> 3h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 202</strong><br>
+              <b>Título:</b> Validación de usuario<br>
               <b>Responsable:</b> Eduardo<br>
-              <b>Estimación:</b> 3 horas
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 203</strong><br>
+              <b>Título:</b> Manejo de tokens<br>
+              <b>Responsable:</b> Ana Backend<br>
+              <b>Estimación:</b> 2.5h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 204</strong><br>
+              <b>Título:</b> Vista principal de usuario<br>
+              <b>Responsable:</b> Mario UI<br>
+              <b>Estimación:</b> 4h
             </div>
           </div>
 
-          <!-- Columna Code Review -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
+          <!-- Code Review -->
+          <div class="flex-shrink-0 p-2 rounded shadow-sm bg-review" style="min-width: 250px;">
             <h6 class="text-center fw-bold">Code Review</h6>
             <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 15</strong><br>
-              <b>Título:</b> Revisión de código del módulo...<br>
+              <strong>ID: 301</strong><br>
+              <b>Título:</b> Revisar servicios de login<br>
               <b>Responsable:</b> Laura QA<br>
-              <b>Estimación:</b> 2 horas
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 302</strong><br>
+              <b>Título:</b> Validar arquitectura MVC<br>
+              <b>Responsable:</b> Carlos<br>
+              <b>Estimación:</b> 1.5h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 303</strong><br>
+              <b>Título:</b> Revisión de estilos SCSS<br>
+              <b>Responsable:</b> Elena Front<br>
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 304</strong><br>
+              <b>Título:</b> Verificación de rutas protegidas<br>
+              <b>Responsable:</b> Javier<br>
+              <b>Estimación:</b> 2.5h
             </div>
           </div>
 
-          <!-- Columna Testing -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
+          <!-- Testing -->
+          <div class="flex-shrink-0 p-2 rounded shadow-sm bg-testing" style="min-width: 250px;">
             <h6 class="text-center fw-bold">Testing</h6>
             <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 18</strong><br>
-              <b>Título:</b> Pruebas de navegación...<br>
+              <strong>ID: 401</strong><br>
+              <b>Título:</b> Pruebas de login exitoso<br>
               <b>Responsable:</b> Oscar QA<br>
-              <b>Estimación:</b> 2 horas
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 402</strong><br>
+              <b>Título:</b> Casos de error en login<br>
+              <b>Responsable:</b> Oscar QA<br>
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 403</strong><br>
+              <b>Título:</b> Pruebas de rendimiento<br>
+              <b>Responsable:</b> Andrea QA<br>
+              <b>Estimación:</b> 3h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 404</strong><br>
+              <b>Título:</b> Test unitarios API<br>
+              <b>Responsable:</b> Diego QA<br>
+              <b>Estimación:</b> 3h
             </div>
           </div>
 
-          <!-- Columna Done -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
+          <!-- Done -->
+          <div class="flex-shrink-0 p-2 rounded shadow-sm bg-done" style="min-width: 250px;">
             <h6 class="text-center fw-bold">Done</h6>
             <div class="bg-white p-2 rounded mb-2 border">
-              <strong>ID: 01</strong><br>
-              <b>Título:</b> Integración con servidor de base de datos<br>
+              <strong>ID: 501</strong><br>
+              <b>Título:</b> Integración con base de datos<br>
               <b>Responsable:</b> Mariana Back<br>
-              <b>Estimación:</b> 4 horas
+              <b>Estimación:</b> 4h
             </div>
-          </div>
-
-          <!-- Columna Blocked -->
-          <div class="flex-grow-1 bg-light p-2 rounded shadow-sm" style="min-width: 250px;">
-            <h6 class="text-center fw-bold text-danger">Blocked</h6>
-            <div class="bg-white p-2 rounded mb-2 border border-danger">
-              <strong>ID: 10</strong><br>
-              <b>Título:</b> Implementación de login bloqueada...<br>
-              <b>Responsable:</b> Oscar QA<br>
-              <b>Estimación:</b> 3 horas
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 502</strong><br>
+              <b>Título:</b> Diseño de logo AppSalud<br>
+              <b>Responsable:</b> Dario UX<br>
+              <b>Estimación:</b> 1h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 503</strong><br>
+              <b>Título:</b> Configuración de entorno local<br>
+              <b>Responsable:</b> Ana Backend<br>
+              <b>Estimación:</b> 2h
+            </div>
+            <div class="bg-white p-2 rounded mb-2 border">
+              <strong>ID: 504</strong><br>
+              <b>Título:</b> Login básico funcional<br>
+              <b>Responsable:</b> Luisa<br>
+              <b>Estimación:</b> 3h
             </div>
           </div>
         </div>
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
