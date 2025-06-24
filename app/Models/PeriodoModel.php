@@ -58,7 +58,7 @@ class PeriodoModel extends Model
         }
     }
 
-    public function insertarPeriodo($data)
+    public function insertarPeriodo($data, $user)
     {
         $db = \Config\Database::connect();
         
@@ -68,8 +68,8 @@ class PeriodoModel extends Model
         $estatus = $data['estatus'];
         
         try {
-            $sql = "EXEC pa_Insertar_Periodo ?, ?, ?, ?";
-            $query = $db->query($sql, [$periodo, $fecha_inicio, $fecha_fin, $estatus]);
+            $sql = "EXEC pa_Insertar_Periodo ?, ?, ?, ?, ?";
+            $query = $db->query($sql, [$periodo, $fecha_inicio, $fecha_fin, $estatus, $user]);
             
             if (!$query) {
                 return false;

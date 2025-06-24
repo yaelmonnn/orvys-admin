@@ -170,7 +170,7 @@ class ProyectoModel extends Model
 
     }
 
-    public function insertarProyecto($data)
+    public function insertarProyecto($data, $user)
     {
         $db = \Config\Database::connect();
 
@@ -184,7 +184,8 @@ class ProyectoModel extends Model
             @urgencia = ?, 
             @estatus = ?, 
             @periodo = ?, 
-            @gruposJson = ?",
+            @gruposJson = ?,
+            @email = ?",
             [
                 $data['titulo'],
                 $data['descripcion'],
@@ -195,7 +196,8 @@ class ProyectoModel extends Model
                 $data['urgencia'],
                 $data['estatus'],
                 $data['periodo'],
-                $data['gruposJson']
+                $data['gruposJson'],
+                $user
             ]
         );
 

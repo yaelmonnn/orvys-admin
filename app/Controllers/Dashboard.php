@@ -104,7 +104,7 @@ class Dashboard extends BaseController
             ];
 
             
-            $resultado = $this->proyectoModel->insertarProyecto($data);
+            $resultado = $this->proyectoModel->insertarProyecto($data, $session->get('email'));
 
             if ($resultado === true || (is_array($resultado) && $resultado[0]['Result'] === 'CORRECTO')) {
                 return $this->response->setJSON([
@@ -223,7 +223,7 @@ class Dashboard extends BaseController
                 'estatus' => $json->estatus 
             ];
 
-            $resultado = $this->periodoModel->insertarPeriodo($data);
+            $resultado = $this->periodoModel->insertarPeriodo($data, $session->get('email'));
 
             if ($resultado === true) {
                 return $this->response->setJSON([
@@ -356,6 +356,40 @@ class Dashboard extends BaseController
             'rol'  => $rol,
             'user' => $session->get('email'),
             'vistaExtra' => view('Dashboard/catalogos'),
+            'tituloTop' => $tituloTopbar
+        ]);
+
+        $view .= view('layouts/footer');
+        return $view;
+    }
+
+    public function configuracion() {
+        $session = session();
+        if (!$session->get('isLoggedIn')) {
+            return redirect()->to('/login');
+        }
+
+        $rol = $this->usuarioModel->traerRol($session->get('email'));
+
+        $titulo = 'Configuración';
+        $css = 'configuracion.css';
+        $cargarJS = true;
+        $js = 'configuracion.js';
+        $tituloTopbar = 'Configuración';
+
+        $view = view('layouts/header', [
+            'titulo'   => $titulo,
+            'css'      => $css,
+            'cargarJS' => $cargarJS,
+            'js'       => $js,
+            'rol'      => $rol,
+            'user'     => $session->get('email')
+        ]);
+
+        $view .= view('Dashboard/dashboard', [
+            'rol'  => $rol,
+            'user' => $session->get('email'),
+            'vistaExtra' => view('Dashboard/configuraciones'),
             'tituloTop' => $tituloTopbar
         ]);
 
