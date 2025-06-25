@@ -67,82 +67,206 @@ new DataTable("#example", {
 
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modalPeriodo");
-  const modalReset = document.getElementById("confirmarDeseleccionModal");
+  const modalConfirmarDeseleccion = document.getElementById("confirmarDeseleccionModal");
   let checkboxRelacionado = null;
   let guardado = false;
+  let esDeseleccion = false;
+  let esReemplazo = false; // Nueva variable para identificar reemplazos
+  let estadoOriginalCheckbox = false; // Para recordar el estado original
+  let checkboxDeseleccion = null; // Para el modal de confirmación
 
   if (modal) {
     modal.addEventListener("show.bs.modal", function (event) {
       checkboxRelacionado = event.relatedTarget;
       guardado = false;
+      esDeseleccion = false;
+      esReemplazo = false;
 
       if (!checkboxRelacionado) return;
 
       const idPeriodo = checkboxRelacionado.getAttribute("data-id") || "";
-
-      if (window.PERIODO_SESION_ID && idPeriodo !== window.PERIODO_SESION_ID) {
-        mostrarError(
-          "Ya existe un periodo seleccionado. Deselecciónalo primero."
-        );
-        event.preventDefault();
-        checkboxRelacionado.checked = false;
-        return;
-      }
-
       const periodo = checkboxRelacionado.getAttribute("data-periodo") || "";
-      const fechaIni =
-        checkboxRelacionado.getAttribute("data-fecha-inicio") || "";
+      const fechaIni = checkboxRelacionado.getAttribute("data-fecha-inicio") || "";
       const fechaFin = checkboxRelacionado.getAttribute("data-fecha-fin") || "";
+
+      esDeseleccion = window.PERIODO_SESION_ID === idPeriodo;
+      esReemplazo = window.PERIODO_SESION_ID && window.PERIODO_SESION_ID !== idPeriodo;
+
+      // Guardar el estado que DEBERÍA tener el checkbox (no el actual que puede estar alterado por el click)
+      if (esDeseleccion) {
+        // Si es deselección, originalmente estaba marcado
+        estadoOriginalCheckbox = true;
+      } else if (esReemplazo) {
+        // Si es reemplazo, originalmente NO estaba marcado (porque otro período estaba seleccionado)
+        estadoOriginalCheckbox = false;
+      } else {
+        // Si es selección nueva, originalmente NO estaba marcado
+        estadoOriginalCheckbox = false;
+      }
 
       document.getElementById("idPeriodo").value = idPeriodo;
       document.getElementById("nombrePeriodo").value = periodo;
       document.getElementById("fechaInicio").value = fechaIni;
       document.getElementById("fechaFin").value = fechaFin;
+
+      const btnGuardar = modal.querySelector(".btn-guardar");
+      if (btnGuardar) {
+        btnGuardar.textContent = esDeseleccion
+          ? "Deseleccionar periodo"
+          : (window.PERIODO_SESION_ID ? "Seleccionar periodo" : "Seleccionar periodo");
+      }
     });
 
     modal.addEventListener("hide.bs.modal", function () {
       if (!guardado && checkboxRelacionado) {
-        checkboxRelacionado.checked = false;
+        // Si no se guardó, restaurar el estado original del checkbox
+        checkboxRelacionado.checked = estadoOriginalCheckbox;
       }
+      
+      // Limpiar variables
       checkboxRelacionado = null;
+      esDeseleccion = false;
+      esReemplazo = false;
+      estadoOriginalCheckbox = false;
     });
 
     const btnGuardar = modal.querySelector(".btn-guardar");
     if (btnGuardar) {
       btnGuardar.addEventListener("click", () => {
         guardado = true;
+        const idPeriodoNuevo = document.getElementById("idPeriodo").value;
+        const periodo = document.getElementById("nombrePeriodo").value.trim();
         const modalInstance = bootstrap.Modal.getInstance(modal);
         if (modalInstance) modalInstance.hide();
+
+        if (!idPeriodoNuevo) {
+          mostrarError("No hay periodo seleccionado");
+          return;
+        }
+
+        if (esDeseleccion) {
+          // Deseleccionar
+          fetch(`${window.BASE_URL}periodos/reset`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: new URLSearchParams({ idPeriodo: idPeriodoNuevo, periodo: periodo }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Periodo deseleccionado con éxito",
+                  showConfirmButton: false,
+                  timer: 1500,
+                }).then(() => window.location.reload());
+              } else {
+                mostrarError("Error al deseleccionar el periodo");
+              }
+            })
+            .catch((err) => {
+              mostrarError("Error en la comunicación con el servidor");
+              console.error(err);
+            });
+        } else if (
+          window.PERIODO_SESION_ID &&
+          window.PERIODO_SESION_ID !== idPeriodoNuevo
+        ) {
+          // Reemplazo
+          fetch(`${window.BASE_URL}periodos/reset`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+            body: new URLSearchParams({ idPeriodo: window.PERIODO_SESION_ID, periodo: periodo }),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                seleccionarPeriodo(idPeriodoNuevo, periodo);
+              } else {
+                mostrarError("Error al deseleccionar el periodo anterior");
+              }
+            })
+            .catch((err) => {
+              mostrarError("Error al intentar reemplazar el periodo");
+              console.error(err);
+            });
+        } else {
+          // Selección directa
+          seleccionarPeriodo(idPeriodoNuevo, periodo);
+        }
       });
     }
   }
 
-  if (modalReset) {
-    modalReset.addEventListener("show.bs.modal", function (event) {
-      checkboxRelacionado = event.relatedTarget;
-      guardado = false;
+  function seleccionarPeriodo(idPeriodo, periodo) {
+    fetch(`${window.BASE_URL}periodos/seleccionar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: new URLSearchParams({ idPeriodo, periodo }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Periodo seleccionado con éxito!",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => window.location.reload());
+        } else {
+          mostrarError("Error al guardar el periodo seleccionado");
+        }
+      })
+      .catch((err) => {
+        mostrarError("Error en la comunicación con el servidor");
+        console.error(err);
+      });
+  }
+
+  // Manejo del modal de confirmación de deselección
+  if (modalConfirmarDeseleccion) {
+    modalConfirmarDeseleccion.addEventListener("show.bs.modal", function (event) {
+      checkboxDeseleccion = event.relatedTarget;
     });
 
-    modalReset.addEventListener("hide.bs.modal", function () {
-      if (!guardado && checkboxRelacionado) {
-        checkboxRelacionado.checked = true;
+    modalConfirmarDeseleccion.addEventListener("hide.bs.modal", function () {
+      // Si se cancela, mantener el checkbox marcado (porque es el periodo activo)
+      if (checkboxDeseleccion && !guardado) {
+        checkboxDeseleccion.checked = true;
       }
-      checkboxRelacionado = null;
+      checkboxDeseleccion = null;
+      guardado = false; // Resetear para el próximo uso
     });
 
-    const btnConfirmar = modalReset.querySelector(".btn-confirmar-reset");
-    if (btnConfirmar) {
-      btnConfirmar.addEventListener("click", () => {
-        guardado = true;
-        const idPeriodo = checkboxRelacionado?.getAttribute("data-id");
+    const btnConfirmarDeseleccion = document.getElementById("btnConfirmarDeseleccion");
+    if (btnConfirmarDeseleccion) {
+      btnConfirmarDeseleccion.addEventListener("click", () => {
+        if (!checkboxDeseleccion) return;
 
+        const idPeriodo = checkboxDeseleccion.getAttribute("data-id");
+        const periodo = checkboxDeseleccion.getAttribute("data-periodo");
+        guardado = true;
+        
+        const modalInstance = bootstrap.Modal.getInstance(modalConfirmarDeseleccion);
+        if (modalInstance) modalInstance.hide();
+
+  
         fetch(`${window.BASE_URL}periodos/reset`, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             "X-Requested-With": "XMLHttpRequest",
           },
-          body: new URLSearchParams({ idPeriodo }),
+          body: new URLSearchParams({ idPeriodo, periodo }),
         })
           .then((res) => res.json())
           .then((data) => {
@@ -152,11 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 title: "Periodo deseleccionado con éxito",
                 showConfirmButton: false,
                 timer: 1500,
-              }).then(() => {
-                const modalInstance = bootstrap.Modal.getInstance(modalReset);
-                if (modalInstance) modalInstance.hide();
-                window.location.reload();
-              });
+              }).then(() => window.location.reload());
             } else {
               mostrarError("Error al deseleccionar el periodo");
             }
@@ -201,54 +321,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
-
-
-
-
-
-
-
-});
-
-document.querySelector("#btn-modal-guardar").addEventListener("click", (e) => {
-  e.preventDefault();
-  const idPeriodo = document.getElementById("idPeriodo").value;
-  if (!idPeriodo) {
-    mostrarError("No hay periodo seleccionado");
-    return;
-  }
-
-  fetch(`${window.BASE_URL}periodos/seleccionar`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "X-Requested-With": "XMLHttpRequest",
-    },
-    body: new URLSearchParams({ idPeriodo: idPeriodo }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        Swal.fire({
-          icon: "success",
-          title: "¡Periodo seleccionado con éxito!",
-          showConfirmButton: false,
-          timer: 1500,
-        }).then(() => {
-          const modal = document.getElementById("modalPeriodo");
-          const modalInstance = bootstrap.Modal.getInstance(modal);
-          if (modalInstance) modalInstance.hide();
-          window.location.reload();
-        });
-      } else {
-        mostrarError("Error al guardar el periodo seleccionado");
-      }
-    })
-    .catch((err) => {
-      mostrarError("Error en la comunicación con el servidor");
-      console.error(err);
-    });
 });
 
 function mostrarError(mensaje) {

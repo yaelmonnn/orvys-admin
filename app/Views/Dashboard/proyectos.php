@@ -47,9 +47,14 @@
 
 <!-- Botón agregar en contenedor aparte alineado a la derecha -->
 <div class="mb-3 text-end">
-  <button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#modalInsertarProyecto">
-    <i class="fas fa-plus me-2"></i> Agregar
-  </button>
+    <?php
+      if ($rol['rol_id'] == 1) {
+        echo '<button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white" data-bs-toggle="modal" data-bs-target="#modalInsertarProyecto">
+            <i class="fas fa-plus me-2"></i> Agregar
+        </button>';
+      }
+    ?>
+
 </div>
 
 

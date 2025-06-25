@@ -59,7 +59,8 @@ class Dashboard extends BaseController
             'vistaExtra' => view('Dashboard/proyectos', [
                 'proyectos' => $proyectos
             ]),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('Dashboard/modal_tareas');
@@ -86,7 +87,7 @@ class Dashboard extends BaseController
                 'message' => 'Petición no válida'
             ]);
         }
-
+         $session = session();
         try {
             $json = $this->request->getJSON();
 
@@ -100,11 +101,12 @@ class Dashboard extends BaseController
                 'estatus'      => trim($json->estatus),
                 'importancia'  => trim($json->importancia),
                 'urgencia'     => trim($json->urgencia),
-                'gruposJson'   => $json->gruposJson
+                'gruposJson'   => $json->gruposJson,
+                'email'        => $session->get('email')
             ];
 
             
-            $resultado = $this->proyectoModel->insertarProyecto($data, $session->get('email'));
+            $resultado = $this->proyectoModel->insertarProyecto($data);
 
             if ($resultado === true || (is_array($resultado) && $resultado[0]['Result'] === 'CORRECTO')) {
                 return $this->response->setJSON([
@@ -161,7 +163,8 @@ class Dashboard extends BaseController
                 'periodos' => $catPeriodos,
                 'periodoSelect' => $session->get('periodoSelect')
             ]),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $estados = $this->periodoModel->traerEstados();
@@ -191,8 +194,10 @@ class Dashboard extends BaseController
     {
         $session = session();
         $id = $this->request->getPost('idPeriodo');
-        if ($id) {
+        $periodo = $this->request->getPost('periodo');
+        if ($id && $periodo) {
             $session->set('periodoSelect', $id);
+            $session->set('periodoSelectNombre', $periodo);
             return $this->response->setJSON(['success' => true]);
         }
         return $this->response->setJSON(['success' => false]);
@@ -201,6 +206,7 @@ class Dashboard extends BaseController
     public function resetearPeriodo() {
         $session = session();
         $session->set('periodoSelect', 0);
+        $session->set('periodoSelectNombre', '');
         return $this->response->setJSON(['success' => true]);
     }
 
@@ -212,7 +218,7 @@ class Dashboard extends BaseController
                 'message' => 'Petición no válida'
             ]);
         }
-
+        $session = session();
         try {
             $json = $this->request->getJSON();
 
@@ -284,7 +290,8 @@ class Dashboard extends BaseController
             'vistaExtra' => view('Dashboard/usuarios', [
                 'usuarios' => $usuarios
             ]),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('layouts/footer');
@@ -322,7 +329,8 @@ class Dashboard extends BaseController
             'vistaExtra' => view('Dashboard/grupos', [
                 'grupos' => $grupos
             ]),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('layouts/footer');
@@ -356,7 +364,8 @@ class Dashboard extends BaseController
             'rol'  => $rol,
             'user' => $session->get('email'),
             'vistaExtra' => view('Dashboard/catalogos'),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('layouts/footer');
@@ -390,7 +399,8 @@ class Dashboard extends BaseController
             'rol'  => $rol,
             'user' => $session->get('email'),
             'vistaExtra' => view('Dashboard/configuraciones'),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('layouts/footer');

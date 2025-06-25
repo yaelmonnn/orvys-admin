@@ -198,3 +198,13 @@ document
       btnEnviar.innerText = "Guardar";
     }
   });
+
+  function mostrarError(mensaje) {
+  Swal.fire({
+    title: "Error",
+    text: mensaje,
+    icon: "error",
+    confirmButtonText: "Aceptar",
+  });
+}
+

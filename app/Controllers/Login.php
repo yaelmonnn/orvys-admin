@@ -63,7 +63,8 @@ class Login extends BaseController
             'rol'  => $rol,
             'user' => $session->get('email'),
             'vistaExtra' => view('Dashboard/bienvenida'),
-            'tituloTop' => $tituloTopbar
+            'tituloTop' => $tituloTopbar,
+            'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
         $view .= view('layouts/footer');
@@ -296,7 +297,8 @@ class Login extends BaseController
                         $session->set([
                             'isLoggedIn' => true,
                             'email'      => $usuario['email'],
-                            'periodoSelect' => 0
+                            'periodoSelect' => 0,
+                            'periodoSelectNombre' => ''
                         ]);
 
                     return $this->response->setJSON([

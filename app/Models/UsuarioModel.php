@@ -155,12 +155,7 @@ class UsuarioModel extends Model
         $db = \Config\Database::connect();
         $sql = "EXEC pa_Traer_Rol @email = ?";
         $query = $db->query($sql, [$email]);
-        $row = $query->getRow();
-        if ($row) {
-            $values = array_values((array)$row);
-            return $values[0];
-        }
-        return null;
+        return $query->getRowArray();
     }
 
 
