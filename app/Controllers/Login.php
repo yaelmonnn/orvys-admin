@@ -42,6 +42,11 @@ class Login extends BaseController
             return redirect()->to('/login');
         }
 
+        
+        if ($session->get('periodoSelectNombre') == '') {
+            return redirect()->to('/periodos');
+        }
+
         $rol = $this->usuarioModel->traerRol($session->get('email'));
 
         $titulo = 'Dashboard';
@@ -58,6 +63,7 @@ class Login extends BaseController
             'rol'      => $rol,
             'user'     => $session->get('email')
         ]);
+
 
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,

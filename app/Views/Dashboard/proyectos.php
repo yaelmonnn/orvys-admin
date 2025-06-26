@@ -89,64 +89,22 @@
                     echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_inicio'])).'">'.date('d/m/Y', strtotime($p['fecha_inicio'])).'</td>';
                     echo '<td data-order="'.date('Y-m-d', strtotime($p['fecha_fin'])).'">'.date('d/m/Y', strtotime($p['fecha_fin'])).'</td>';
 
-                    switch ($p['importancia']) {
-                        case 'Alta':
-                             echo '<td><span class="badge bg-danger rounded-pill">'.$p['importancia'].'</span></td>';
-                            break;
-                        case 'Media':
-                             echo '<td><span class="badge bg-warning text-dark rounded-pill">'.$p['importancia'].'</span></td>';
-                            break;
-                        default:
-                            echo '<td><span class="badge bg-success rounded-pill">'.$p['importancia'].'</span></td>';
-                            break;
-                    }
+                    echo '<td><span class="'.$p['htmlImp'].'">'.$p['importancia'].'</span></td>';
 
-                    switch ($p['urgencia']) {
-                        case 'Crítico':
-                            echo '<td><span class="badge bg-danger rounded-pill">'.$p['urgencia'].'</span></td>';
-                            break;
-                        case 'Alto':
-                            echo '<td><span class="badge bg-warning text-dark rounded-pill">'.$p['urgencia'].'</span></td>';
-                            break;
-                        case 'Medio':
-                            echo '<td><span class="badge bg-warning rounded-pill">'.$p['urgencia'].'</span></td>';
-                            break;
-                        case 'Bajo':
-                            echo '<td><span class="badge bg-success rounded-pill">'.$p['urgencia'].'</span></td>';
-                            break;
-                        default:
-                            echo '<td><span class="badge bg-info text-dark rounded-pill">'.$p['urgencia'].'</span></td>';
-                            break;
-                    }
-
-                    switch ($p['estatus']) {
-                    case 'Activo':
-                        echo '<td><span class="badge bg-success">'.$p['estatus'].'</span></td>';
-                        break;
-                    case 'En Progreso':
-                        echo '<td><span class="badge bg-warning text-dark">'.$p['estatus'].'</span></td>';
-                        break;
-                    case 'Planificado':
-                        echo '<td><span class="badge bg-info text-dark">'.$p['estatus'].'</span></td>';
-                        break;
-                    case 'Completado':
-                        echo '<td><span class="badge bg-secondary">'.$p['estatus'].'</span></td>';
-                        break;
-                    default:
-                        echo '<td><span class="badge bg-danger">'.$p['estatus'].'</span></td>';
-                        break;
-                    }
-
-
+                    echo '<td><span class="'.$p['htmlUrg'].'">'.$p['urgencia'].'</span></td>';
+ 
+                    echo '<td><span class="'.$p['htmlEst'].'">'.$p['estatus'].'</span></td>';
+            
                     echo '  <td>';
-                    echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#kanbanModal"><i class="fas fa-eye"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1"><i class="fas fa-edit"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1"><i class="fas fa-map-marker-alt"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal"><i class="fa-solid fa-clock-rotate-left"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1"><i class="fas fa-calendar-alt"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill me-1"><i class="fas fa-bell"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill"><i class="fas fa-times"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" data-bs-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></button>';
+                    echo '    <a href="'.base_url('tareas/'.$p['titulo'].'/'.$p['Id'].'').'"><button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="tooltip" title="Agregar tareas"><i class="fas fa-bars"></i></button></a>';
+                    echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal" title="Ver Tareas"><i class="fas fa-eye"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#kanbanModal" title="Calendario"><i class="fas fa-calendar-alt"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="tooltip" title="Eliminar"><i class="fas fa-times"></i></button>';
                     echo '  </td>';
+
+
+
                     echo '</tr>';
                 }
             }

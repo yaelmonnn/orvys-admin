@@ -17,8 +17,8 @@
             <i class="fa-solid fa-user me-2" title="<?= esc($user) ?>"></i>
             <span class="sidebar-text fw-semibold"><?= esc($user) ?></span>
         </div>
-        <div class="d-flex align-items-center justify-content-center mt-2">
-            <i class="fa-solid fa-user-gear me-2" title="<?= esc($rol['rol']) ?>"></i>
+        <div class="d-flex align-items-center justify-content-center mt-3">
+            <i class="fa-solid fa-user-gear me-1" title="<?= esc($rol['rol']) ?>"></i>
             <span class="sidebar-text fw-semibold"><?= esc($rol['rol']) ?></span>
         </div>
     </div>

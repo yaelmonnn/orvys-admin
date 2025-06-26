@@ -7,7 +7,7 @@
       </div>
 
       <div class="modal-body">
-        <p class="mb-4">Historias de usuario completadas en el proyecto AppSalud.</p>
+        <p class="mb-4">Historias de usuario asignadas en el proyecto AppSalud.</p>
 
         <div class="container-fluid">
           <div class="row g-3">

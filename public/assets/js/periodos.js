@@ -71,9 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
   let checkboxRelacionado = null;
   let guardado = false;
   let esDeseleccion = false;
-  let esReemplazo = false; // Nueva variable para identificar reemplazos
-  let estadoOriginalCheckbox = false; // Para recordar el estado original
-  let checkboxDeseleccion = null; // Para el modal de confirmación
+  let esReemplazo = false;
+  let estadoOriginalCheckbox = false;
+  let checkboxDeseleccion = null; 
 
   if (modal) {
     modal.addEventListener("show.bs.modal", function (event) {
@@ -92,15 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
       esDeseleccion = window.PERIODO_SESION_ID === idPeriodo;
       esReemplazo = window.PERIODO_SESION_ID && window.PERIODO_SESION_ID !== idPeriodo;
 
-      // Guardar el estado que DEBERÍA tener el checkbox (no el actual que puede estar alterado por el click)
       if (esDeseleccion) {
-        // Si es deselección, originalmente estaba marcado
         estadoOriginalCheckbox = true;
       } else if (esReemplazo) {
-        // Si es reemplazo, originalmente NO estaba marcado (porque otro período estaba seleccionado)
         estadoOriginalCheckbox = false;
       } else {
-        // Si es selección nueva, originalmente NO estaba marcado
         estadoOriginalCheckbox = false;
       }
 
@@ -119,11 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     modal.addEventListener("hide.bs.modal", function () {
       if (!guardado && checkboxRelacionado) {
-        // Si no se guardó, restaurar el estado original del checkbox
         checkboxRelacionado.checked = estadoOriginalCheckbox;
       }
       
-      // Limpiar variables
       checkboxRelacionado = null;
       esDeseleccion = false;
       esReemplazo = false;
@@ -145,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (esDeseleccion) {
-          // Deseleccionar
           fetch(`${window.BASE_URL}periodos/reset`, {
             method: "POST",
             headers: {
@@ -175,7 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
           window.PERIODO_SESION_ID &&
           window.PERIODO_SESION_ID !== idPeriodoNuevo
         ) {
-          // Reemplazo
           fetch(`${window.BASE_URL}periodos/reset`, {
             method: "POST",
             headers: {
@@ -197,7 +189,6 @@ document.addEventListener("DOMContentLoaded", () => {
               console.error(err);
             });
         } else {
-          // Selección directa
           seleccionarPeriodo(idPeriodoNuevo, periodo);
         }
       });
@@ -232,19 +223,17 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // Manejo del modal de confirmación de deselección
   if (modalConfirmarDeseleccion) {
     modalConfirmarDeseleccion.addEventListener("show.bs.modal", function (event) {
       checkboxDeseleccion = event.relatedTarget;
     });
 
     modalConfirmarDeseleccion.addEventListener("hide.bs.modal", function () {
-      // Si se cancela, mantener el checkbox marcado (porque es el periodo activo)
       if (checkboxDeseleccion && !guardado) {
         checkboxDeseleccion.checked = true;
       }
       checkboxDeseleccion = null;
-      guardado = false; // Resetear para el próximo uso
+      guardado = false;
     });
 
     const btnConfirmarDeseleccion = document.getElementById("btnConfirmarDeseleccion");
