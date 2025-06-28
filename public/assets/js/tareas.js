@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   let currentStep = 1;
   const totalSteps = 3;
@@ -26,20 +25,50 @@ document.addEventListener("DOMContentLoaded", () => {
     progressBar.style.width = `${(step / totalSteps) * 100}%`;
   }
 
+  function validateStep(step) {
+    const stepDiv = document.querySelector(`.wizard-step[data-step="${step}"]`);
+    const inputs = stepDiv.querySelectorAll("input, select, textarea");
+
+    for (let input of inputs) {
+      if (input.offsetParent === null || input.disabled) continue;
+
+      if (input.tagName === "SELECT" && input.selectedIndex === 0) {
+        mostrarError("Por favor, complete todos los campos antes de continuar.");
+        input.focus();
+        return false;
+      }
+
+      if (!input.value || input.value.trim() === "") {
+        mostrarError("Por favor, complete todos los campos antes de continuar.");
+        input.focus();
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
-      currentStep = parseInt(link.dataset.step);
+      const targetStep = parseInt(link.dataset.step);
+      if (targetStep > currentStep) {
+        if (!validateStep(currentStep)) return;
+      }
+      currentStep = targetStep;
       showStep(currentStep);
     });
   });
 
   nextBtn.addEventListener("click", () => {
     if (currentStep < totalSteps) {
-      currentStep++;
-      showStep(currentStep);
+      if (validateStep(currentStep)) {
+        currentStep++;
+        showStep(currentStep);
+      }
     } else {
-      alert("Datos guardados correctamente.");
-      // Aquí podrías enviar el formulario
+      if (validateStep(currentStep)) {
+        mostrarExitoso("Datos guardados correctamente.");
+      }
     }
   });
 
@@ -53,8 +82,23 @@ document.addEventListener("DOMContentLoaded", () => {
   showStep(currentStep);
 });
 
+function mostrarError(mensaje) {
+    Swal.fire({
+        title: 'Error',
+        text: mensaje,
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+    });
+}
 
-
+function mostrarExitoso(mensaje) {
+    Swal.fire({
+        title: '¡Guardado Correcto!',
+        text: mensaje,
+        icon: 'success',
+        confirmButtonText: 'Aceptar'
+    });
+}
 
 
 

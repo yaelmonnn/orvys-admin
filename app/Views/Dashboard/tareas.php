@@ -3,7 +3,7 @@
     <div class="card-body">
 
       <!-- Título del proyecto -->
-      <h4 class="fw-bold text-center text-primary mb-4">Proyecto: Gestión de Tareas de Desarrollo</h4>
+      <h4 class="fw-bold text-center text-primary mb-4">Proyecto: <?=$proyecto?></h4>
 
       <!-- Navegación de Secciones -->
       <ul class="nav nav-pills nav-justified mb-4" id="wizardNav">
@@ -34,29 +34,39 @@
             <label class="form-label">2. Cargo de quien lo solicitó</label>
             <select class="form-select rounded-pill">
                 <option selected disabled>Seleccione un cargo</option>
-                <option value="Analista">Analista</option>
-                <option value="Coordinador">Coordinador</option>
-                <option value="Director">Director</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Otro">Otro</option>
+                <?php
+                 if (!empty($cargos)) {
+                     foreach ($cargos as $cargo) {
+                         echo "<option value='{$cargo['cargo']}'>{$cargo['cargo']}</option>";
+                     }
+                 }
+                ?>
             </select>
             </div>
 
             <div class="col-md-6">
             <label class="form-label">3. Nivel de Urgencia</label>
             <select class="form-select rounded-pill">
-                <option>Alta</option>
-                <option>Media</option>
-                <option>Baja</option>
+                <?php
+                 if (!empty($urgencias)) {
+                     foreach ($urgencias as $u) {
+                         echo "<option value='{$u['urgencia']}'>{$u['urgencia']}</option>";
+                     }
+                 }
+                ?>
             </select>
             </div>
 
             <div class="col-md-6">
             <label class="form-label">4. Nivel de Complejidad</label>
             <select class="form-select rounded-pill">
-                <option>Alta</option>
-                <option>Media</option>
-                <option>Baja</option>
+                <?php
+                 if (!empty($complejidades)) {
+                     foreach ($complejidades as $c) {
+                         echo "<option value='{$c['complejidad']}'>{$c['complejidad']}</option>";
+                     }
+                 }
+                ?>
             </select>
             </div>
 
@@ -98,11 +108,13 @@
             <label class="form-label">4. Estatus de la tarea</label>
             <select class="form-select rounded-pill">
                 <option selected disabled>Seleccione un estatus</option>
-                <option value="backlog">Backlog</option>
-                <option value="todo">To Do</option>
-                <option value="in_progress">In Progress</option>
-                <option value="done">Done</option>
-                <option value="blocked">Blocked</option>
+                <?php
+                  if (!empty($estados)) {
+                      foreach ($estados as $c) {
+                          echo "<option value='{$c['estatus']}'>{$c['estatus']}</option>";
+                      }
+                  }
+                ?>
             </select>
             </div>
 
@@ -110,11 +122,13 @@
             <label class="form-label">5. Sprint asignado</label>
             <select class="form-select rounded-pill">
                 <option selected disabled>Seleccione un Sprint</option>
-                <option value="Sprint 1">Sprint 1</option>
-                <option value="Sprint 2">Sprint 2</option>
-                <option value="Sprint 3">Sprint 3</option>
-                <option value="Sprint 4">Sprint 4</option>
-                <option value="Sprint 5">Sprint 5</option>
+                <?php
+                  if (!empty($sprints)) {
+                      foreach ($sprints as $s) {
+                          echo "<option value='{$s['Id']}'>{$s['sprint']}</option>";
+                      }
+                  }
+                ?>
             </select>
             </div>
 

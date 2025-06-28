@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\UsuarioModel;
 use App\Models\PeriodoModel;
 use App\Models\ProyectoModel;
+use App\Models\TareaModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Dashboard extends BaseController
@@ -13,12 +14,14 @@ class Dashboard extends BaseController
     protected $usuarioModel;
     protected $periodoModel;
     protected $proyectoModel;
+    protected $tareaModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
         $this->periodoModel = new PeriodoModel();
         $this->proyectoModel = new ProyectoModel();
+        $this->tareaModel = new TareaModel();
     }
 
 
@@ -332,7 +335,15 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/tareas'),
+            'vistaExtra' => view('Dashboard/tareas', [
+                'proyecto' => $proyecto,
+                'idProyecto' => $idProyecto,
+                'estados' => $this->tareaModel->traerEstados(),
+                'urgencias' => $this->tareaModel->traerUrgencias(),
+                'cargos' => $this->tareaModel->traerCargos(),
+                'complejidades' => $this->tareaModel->traerComplejidad(),
+                'sprints' => $this->tareaModel->traerSprints($idProyecto)
+            ]),
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
