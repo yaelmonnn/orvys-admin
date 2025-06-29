@@ -27,12 +27,12 @@
         <div class="row g-3">
             <div class="col-md-6">
             <label class="form-label">1. Nombre de la Historia</label>
-            <input type="text" class="form-control rounded-pill">
+            <input type="text" class="form-control rounded-pill" id="nombreHistoria">
             </div>
 
             <div class="col-md-6">
             <label class="form-label">2. Cargo de quien lo solicitó</label>
-            <select class="form-select rounded-pill">
+            <select class="form-select rounded-pill" id="cargoSolicitante">
                 <option selected disabled>Seleccione un cargo</option>
                 <?php
                  if (!empty($cargos)) {
@@ -46,7 +46,8 @@
 
             <div class="col-md-6">
             <label class="form-label">3. Nivel de Urgencia</label>
-            <select class="form-select rounded-pill">
+            <select class="form-select rounded-pill" id="nivelUrgencia">
+                <option selected disabled>Seleccione una urgencia</option>
                 <?php
                  if (!empty($urgencias)) {
                      foreach ($urgencias as $u) {
@@ -59,7 +60,8 @@
 
             <div class="col-md-6">
             <label class="form-label">4. Nivel de Complejidad</label>
-            <select class="form-select rounded-pill">
+            <select class="form-select rounded-pill" id="nivelComplejidad">
+                 <option selected disabled>Seleccione una complejidad</option>
                 <?php
                  if (!empty($complejidades)) {
                      foreach ($complejidades as $c) {
@@ -72,12 +74,12 @@
 
             <div class="col-md-6">
             <label class="form-label">5. Fecha de Registro</label>
-            <input type="date" class="form-control rounded-pill" value="<?= date('Y-m-d') ?>">
+            <input type="date" class="form-control rounded-pill" id="fechaRegistro" value="<?= date('Y-m-d') ?>">
             </div>
 
             <div class="col-md-6">
             <label class="form-label">6. Descripción</label>
-            <textarea class="form-control rounded-4" rows="3"></textarea>
+            <textarea class="form-control rounded-4" rows="3" id="descripcion"></textarea>
             </div>
         </div>
         </div>
@@ -91,22 +93,22 @@
         <div class="row g-3">
             <div class="col-md-6">
             <label class="form-label">1. Módulo Relacionado</label>
-            <input type="text" class="form-control rounded-pill" placeholder="Ej. Autenticación, Reportes">
+            <input type="text" class="form-control rounded-pill" placeholder="Ej. Autenticación, Reportes" id="moduloRelacionado">
             </div>
 
             <div class="col-md-6">
             <label class="form-label">2. Duración estimada (horas)</label>
-            <input type="number" class="form-control rounded-pill" min="1" placeholder="Ej. 6">
+            <input type="number" class="form-control rounded-pill" min="1" placeholder="Ej. 6" id="duracionEstimada">
             </div>
 
             <div class="col-md-6">
             <label class="form-label">3. Fecha límite de entrega</label>
-            <input type="date" class="form-control rounded-pill">
+            <input type="date" class="form-control rounded-pill" id="fechaLimite">
             </div>
 
             <div class="col-md-6">
             <label class="form-label">4. Estatus de la tarea</label>
-            <select class="form-select rounded-pill">
+            <select class="form-select rounded-pill" id="estatusTarea">
                 <option selected disabled>Seleccione un estatus</option>
                 <?php
                   if (!empty($estados)) {
@@ -120,7 +122,7 @@
 
             <div class="col-md-6">
             <label class="form-label">5. Sprint asignado</label>
-            <select class="form-select rounded-pill">
+            <select class="form-select rounded-pill" id="sprintAsignado">
                 <option selected disabled>Seleccione un Sprint</option>
                 <?php
                   if (!empty($sprints)) {
@@ -134,34 +136,39 @@
 
             <div class="col-md-6">
             <label class="form-label">6. Observaciones Técnicas</label>
-            <textarea class="form-control rounded-4" rows="3" placeholder="Tecnologías, dependencias, riesgos..."></textarea>
+            <textarea class="form-control rounded-4" rows="3" placeholder="Tecnologías, dependencias, riesgos..." id="observacionesTecnicas"></textarea>
             </div>
 
             <div class="col-md-6">
             <label class="form-label">7. Comentarios adicionales</label>
-            <textarea class="form-control rounded-4" rows="3" placeholder="Comentarios generales del equipo o PO..."></textarea>
+            <textarea class="form-control rounded-4" rows="3" placeholder="Comentarios generales del equipo o PO..." id="comentariosAdicionales"></textarea>
             </div>
 
             <div class="col-md-6">
             <label class="form-label">8. Pruebas unitarias requeridas</label>
-            <textarea class="form-control rounded-4" rows="3" placeholder="Describe qué debe probarse: validaciones, flujo de datos, errores esperados..."></textarea>
+            <textarea class="form-control rounded-4" rows="3" placeholder="Describe qué debe probarse: validaciones, flujo de datos, errores esperados..." id="pruebasUnitarias"></textarea>
             </div>
         </div>
         </div>
 
 
 
-
-        <!-- Paso 3 -->
         <div class="wizard-step d-none" data-step="3">
           <h5 class="fw-bold mb-3">Confirmación</h5>
           <p>Revisa los datos antes de guardar la tarea.</p>
-          <ul class="list-group rounded-4 shadow-sm">
-            <li class="list-group-item">Nombre de Historia: <strong>...</strong></li>
-            <li class="list-group-item">Nivel de Urgencia: <strong>...</strong></li>
-            <li class="list-group-item">Fecha de Registro: <strong>...</strong></li>
-            <!-- Aquí puedes mostrar un resumen dinámico si lo deseas con JS -->
+          <ul class="list-group rounded-4 shadow-sm" id="resumenConfirmacion">
+            <li class="list-group-item">Nombre de Historia: <strong id="resumenNombreHistoria">...</strong></li>
+            <li class="list-group-item">Cargo solicitante: <strong id="resumenCargo">...</strong></li>
+            <li class="list-group-item">Nivel de Urgencia: <strong id="resumenUrgencia">...</strong></li>
+            <li class="list-group-item">Fecha de Registro: <strong id="resumenFecha">...</strong></li>
+            <li class="list-group-item">Módulo Relacionado: <strong id="resumenModulo">...</strong></li>
+            <li class="list-group-item">Duración Estimada: <strong id="resumenDuracion">...</strong></li>
+            <li class="list-group-item">Fecha Límite: <strong id="resumenLimite">...</strong></li>
+            <li class="list-group-item">Estatus: <strong id="resumenEstatus">...</strong></li>
+            <li class="list-group-item">Sprint Asignado: <strong id="resumenSprint">...</strong></li>
           </ul>
+          <input type="hidden" id="idProyecto" value="<?=$idProyecto?>">
+
         </div>
       </div>
 

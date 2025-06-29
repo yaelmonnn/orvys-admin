@@ -263,8 +263,57 @@ class Dashboard extends BaseController
         }
     }
 
+    public function insertarTarea()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+        $session = session();
 
+        try {
+            $data = [
+                'nombre'            => trim($this->request->getPost('nombreHistoria')),
+                'cargo'             => trim($this->request->getPost('cargoSolicitante')),
+                'urgencia'          => trim($this->request->getPost('nivelUrgencia')),
+                'complejidad'       => trim($this->request->getPost('nivelComplejidad')),
+                'fr'                => $this->request->getPost('fechaRegistro'),
+                'descripcion'       => trim($this->request->getPost('descripcion')),
+                'modulo'            => trim($this->request->getPost('moduloRelacionado')),
+                'duracion'          => (int)$this->request->getPost('duracionEstimada'),
+                'fr_limite'         => $this->request->getPost('fechaLimite'),
+                'estatus'           => trim($this->request->getPost('estatusTarea')),
+                'sprint_id'         => (int)$this->request->getPost('sprintAsignado'),
+                'observaciones_tec' => trim($this->request->getPost('observacionesTecnicas')),
+                'adicionales'       => trim($this->request->getPost('comentariosAdicionales')),
+                'pruebas_unitarias' => trim($this->request->getPost('pruebasUnitarias')),
+                'proyecto_id'       => (int)$this->request->getPost('idProyecto'),
+                'usuario'           => $session->get('email')
+            ];
 
+            $resultado = $this->tareaModel->insertarTarea($data);
+
+            if ($resultado['success']) {
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => $resultado['resultado']
+                ]);
+            } else {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => $resultado['error'] ?? 'Error desconocido al insertar la tarea.'
+                ]);
+            }
+
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
 
 
     public function usuarios() {

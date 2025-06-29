@@ -120,6 +120,60 @@ class TareaModel extends Model
         }
     }
 
+    public function insertarTarea($data)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Insertar_Tarea 
+                @nombre = ?, 
+                @cargo = ?, 
+                @urgencia = ?, 
+                @complejidad = ?, 
+                @fr = ?, 
+                @descripcion = ?, 
+                @modulo = ?, 
+                @duracion = ?, 
+                @fr_limite = ?, 
+                @estatus = ?, 
+                @sprint_id = ?, 
+                @observaciones_tec = ?, 
+                @adicionales = ?, 
+                @pruebas_unitarias = ?, 
+                @proyecto_id = ?, 
+                @usuario = ?",
+                [
+                    $data['nombre'],
+                    $data['cargo'],
+                    $data['urgencia'],
+                    $data['complejidad'],
+                    $data['fr'],
+                    $data['descripcion'],
+                    $data['modulo'],
+                    $data['duracion'],
+                    $data['fr_limite'],
+                    $data['estatus'],
+                    $data['sprint_id'],
+                    $data['observaciones_tec'],
+                    $data['adicionales'],
+                    $data['pruebas_unitarias'],
+                    $data['proyecto_id'],
+                    $data['usuario']
+                ]
+            );
+            return [
+                'success' => true,
+                'resultado' => $query->getRowArray()['Resultado'] ?? 'CORRECTO'
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+
 
 
 
