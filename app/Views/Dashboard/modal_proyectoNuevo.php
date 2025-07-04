@@ -30,37 +30,56 @@
                             </div>
 
                             <!-- Periodo -->
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="periodo" class="form-label fw-bold">Periodo *</label>
                                 <select class="form-select" id="periodo" name="periodo" required>
                                     <option value="">Selecciona un periodo</option>
                                     <?php
-                                        if (!empty($periodos)) {
-                                            foreach($periodos as $p) {
-                                                echo '<option value="'.$p['periodo'].'">'.$p['periodo'].'</option>';
-                                            }
-                                        }
+                                        echo '<option value="'.$periodoSelectNombre.'">'.$periodoSelectNombre.'</option>';
+                                        // if (!empty($periodos)) {
+                                        //     foreach($periodos as $p) {
+                                        //         echo '<option value="'.$p['periodo'].'">'.$p['periodo'].'</option>';
+                                        //     }
+                                        // }
                                     ?>
                                 </select>
                             </div>
+                                                    <!-- Número de Sprints -->
+                        <div class="col-md-4">
+                            <label for="numero_sprints" class="form-label fw-bold">Número de Sprints *</label>
+                            <select class="form-select" id="numero_sprints" name="numero_sprints" required onchange="setFechaFin()">
+                                <option value="">Selecciona el número de sprints</option>
+                            <?php
+                                if (!empty($sprints)) {
+                                    foreach($sprints as $s) {
+                                        echo '<option value="'.$s['Id'].'">'.$s['sprintMuestra'].'</option>';
+                                    }
+                                }
+                            ?>
+                            </select>
+                        </div>
 
                             <!-- Descripción -->
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label for="descripcion" class="form-label fw-bold">Descripción</label>
                                 <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Describe brevemente el proyecto..."></textarea>
                             </div>
 
                             <!-- Fecha Inicio -->
+                            <?php date_default_timezone_set('America/Merida'); ?>
                             <div class="col-md-4">
                                 <label for="fecha_inicio" class="form-label fw-bold">Fecha Inicio *</label>
-                                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+                                <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" value="<?= date('Y-m-d') ?>" readonly required>
                             </div>
+
+
 
                             <!-- Fecha Fin -->
                             <div class="col-md-4">
                                 <label for="fecha_fin" class="form-label fw-bold">Fecha Fin *</label>
-                                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+                                <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" readonly required>
                             </div>
+
 
                             <!-- Estatus -->
                             <div class="col-md-4">
@@ -123,6 +142,9 @@
                             </div>
                         </div>
 
+
+
+
                         <div class="mt-4 text-end">
                             <button type="submit" class="btn btn-success btn-envNuevo">
                                 <i class="fas fa-save me-2"></i>Guardar Proyecto
@@ -136,3 +158,9 @@
             </div>
         </div>
     </div>
+
+    
+<script>
+  window.FECHA_FIN_PERIODO = '<?= $fechaFinPeriodo; ?>';
+  let sprintAnterior = "";
+</script>

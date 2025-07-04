@@ -130,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
         guardado = true;
         const idPeriodoNuevo = document.getElementById("idPeriodo").value;
         const periodo = document.getElementById("nombrePeriodo").value.trim();
+        const fechaFin = document.getElementById("fechaFin").value;
         const modalInstance = bootstrap.Modal.getInstance(modal);
         if (modalInstance) modalInstance.hide();
 
@@ -145,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/x-www-form-urlencoded",
               "X-Requested-With": "XMLHttpRequest",
             },
-            body: new URLSearchParams({ idPeriodo: idPeriodoNuevo, periodo: periodo }),
+            body: new URLSearchParams({ idPeriodo: idPeriodoNuevo, periodo: periodo, fechaFin: fechaFin}),
           })
             .then((res) => res.json())
             .then((data) => {
@@ -174,12 +175,12 @@ document.addEventListener("DOMContentLoaded", () => {
               "Content-Type": "application/x-www-form-urlencoded",
               "X-Requested-With": "XMLHttpRequest",
             },
-            body: new URLSearchParams({ idPeriodo: window.PERIODO_SESION_ID, periodo: periodo }),
+            body: new URLSearchParams({ idPeriodo: window.PERIODO_SESION_ID, periodo: periodo, fechaFin: fechaFin }),
           })
             .then((res) => res.json())
             .then((data) => {
               if (data.success) {
-                seleccionarPeriodo(idPeriodoNuevo, periodo);
+                seleccionarPeriodo(idPeriodoNuevo, periodo, fechaFin);
               } else {
                 mostrarError("Error al deseleccionar el periodo anterior");
               }
@@ -189,20 +190,20 @@ document.addEventListener("DOMContentLoaded", () => {
               console.error(err);
             });
         } else {
-          seleccionarPeriodo(idPeriodoNuevo, periodo);
+          seleccionarPeriodo(idPeriodoNuevo, periodo, fechaFin);
         }
       });
     }
   }
 
-  function seleccionarPeriodo(idPeriodo, periodo) {
+  function seleccionarPeriodo(idPeriodo, periodo, fechaFin) {
     fetch(`${window.BASE_URL}periodos/seleccionar`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         "X-Requested-With": "XMLHttpRequest",
       },
-      body: new URLSearchParams({ idPeriodo, periodo }),
+      body: new URLSearchParams({ idPeriodo, periodo, fechaFin }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -243,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const idPeriodo = checkboxDeseleccion.getAttribute("data-id");
         const periodo = checkboxDeseleccion.getAttribute("data-periodo");
+        const fechaFin = checkboxDeseleccion.getAttribute("data-fecha-fin");
         guardado = true;
         
         const modalInstance = bootstrap.Modal.getInstance(modalConfirmarDeseleccion);
@@ -255,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "Content-Type": "application/x-www-form-urlencoded",
             "X-Requested-With": "XMLHttpRequest",
           },
-          body: new URLSearchParams({ idPeriodo, periodo }),
+          body: new URLSearchParams({ idPeriodo, periodo, fechaFin }),
         })
           .then((res) => res.json())
           .then((data) => {

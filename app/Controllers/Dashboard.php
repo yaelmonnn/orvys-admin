@@ -50,6 +50,7 @@ class Dashboard extends BaseController
         $periodos = $this->proyectoModel->traerPeriodos();
         $grupos = $this->proyectoModel->traerGrupos();
         $tipos = $this->proyectoModel->traerTipos();
+        $sprints = $this->proyectoModel->traerSprints();
 
         $view = view('layouts/header', [
             'titulo'   => $titulo,
@@ -77,7 +78,9 @@ class Dashboard extends BaseController
             'urgencias' => $urgencias,
             'periodos' => $periodos,
             'grupos' => $grupos,
-            'tipos' => $tipos
+            'tipos' => $tipos,
+            'sprints' => $sprints,
+            'fechaFinPeriodo' => $session->get('fechaFinPeriodo')
         ]);
         $view .= view('Dashboard/modal_backlog');
         $view .= view('layouts/footer');
@@ -109,7 +112,8 @@ class Dashboard extends BaseController
                 'importancia'  => trim($json->importancia),
                 'urgencia'     => trim($json->urgencia),
                 'gruposJson'   => $json->gruposJson,
-                'email'        => $session->get('email')
+                'email'        => $session->get('email'),
+                'sprint_id'    => trim($json->sprint_id)
             ];
 
             
@@ -168,7 +172,8 @@ class Dashboard extends BaseController
             'user' => $session->get('email'),
             'vistaExtra' => view('Dashboard/periodos', [
                 'periodos' => $catPeriodos,
-                'periodoSelect' => $session->get('periodoSelect')
+                'periodoSelect' => $session->get('periodoSelect'),
+                'fechaFinPeriodo' => $session->get('fechaFinPeriodo')
             ]),
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
@@ -202,9 +207,11 @@ class Dashboard extends BaseController
         $session = session();
         $id = $this->request->getPost('idPeriodo');
         $periodo = $this->request->getPost('periodo');
-        if ($id && $periodo) {
+        $fechaFin = $this->request->getPost('fechaFin');
+        if ($id && $periodo && $fechaFin) {
             $session->set('periodoSelect', $id);
             $session->set('periodoSelectNombre', $periodo);
+            $session->set('fechaFinPeriodo', $fechaFin);
             return $this->response->setJSON(['success' => true]);
         }
         return $this->response->setJSON(['success' => false]);
@@ -214,6 +221,7 @@ class Dashboard extends BaseController
         $session = session();
         $session->set('periodoSelect', 0);
         $session->set('periodoSelectNombre', '');
+        $session->set('fechaFinPeriodo', '0000-00-00');
         return $this->response->setJSON(['success' => true]);
     }
 
@@ -279,18 +287,18 @@ class Dashboard extends BaseController
                 'cargo'             => trim($this->request->getPost('cargoSolicitante')),
                 'urgencia'          => trim($this->request->getPost('nivelUrgencia')),
                 'complejidad'       => trim($this->request->getPost('nivelComplejidad')),
-                'fr'                => $this->request->getPost('fechaRegistro'),
                 'descripcion'       => trim($this->request->getPost('descripcion')),
                 'modulo'            => trim($this->request->getPost('moduloRelacionado')),
                 'duracion'          => (int)$this->request->getPost('duracionEstimada'),
-                'fr_limite'         => $this->request->getPost('fechaLimite'),
                 'estatus'           => trim($this->request->getPost('estatusTarea')),
-                'sprint_id'         => (int)$this->request->getPost('sprintAsignado'),
                 'observaciones_tec' => trim($this->request->getPost('observacionesTecnicas')),
                 'adicionales'       => trim($this->request->getPost('comentariosAdicionales')),
                 'pruebas_unitarias' => trim($this->request->getPost('pruebasUnitarias')),
+                'usuario'           => $session->get('email'),
                 'proyecto_id'       => (int)$this->request->getPost('idProyecto'),
-                'usuario'           => $session->get('email')
+                'sprint_id'         => (int)$this->request->getPost('sprintAsignado'),
+                'fr_inicio'         => $this->request->getPost('fechaRegistro'),
+                'fr_fin'            => $this->request->getPost('fechaLimite')
             ];
 
             $resultado = $this->tareaModel->insertarTarea($data);
@@ -354,7 +362,7 @@ class Dashboard extends BaseController
         return $view;
     }
 
-    public function tareas($proyecto, $idProyecto) {
+    public function tareas($proyecto, $idProyecto, $fechaFin) {
         $session = session();
         if (!$session->get('isLoggedIn')) {
             return redirect()->to('/login');
@@ -391,7 +399,8 @@ class Dashboard extends BaseController
                 'urgencias' => $this->tareaModel->traerUrgencias(),
                 'cargos' => $this->tareaModel->traerCargos(),
                 'complejidades' => $this->tareaModel->traerComplejidad(),
-                'sprints' => $this->tareaModel->traerSprints($idProyecto)
+                'sprints' => $this->tareaModel->traerSprints($idProyecto),
+                'fechaFin' => $fechaFin
             ]),
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')

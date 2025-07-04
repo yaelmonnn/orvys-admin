@@ -185,7 +185,8 @@ class ProyectoModel extends Model
             @estatus = ?, 
             @periodo = ?, 
             @gruposJson = ?,
-            @email = ?",
+            @email = ?,
+            @sprint_id = ?",
             [
                 $data['titulo'],
                 $data['descripcion'],
@@ -197,11 +198,29 @@ class ProyectoModel extends Model
                 $data['estatus'],
                 $data['periodo'],
                 $data['gruposJson'],
-                $data['email']
+                $data['email'],
+                $data['sprint_id']
             ]
         );
 
         return $query->getResultArray(); 
+    }
+
+    public function traerSprints() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Sprints";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
     }
 
 

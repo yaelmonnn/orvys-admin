@@ -73,8 +73,17 @@
             </div>
 
             <div class="col-md-6">
-            <label class="form-label">5. Fecha de Registro</label>
-            <input type="date" class="form-control rounded-pill" id="fechaRegistro" value="<?= date('Y-m-d') ?>">
+              <label class="form-label">5. Estatus de la tarea</label>
+              <select class="form-select rounded-pill" id="estatusTarea">
+                  <option selected disabled>Seleccione un estatus</option>
+                  <?php
+                    if (!empty($estados)) {
+                        foreach ($estados as $c) {
+                            echo "<option value='{$c['estatus']}'>{$c['estatus']}</option>";
+                        }
+                    }
+                  ?>
+              </select>
             </div>
 
             <div class="col-md-6">
@@ -91,38 +100,9 @@
         <h5 class="fw-bold mb-3">Detalles Técnicos</h5>
 
         <div class="row g-3">
-            <div class="col-md-6">
-            <label class="form-label">1. Módulo Relacionado</label>
-            <input type="text" class="form-control rounded-pill" placeholder="Ej. Autenticación, Reportes" id="moduloRelacionado">
-            </div>
-
-            <div class="col-md-6">
-            <label class="form-label">2. Duración estimada (horas)</label>
-            <input type="number" class="form-control rounded-pill" min="1" placeholder="Ej. 6" id="duracionEstimada">
-            </div>
-
-            <div class="col-md-6">
-            <label class="form-label">3. Fecha límite de entrega</label>
-            <input type="date" class="form-control rounded-pill" id="fechaLimite">
-            </div>
-
-            <div class="col-md-6">
-            <label class="form-label">4. Estatus de la tarea</label>
-            <select class="form-select rounded-pill" id="estatusTarea">
-                <option selected disabled>Seleccione un estatus</option>
-                <?php
-                  if (!empty($estados)) {
-                      foreach ($estados as $c) {
-                          echo "<option value='{$c['estatus']}'>{$c['estatus']}</option>";
-                      }
-                  }
-                ?>
-            </select>
-            </div>
-
-            <div class="col-md-6">
-            <label class="form-label">5. Sprint asignado</label>
-            <select class="form-select rounded-pill" id="sprintAsignado">
+          <div class="col-md-6">
+            <label class="form-label">7. Sprint asignado</label>
+            <select class="form-select rounded-pill" id="sprintAsignado" onchange="setFechaFin()">
                 <option selected disabled>Seleccione un Sprint</option>
                 <?php
                   if (!empty($sprints)) {
@@ -132,20 +112,41 @@
                   }
                 ?>
             </select>
+          </div>
+
+            <div class="col-md-6">
+            <label class="form-label">8. Duración estimada (horas)</label>
+            <input type="number" class="form-control rounded-pill" min="1" placeholder="Ej. 6" id="duracionEstimada">
             </div>
 
             <div class="col-md-6">
-            <label class="form-label">6. Observaciones Técnicas</label>
+            <label class="form-label">9. Fecha de Registro</label>
+            <input type="date" class="form-control rounded-pill" id="fechaRegistro" value="<?= date('Y-m-d') ?>" readonly disabled>
+            </div>
+
+            <div class="col-md-6">
+            <label class="form-label">10. Fecha límite de entrega</label>
+            <input type="date" class="form-control rounded-pill" id="fechaLimite" readonly disabled>
+            </div>
+
+
+            <div class="col-md-6">
+              <label class="form-label">11. Módulo Relacionado</label>
+              <input type="text" class="form-control rounded-pill" placeholder="Ej. Autenticación, Reportes" id="moduloRelacionado">
+            </div>
+
+            <div class="col-md-6">
+            <label class="form-label">12. Observaciones Técnicas</label>
             <textarea class="form-control rounded-4" rows="3" placeholder="Tecnologías, dependencias, riesgos..." id="observacionesTecnicas"></textarea>
             </div>
 
             <div class="col-md-6">
-            <label class="form-label">7. Comentarios adicionales</label>
+            <label class="form-label">13. Comentarios adicionales</label>
             <textarea class="form-control rounded-4" rows="3" placeholder="Comentarios generales del equipo o PO..." id="comentariosAdicionales"></textarea>
             </div>
 
             <div class="col-md-6">
-            <label class="form-label">8. Pruebas unitarias requeridas</label>
+            <label class="form-label">14. Pruebas unitarias requeridas</label>
             <textarea class="form-control rounded-4" rows="3" placeholder="Describe qué debe probarse: validaciones, flujo de datos, errores esperados..." id="pruebasUnitarias"></textarea>
             </div>
         </div>
@@ -189,3 +190,8 @@
     </div>
   </div>
 </div>
+
+<script>
+  window.FECHA_FIN_PROYECTO = '<?= $fechaFin; ?>';
+   let sprintAnteriorTarea = "";
+</script>

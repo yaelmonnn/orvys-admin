@@ -97,7 +97,7 @@
             
                     echo '  <td>';
                     echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" data-bs-toggle="tooltip" title="Editar"><i class="fas fa-edit"></i></button>';
-                    echo '    <a href="'.base_url('tareas/'.$p['titulo'].'/'.$p['Id'].'').'"><button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="tooltip" title="Agregar tareas"><i class="fas fa-bars"></i></button></a>';
+                    echo '    <a href="'.base_url('tareas/'.$p['titulo'].'/'.$p['Id'].'/'.$p['fecha_fin'].'').'"><button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="tooltip" title="Agregar tareas"><i class="fas fa-bars"></i></button></a>';
                     echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal" title="Ver Tareas"><i class="fas fa-eye"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#kanbanModal" title="Calendario"><i class="fas fa-calendar-alt"></i></button>';
                     echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="tooltip" title="Eliminar"><i class="fas fa-times"></i></button>';

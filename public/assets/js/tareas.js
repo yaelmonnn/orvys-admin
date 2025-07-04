@@ -8,6 +8,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const prevBtn = document.getElementById("prevStep");
   const progressBar = document.getElementById("wizardProgress");
 
+  
+    const selectSprint = document.getElementById("sprintAsignado");
+    const inputFechaLimite = document.getElementById("fechaLimite");
+
+
+    selectSprint.addEventListener("focus", function () {
+      sprintAnteriorTarea = this.value;
+    });
+
+    if (window.FECHA_FIN_PROYECTO) {
+      inputFechaLimite.setAttribute("max", window.FECHA_FIN_PROYECTO);
+    }
+
   function showStep(step) {
     steps.forEach((el) => {
       el.classList.toggle("d-none", el.dataset.step != step);
@@ -91,16 +104,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const nivelUrgencia = document.getElementById("nivelUrgencia").value;
         const nivelComplejidad =
           document.getElementById("nivelComplejidad").value;
-        const fechaRegistro = document.getElementById("fechaRegistro").value;
         const descripcion = document.getElementById("descripcion").value.trim();
-        const moduloRelacionado = document
+                const moduloRelacionado = document
           .getElementById("moduloRelacionado")
           .value.trim();
         const duracionEstimada =
           document.getElementById("duracionEstimada").value;
-        const fechaLimite = document.getElementById("fechaLimite").value;
         const estatusTarea = document.getElementById("estatusTarea").value;
-        const sprintAsignado = document.getElementById("sprintAsignado").value;
         const observacionesTecnicas = document
           .getElementById("observacionesTecnicas")
           .value.trim();
@@ -111,6 +121,12 @@ document.addEventListener("DOMContentLoaded", () => {
           .getElementById("pruebasUnitarias")
           .value.trim();
         const idProyecto = document.getElementById("idProyecto").value;
+        const sprintAsignado = document.getElementById("sprintAsignado").value;
+        const fechaRegistro = document.getElementById("fechaRegistro").value;
+        const fechaLimite = document.getElementById("fechaLimite").value;
+
+
+
 
         if (
           !nombreHistoria ||
@@ -291,3 +307,39 @@ document.querySelectorAll(".sidebar-link").forEach((link) => {
     }
   });
 });
+
+function setFechaFin() {
+  const selectSprint = document.getElementById("sprintAsignado");
+  const numeroSprints = parseInt(selectSprint.value);
+  const fechaInicio = document.getElementById("fechaRegistro").value;
+  const fechaLimiteProyecto = new Date(window.FECHA_FIN_PROYECTO); 
+  const inputFechaLimite = document.getElementById("fechaLimite");
+
+  if (!isNaN(numeroSprints) && fechaInicio) {
+    const fechaIniObj = new Date(fechaInicio);
+    const fechaFinObj = new Date(fechaIniObj);
+    fechaFinObj.setMonth(fechaFinObj.getMonth() + numeroSprints);
+
+
+    const fechaFinISO = fechaFinObj.toISOString().split("T")[0];
+    const fechaLimiteISO = window.FECHA_FIN_PROYECTO;
+
+    if (fechaFinObj > fechaLimiteProyecto) {
+
+      selectSprint.value = sprintAnteriorTarea;
+
+      inputFechaLimite.value = fechaLimiteISO;
+
+
+      mostrarError("La fecha límite calculada para esta tarea supera la fecha final del proyecto. Selecciona un sprint menor.");
+    } else {
+
+      inputFechaLimite.value = fechaFinISO;
+
+
+      sprintAnteriorTarea = selectSprint.value;
+    }
+
+    inputFechaLimite.setAttribute("max", fechaLimiteISO);
+  }
+}

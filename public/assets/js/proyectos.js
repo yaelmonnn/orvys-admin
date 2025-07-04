@@ -76,6 +76,19 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     },
   });
+
+  const selectSprints = document.getElementById("numero_sprints");
+  const inputFechaFin = document.getElementById("fecha_fin");
+
+  selectSprints.addEventListener("focus", function () {
+    sprintAnterior = this.value;
+  });
+
+  if (window.FECHA_FIN_PERIODO) {
+    inputFechaFin.setAttribute("max", window.FECHA_FIN_PERIODO);
+  }
+
+
 });
 
 
@@ -135,6 +148,7 @@ document
     const grupos = Array.from(e.target.grupos_asignados.selectedOptions).map(
       (opt) => opt.value
     );
+    const sprint_id = e.target.numero_sprints.value
 
     const fechaInicioObj = new Date(fechaIni);
     const fechaFinObj = new Date(fechaFin);
@@ -163,7 +177,8 @@ document
           estatus,
           importancia,
           urgencia,
-          gruposJson: JSON.stringify(grupos), 
+          gruposJson: JSON.stringify(grupos),
+          sprint_id: sprint_id 
         }),
       });
 
@@ -208,3 +223,38 @@ document
   });
 }
 
+function setFechaFin() {
+  const selectSprints = document.getElementById("numero_sprints");
+  const numeroSprints = parseInt(selectSprints.value);
+  const fechaInicio = document.getElementById("fecha_inicio").value;
+  const fechaLimitePeriodo = new Date(window.FECHA_FIN_PERIODO);
+  const inputFechaFin = document.getElementById("fecha_fin");
+
+  if (!isNaN(numeroSprints) && fechaInicio) {
+    const fechaIniObj = new Date(fechaInicio);
+    const fechaFinObj = new Date(fechaIniObj);
+    fechaFinObj.setMonth(fechaFinObj.getMonth() + numeroSprints);
+
+    const fechaFinISO = fechaFinObj.toISOString().split("T")[0];
+    const fechaLimiteISO = window.FECHA_FIN_PERIODO;
+
+    if (fechaFinObj > fechaLimitePeriodo) {
+
+      selectSprints.value = sprintAnterior;
+
+
+      inputFechaFin.value = fechaFinISO;
+
+
+      mostrarError("La fecha final del proyecto supera la fecha límite del periodo. Selecciona un número de sprints menor.");
+    } else {
+
+      inputFechaFin.value = fechaFinISO;
+
+
+      sprintAnterior = selectSprints.value;
+    }
+
+    inputFechaFin.setAttribute("max", fechaLimiteISO);
+  }
+}
