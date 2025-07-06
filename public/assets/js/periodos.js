@@ -431,3 +431,65 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.querySelector(".table").addEventListener("click", (e) => {
+  const btn = e.target.closest(".btn-outline-danger");
+  if (btn) {
+    const idPeriodo = btn.dataset.id;
+    cancelarPeriodo(idPeriodo);
+  }
+});
+
+async function cancelarPeriodo(idPeriodo) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¿Deseas cancelar este periodo? Esta acción no se puede deshacer.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, cancelar",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(
+          `${window.BASE_URL}periodos/eliminar/${idPeriodo}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Periodo cancelado!",
+            text: data.message || "El Periodo ha sido cancelado.",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "No se pudo cancelar el periodo.",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Error de red o del servidor.",
+        });
+      }
+    }
+  });
+}
+

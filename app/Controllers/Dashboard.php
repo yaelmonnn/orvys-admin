@@ -85,6 +85,12 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/modal_backlog', [
             'etapas' => $etapas
         ]);
+        $view .= view('Dashboard/modal_editProyecto', [
+            'estados' => $estados,
+            'importancias' => $importancias,
+            'urgencias' => $urgencias,
+            'tipos' => $tipos
+        ]);
         $view .= view('layouts/footer');
         return $view;
 
@@ -194,7 +200,70 @@ class Dashboard extends BaseController
         }
     }
 
+    public function editarProyecto()
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
 
+        try {
+            $data = $this->request->getJSON(true);
+
+            if (
+                empty($data['proyecto_id']) ||
+                empty($data['titulo']) ||
+                empty($data['descripcion']) ||
+                empty($data['tipo_id']) ||
+                empty($data['estatus_id']) ||
+                empty($data['importancia_id']) ||
+                empty($data['urgencia_id'])
+            ) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Todos los campos son obligatorios.'
+                ]);
+            }
+
+            $resultado = $this->proyectoModel->editarProyecto($data);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message']
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function eliminarPeriodo($idPeriodo)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->periodoModel->eliminarPeriodo($idPeriodo);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message'] ?? 'Operación completada'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
 
 
     public function insertarProyecto()
@@ -465,9 +534,55 @@ class Dashboard extends BaseController
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
-
+        $view .= view('Dashboard/modal_infoUser');
         $view .= view('layouts/footer');
         return $view;
+    }
+
+    public function usuariosGrupos($idUsuario) {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $grupos = $this->usuarioModel->traerGruposPorUsuario($idUsuario);
+            return $this->response->setJSON([
+                'success' => true,
+                'grupos' => $grupos
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+     public function eliminarUsuario($idUsuario)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->usuarioModel->eliminarUsuario($idUsuario);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message'] ?? 'Operación completada'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
     }
 
     public function tareas($proyecto, $idProyecto, $fechaFin) {
@@ -513,6 +628,7 @@ class Dashboard extends BaseController
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
+        
 
         $view .= view('layouts/footer');
         return $view;

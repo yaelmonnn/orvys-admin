@@ -818,3 +818,108 @@ avanzarTarea = async function (idTarea, idEtapaActual) {
     }
   });
 };
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modalEditarProyecto");
+
+  modal.addEventListener("show.bs.modal", function (event) {
+    const button = event.relatedTarget;
+
+    const titulo = button.getAttribute("data-titulo");
+    const descripcion = button.getAttribute("data-desc");
+    const tipoTexto = button.getAttribute("data-tipo");
+    const estatusTexto = button.getAttribute("data-estatus");
+    const importanciaTexto = button.getAttribute("data-imp");
+    const urgenciaTexto = button.getAttribute("data-urg");
+
+    const form = document.getElementById("formEditarProyecto");
+
+   
+    form.titulo.value = titulo || "";
+    form.descripcion.value = descripcion || "";
+
+    
+    function seleccionarPorTexto(selectElement, texto) {
+      const opciones = selectElement.options;
+      for (let i = 0; i < opciones.length; i++) {
+        if (opciones[i].textContent.trim() === texto.trim()) {
+          selectElement.selectedIndex = i;
+          break;
+        }
+      }
+    }
+
+
+    seleccionarPorTexto(form.tipo_id, tipoTexto);
+    seleccionarPorTexto(form.estatus_id, estatusTexto);
+    seleccionarPorTexto(form.importancia_id, importanciaTexto);
+    seleccionarPorTexto(form.urgencia_id, urgenciaTexto);
+
+
+    if (button.hasAttribute("data-id")) {
+      form.proyecto_id.value = button.getAttribute("data-id");
+    }
+  });
+});
+
+
+async function guardarEdicionProyecto() {
+  const form = document.getElementById("formEditarProyecto");
+  const btnGuardar = document.querySelector('#modalEditarProyecto .btn-primary');
+
+  btnGuardar.textContent = "ACTUALIZANDO...";
+  btnGuardar.disabled = true;
+
+  const formData = {
+    proyecto_id: form.proyecto_id.value,
+    titulo: form.titulo.value,
+    descripcion: form.descripcion.value,
+    tipo_id: form.tipo_id.value,
+    estatus_id: form.estatus_id.value,
+    importancia_id: form.importancia_id.value,
+    urgencia_id: form.urgencia_id.value
+  };
+
+  try {
+    const response = await fetch(`${window.BASE_URL}proyectos/editar`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Requested-With": "XMLHttpRequest",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (response.ok && data.success) {
+      Swal.fire({
+        icon: "success",
+        title: "¡Actualizado!",
+        text: data.message || "El proyecto fue actualizado correctamente.",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+
+      setTimeout(() => location.reload(), 1500);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: data.message || "No se pudo actualizar el proyecto.",
+      });
+    }
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: error.message || "Error de red o del servidor.",
+    });
+  } finally {
+    btnGuardar.textContent = "Guardar cambios";
+    btnGuardar.disabled = false;
+  }
+}
+
+
+

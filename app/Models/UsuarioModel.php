@@ -166,6 +166,45 @@ class UsuarioModel extends Model
         return $this->where('email', $email)->first();
     }
 
+    public function traerGruposPorUsuario($usuarioId)
+    {
+        $db = \Config\Database::connect();
+        $sql = "EXEC pa_Grupos_Usuarios ?";
+        $query = $db->query($sql, [$usuarioId]);
+        
+        if ($query) {
+            return $query->getResultArray();
+        } else {
+            return [];
+        }
+    }
+
+    public function eliminarUsuario($id)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $query = $db->query("EXEC pa_Eliminar_Usuario ?", [$id]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Respuesta inesperada del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => 'Error interno en el servidor: ' . $th->getMessage()
+            ];
+        }
+    }
+
 
     public function obtenerPorId($id)
     {

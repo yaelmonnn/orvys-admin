@@ -249,6 +249,45 @@ class ProyectoModel extends Model
         }
     }
 
+    public function editarProyecto($data)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $query = $db->query("EXEC pa_Editar_Proyecto ?, ?, ?, ?, ?, ?, ?", [
+                $data['titulo'],
+                $data['descripcion'],
+                $data['tipo_id'],
+                $data['importancia_id'],
+                $data['urgencia_id'],
+                $data['estatus_id'],
+                $data['proyecto_id']
+            ]);
+
+            $resultado = $query->getRow();
+
+
+            if (isset($resultado->Resultado)) {
+                $mensaje = $resultado->Resultado;
+
+                return [
+                    'success' => (strtoupper($mensaje) === 'CORRECTO'),
+                    'message' => $mensaje
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Respuesta inesperada del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Error en la base de datos: ' . $e->getMessage()
+            ];
+        }
+    }
+
+
 
 
 

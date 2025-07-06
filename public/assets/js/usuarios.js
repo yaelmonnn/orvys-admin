@@ -103,3 +103,147 @@ document.querySelectorAll('.sidebar-link').forEach(link => {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const selectVista = document.getElementById("opcionesVista");
+  const infoUsuario = document.getElementById("infoUsuario");
+  const seccionGrupos = document.getElementById("seccionGrupos");
+  const listaGrupos = seccionGrupos.querySelector("ul");
+  let usuarioIdActual = null; 
+
+  const mostrarVista = async (vista) => {
+    if (vista === "grupos") {
+      infoUsuario.classList.add("d-none");
+      seccionGrupos.classList.remove("d-none");
+      selectVista.value = "grupos";
+
+      if (usuarioIdActual) {
+        try {
+
+          listaGrupos.innerHTML = `<li class="list-group-item text-muted">Cargando...</li>`;
+
+          const response = await fetch(`${window.BASE_URL}usuarios/grupos/${usuarioIdActual}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest"
+            }
+          });
+
+          const data = await response.json();
+
+          if (response.ok && data.success) {
+            if (data.grupos.length > 0) {
+              listaGrupos.innerHTML = "";
+              data.grupos.forEach(grupo => {
+                const li = document.createElement("li");
+                li.className = "list-group-item";
+                li.textContent = grupo.grupo;
+                listaGrupos.appendChild(li);
+              });
+            } else {
+              listaGrupos.innerHTML = `<li class="list-group-item text-muted">No pertenece a ningún grupo.</li>`;
+            }
+          } else {
+            listaGrupos.innerHTML = `<li class="list-group-item text-danger">Error al cargar grupos.</li>`;
+          }
+        } catch (error) {
+          listaGrupos.innerHTML = `<li class="list-group-item text-danger">Error de red: ${error.message}</li>`;
+        }
+      }
+    } else {
+      seccionGrupos.classList.add("d-none");
+      infoUsuario.classList.remove("d-none");
+      selectVista.value = "info";
+    }
+  };
+
+
+  selectVista.addEventListener("change", () => {
+    mostrarVista(selectVista.value);
+  });
+
+
+  const modal = document.getElementById("modalInfoUsuario");
+  modal.addEventListener("show.bs.modal", function (event) {
+    const button = event.relatedTarget;
+
+    const nombre = button.getAttribute("data-nombre") || "";
+    const email = button.getAttribute("data-email") || "";
+    const telefono = button.getAttribute("data-tel") || "";
+    const rol = button.getAttribute("data-rol") || "";
+    usuarioIdActual = button.getAttribute("data-id") || null;
+
+    document.getElementById("usuarioNombre").textContent = nombre;
+    document.getElementById("usuarioEmail").textContent = email;
+    document.getElementById("usuarioTelefono").textContent = telefono;
+    document.getElementById("usuarioRol").textContent = rol;
+
+    const vistaInicial = button.getAttribute("data-mostrar") === "infoGroup" ? "grupos" : "info";
+    mostrarVista(vistaInicial);
+  });
+});
+
+document.querySelector(".table").addEventListener("click", (e) => {
+  const btn = e.target.closest(".btn-outline-danger");
+  if (btn) {
+    const idUsuario = btn.dataset.id;
+    eliminarUsuario(idUsuario);
+  }
+});
+
+async function eliminarUsuario(idUsuario) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¿Deseas eliminar este usuario? Esta acción no se puede deshacer.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, cancelar",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(
+          `${window.BASE_URL}usuarios/eliminar/${idUsuario}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Usuario cancelado!",
+            text: data.message || "El Usuario ha sido cancelado.",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "No se pudo cancelar el usuario.",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Error de red o del servidor.",
+        });
+      }
+    }
+  });
+}
+

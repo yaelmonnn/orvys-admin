@@ -70,7 +70,7 @@
                 }
                 echo '  <td>';
                 echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1 ver-proyectos" title="Ver" data-bs-toggle="modal" data-bs-target="#modalProyectosPorPeriodo" data-id="'.$p['Id'].'"><i class="fas fa-eye"></i></button>';
-                echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
+                echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-id="'.$p['Id'].'" title="Eliminar"><i class="fas fa-times"></i></button>';
                 echo '  </td>';
                 echo '</tr>';
 

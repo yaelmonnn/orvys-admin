@@ -34,5 +34,13 @@ $routes->post('/sprintbacklog/avanzarTarea/(:num)/(:num)', 'Dashboard::avanzarTa
 $routes->post('/sprintbacklog/cancelarTarea/(:num)', 'Dashboard::cancelarTarea/$1');
 $routes->post('/proyectos/eliminar/(:num)', 'Dashboard::eliminarProyecto/$1');
 
+$routes->post('/proyectos/editar', 'Dashboard::editarProyecto');
+
+$routes->post('/periodos/eliminar/(:num)', 'Dashboard::eliminarPeriodo/$1');
+
+$routes->post('/usuarios/grupos/(:num)', 'Dashboard::usuariosGrupos/$1');
+$routes->post('/usuarios/eliminar/(:num)', 'Dashboard::eliminarUsuario/$1');
+
+
 
 
