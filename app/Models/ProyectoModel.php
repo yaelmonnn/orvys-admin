@@ -223,6 +223,33 @@ class ProyectoModel extends Model
         }
     }
 
+    public function eliminarProyecto($id)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $query = $db->query("EXEC pa_Eliminar_Proyecto ?", [$id]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Respuesta inesperada del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => 'Error interno en el servidor: ' . $th->getMessage()
+            ];
+        }
+    }
+
+
 
 
 

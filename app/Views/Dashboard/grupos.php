@@ -38,7 +38,6 @@
           echo '  <td>'.$g['experiencia'].'</td>';
           echo '  <td>';
           echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>';
-          echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>';
           echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
           echo '  </td>';
           echo '</tr>';

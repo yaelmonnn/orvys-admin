@@ -33,9 +33,8 @@
                             <div class="col-md-4">
                                 <label for="periodo" class="form-label fw-bold">Periodo *</label>
                                 <select class="form-select" id="periodo" name="periodo" required>
-                                    <option value="">Selecciona un periodo</option>
                                     <?php
-                                        echo '<option value="'.$periodoSelectNombre.'">'.$periodoSelectNombre.'</option>';
+                                        echo '<option selected value="'.$periodoSelectNombre.'">'.$periodoSelectNombre.'</option>';
                                         // if (!empty($periodos)) {
                                         //     foreach($periodos as $p) {
                                         //         echo '<option value="'.$p['periodo'].'">'.$p['periodo'].'</option>';

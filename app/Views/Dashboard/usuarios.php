@@ -33,9 +33,7 @@
             echo '  <td>'.$u['rol'].'</td>';
             echo '  <td>';
             echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>';
-            echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" title="Editar"><i class="fas fa-edit"></i></button>';
             echo '    <button class="btn btn-sm btn-outline-info rounded-pill me-1" title="Grupo"><i class="fas fa-users"></i></button>';
-            echo '    <button class="btn btn-sm btn-outline-secondary rounded-pill me-1" title="Ideas"><i class="fas fa-lightbulb"></i></button>';
             echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
             echo '  </td>';
             echo '</tr>';

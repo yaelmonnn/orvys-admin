@@ -103,23 +103,6 @@ class TareaModel extends Model
         }
     }
 
-    public function traerSprints($idProyecto) {
-        try {
-            $db = \Config\Database::connect();
-            $sql = "EXEC pa_Traer_SprintsXProyecto ?";
-            $result = $db->query($sql, [$idProyecto]);
-
-            if ($result) {
-                return $result->getResultArray();
-            } else {
-                return [];
-            }
-            
-        } catch (\Throwable $th) {
-            return false;
-        }
-    }
-
     public function insertarTarea($data)
     {
         $db = \Config\Database::connect();
@@ -169,6 +152,114 @@ class TareaModel extends Model
             return [
                 'success' => false,
                 'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function traerProductBacklog($idProyecto)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Tareas_Proyecto ?", [$idProyecto]);
+            return $query->getResultArray();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+    public function traerSprintBacklog($idProyecto, $idEtapa, $idSprint)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Tareas_Etapa_Proyecto ?, ?, ?", [$idProyecto, $idEtapa, $idSprint]);
+            return $query->getResultArray();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+    public function traerEtapas()
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Traer_Etapas");
+            return $query->getResultArray();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+    public function traerSprints($idProyecto) {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_SprintsXProyecto ?";
+            $result = $db->query($sql, [$idProyecto]);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function avanzarTarea($etapaActualId, $idTarea)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Avanzar_Tareas @etapa_act_id = ?, @id_tarea = ?", [$etapaActualId, $idTarea]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Sin respuesta del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Error interno: ' . $e->getMessage()
+            ];
+        }
+    }
+
+
+    public function eliminarTarea($idTarea)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Eliminar_Tarea @tarea_id = ?", [$idTarea]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Error desconocido al eliminar la tarea.'
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Error interno en el servidor.'
             ];
         }
     }

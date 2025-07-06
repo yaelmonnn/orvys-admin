@@ -51,6 +51,7 @@ class Dashboard extends BaseController
         $grupos = $this->proyectoModel->traerGrupos();
         $tipos = $this->proyectoModel->traerTipos();
         $sprints = $this->proyectoModel->traerSprints();
+        $etapas = $this->tareaModel->traerEtapas();
 
         $view = view('layouts/header', [
             'titulo'   => $titulo,
@@ -71,7 +72,6 @@ class Dashboard extends BaseController
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
 
-        $view .= view('Dashboard/modal_tareas');
         $view .= view('Dashboard/modal_proyectoNuevo', [
             'estados' => $estados,
             'importancias' => $importancias,
@@ -82,12 +82,120 @@ class Dashboard extends BaseController
             'sprints' => $sprints,
             'fechaFinPeriodo' => $session->get('fechaFinPeriodo')
         ]);
-        $view .= view('Dashboard/modal_backlog');
+        $view .= view('Dashboard/modal_backlog', [
+            'etapas' => $etapas
+        ]);
         $view .= view('layouts/footer');
         return $view;
 
 
     }
+
+    public function traerBacklog($idProyecto)
+    {
+        try {
+            $data = $this->tareaModel->traerProductBacklog($idProyecto);
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON(['error' => $e->getMessage()]);
+        }
+    }
+
+    
+    public function traerSprintBacklog($idProyecto, $idEtapa, $idSprint)
+    {
+        try {
+            $data = $this->tareaModel->traerSprintBacklog($idProyecto, $idEtapa, $idSprint);
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function traerSprints($idProyecto)
+    {
+        try {
+            $data = $this->tareaModel->traerSprints($idProyecto);
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON(['error' => $e->getMessage()]);
+        }
+    }
+
+    public function avanzarTarea($idTarea, $etapaActualId)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->tareaModel->avanzarTarea($etapaActualId, $idTarea);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message']
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function cancelarTarea($idTarea)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->tareaModel->eliminarTarea($idTarea);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message']
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function eliminarProyecto($idProyecto)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->proyectoModel->eliminarProyecto($idProyecto);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message'] ?? 'Operación completada'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+
+
 
     public function insertarProyecto()
     {
