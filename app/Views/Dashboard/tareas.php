@@ -3,7 +3,13 @@
     <div class="card-body">
 
       <!-- Título del proyecto -->
-      <h4 class="fw-bold text-center text-primary mb-4">Proyecto: <?=$proyecto?></h4>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-primary mb-0">Proyecto: <?= $proyecto ?></h4>
+        <a href="javascript:history.back()" class="btn btn-outline-secondary rounded-pill shadow-sm">
+          <i class="fas fa-arrow-left me-2"></i> Regresar
+        </a>
+      </div>
+
 
       <!-- Navegación de Secciones -->
       <ul class="nav nav-pills nav-justified mb-4" id="wizardNav">

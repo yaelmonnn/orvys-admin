@@ -96,11 +96,18 @@
                     echo '<td><span class="'.$p['htmlEst'].'">'.$p['estatus'].'</span></td>';
             
                     echo '  <td>';
-                    echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#modalEditarProyecto" data-id="'.$p['Id'].'" data-titulo="'.$p['titulo'].'" data-desc="'.$p['descripcion'].'" data-tipo="'.$p['tipo'].'" data-estatus="'.$p['estatus'].'" data-imp="'.$p['importancia'].'" data-urg="'.$p['urgencia'].'" title="Editar"><i class="fas fa-edit"></i></button>';
+                    if ($rol['rol_id'] == 1) {
+                      echo '    <button class="btn btn-sm btn-outline-warning rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#modalEditarProyecto" data-id="'.$p['Id'].'" data-titulo="'.$p['titulo'].'" data-desc="'.$p['descripcion'].'" data-tipo="'.$p['tipo'].'" data-estatus="'.$p['estatus'].'" data-imp="'.$p['importancia'].'" data-urg="'.$p['urgencia'].'" title="Editar"><i class="fas fa-edit"></i></button>';  
+                    }
                     echo '    <a href="'.base_url('tareas/'.$p['titulo'].'/'.$p['Id'].'/'.$p['fecha_fin'].'').'"><button class="btn btn-sm btn-outline-secondary rounded-pill me-1" data-bs-toggle="tooltip" title="Agregar tareas"><i class="fas fa-bars"></i></button></a>';
                     echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal" data-mostrar="p-backlog" data-id="'.$p['Id'].'" data-titulo="'.$p['titulo'].'" title="Ver Tareas"><i class="fas fa-eye"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal" data-mostrar="s-backlog" data-id="'.$p['Id'].'" data-titulo="'.$p['titulo'].'" title="Calendario"><i class="fas fa-calendar-alt"></i></button>';
-                    echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="tooltip" data-id="'.$p['Id'].'" title="Eliminar"><i class="fas fa-times"></i></button>';
+                    echo '    <button class="btn btn-sm btn-outline-dark rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#backlogModal" data-mostrar="s-backlog" data-id="'.$p['Id'].'" data-titulo="'.$p['titulo'].'" title="Kanban"><i class="fas fa-calendar-alt"></i></button>';
+    
+                    if ($rol['rol_id'] == 1) {
+                        echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-bs-toggle="tooltip" data-id="'.$p['Id'].'" title="Eliminar"><i class="fas fa-times"></i></button>';
+                    }
+
+
                     echo '  </td>';
 
 

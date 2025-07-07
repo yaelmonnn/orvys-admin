@@ -1,18 +1,5 @@
 <div class="p-3">
 
-<div class="d-flex justify-content-end align-items-center mb-3 flex-wrap">
-  <div class="mt-2 mt-sm-0">
-    <?php
-      if ($rol['rol_id'] == 1) {
-        echo '<button class="btn btn-agregar fw-bold rounded-pill shadow-sm text-white">
-                <i class="fas fa-plus me-2"></i> Agregar
-              </button>';
-      }
-    ?>
-  </div>
-</div>
-
-
 
 <div class="table-container text-center">                    
 <table id="example" class="table table-striped text-center align-middle">
