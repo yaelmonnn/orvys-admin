@@ -41,6 +41,8 @@ $routes->post('/periodos/eliminar/(:num)', 'Dashboard::eliminarPeriodo/$1');
 $routes->post('/usuarios/grupos/(:num)', 'Dashboard::usuariosGrupos/$1');
 $routes->post('/usuarios/eliminar/(:num)', 'Dashboard::eliminarUsuario/$1');
 
+$routes->post('/grupos/usuarios/(:num)', 'Dashboard::grupoUsuarios/$1');
+$routes->post('/grupos/eliminar/(:num)', 'Dashboard::eliminarGrupo/$1');
 
 
 

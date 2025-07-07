@@ -104,3 +104,118 @@ document.querySelectorAll('.sidebar-link').forEach(link => {
     }
   });
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modalGrupoUsuarios");
+
+  modal.addEventListener("show.bs.modal", async function (event) {
+    const button = event.relatedTarget;
+
+    const grupoId = button.getAttribute("data-id");
+    const nombre = button.getAttribute("data-nombre");
+    const departamento = button.getAttribute("data-dep");
+    const experiencia = button.getAttribute("data-exp");
+
+    // Mostrar datos básicos
+    document.getElementById("grupoNombre").textContent = nombre || "—";
+    document.getElementById("grupoDepartamento").textContent = departamento || "—";
+    document.getElementById("grupoExperiencia").textContent = experiencia || "—";
+
+    // Mostrar loading mientras trae usuarios
+    const lista = document.getElementById("listaUsuariosGrupo");
+    lista.innerHTML = '<li class="list-group-item text-muted">Cargando usuarios...</li>';
+
+    try {
+      const response = await fetch(`${window.BASE_URL}grupos/usuarios/${grupoId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
+        }
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success && Array.isArray(data.usuarios)) {
+        if (data.usuarios.length === 0) {
+          lista.innerHTML = '<li class="list-group-item text-muted">No hay usuarios en este grupo.</li>';
+        } else {
+          lista.innerHTML = "";
+          data.usuarios.forEach(usuario => {
+            const li = document.createElement("li");
+            li.className = "list-group-item";
+            li.textContent = usuario.nombre;
+            lista.appendChild(li);
+          });
+        }
+      } else {
+        lista.innerHTML = '<li class="list-group-item text-danger">Error al cargar usuarios.</li>';
+      }
+    } catch (err) {
+      lista.innerHTML = `<li class="list-group-item text-danger">Error de red: ${err.message}</li>`;
+    }
+  });
+});
+
+document.querySelector(".table").addEventListener("click", (e) => {
+  const btn = e.target.closest(".btn-outline-danger");
+  if (btn) {
+    const idGrupo = btn.dataset.id;
+    eliminarGrupo(idGrupo);
+  }
+});
+
+async function eliminarGrupo(idGrupo) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¿Deseas eliminar este grupo? Esta acción no se puede deshacer.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, cancelar",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(
+          `${window.BASE_URL}grupos/eliminar/${idGrupo}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Grupo cancelado!",
+            text: data.message || "El Grupo ha sido cancelado.",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          setTimeout(() => {
+            location.reload();
+          }, 1500);
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "No se pudo cancelar el grupo.",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Error de red o del servidor.",
+        });
+      }
+    }
+  });
+}

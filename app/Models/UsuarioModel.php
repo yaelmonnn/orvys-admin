@@ -205,6 +205,45 @@ class UsuarioModel extends Model
         }
     }
 
+    public function traerUsuariosPorGrupo($idGrupo)
+    {
+        $db = \Config\Database::connect();
+        $sql = "EXEC pa_Usuarios_Grupos ?";
+        $query = $db->query($sql, [$idGrupo]);
+        
+        if ($query) {
+            return $query->getResultArray();
+        } else {
+            return [];
+        }
+    }
+
+    public function eliminarGrupo($id)
+    {
+        try {
+            $db = \Config\Database::connect();
+            $query = $db->query("EXEC pa_Eliminar_Grupo ?", [$id]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Respuesta inesperada del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => 'Error interno en el servidor: ' . $th->getMessage()
+            ];
+        }
+    }
+
 
     public function obtenerPorId($id)
     {

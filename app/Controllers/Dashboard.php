@@ -251,7 +251,14 @@ class Dashboard extends BaseController
         }
 
         try {
+            $session = session();
             $resultado = $this->periodoModel->eliminarPeriodo($idPeriodo);
+
+            if ($session->get('periodoSelect') == $idPeriodo) {
+                $session->set('periodoSelect', 0);
+                $session->set('periodoSelectNombre', '');
+                $session->set('fechaFinPeriodo', '0000-00-00');
+            }
 
             return $this->response->setJSON([
                 'success' => $resultado['success'],
@@ -561,7 +568,7 @@ class Dashboard extends BaseController
         }
     }
 
-     public function eliminarUsuario($idUsuario)
+    public function eliminarUsuario($idUsuario)
     {
         if (!$this->request->isAJAX()) {
             return $this->response->setJSON([
@@ -668,9 +675,55 @@ class Dashboard extends BaseController
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
-
+        $view .= view('Dashboard/modal_usersGrupo');
         $view .= view('layouts/footer');
         return $view;
+    }
+
+    public function grupoUsuarios($idGrupo) {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $usuarios = $this->usuarioModel->traerUsuariosPorGrupo($idGrupo);
+            return $this->response->setJSON([
+                'success' => true,
+                'usuarios' => $usuarios
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function eliminarGrupo($idGrupo)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->usuarioModel->eliminarGrupo($idGrupo);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message'] ?? 'Operación completada'
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
     }
 
     public function catalogos() {

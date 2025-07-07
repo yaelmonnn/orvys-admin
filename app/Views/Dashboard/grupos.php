@@ -26,8 +26,8 @@
           echo '  <td>'.$g['departamento'].'</td>';
           echo '  <td>'.$g['experiencia'].'</td>';
           echo '  <td>';
-          echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" title="Ver"><i class="fas fa-eye"></i></button>';
-          echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" title="Eliminar"><i class="fas fa-times"></i></button>';
+          echo '    <button class="btn btn-sm btn-outline-primary rounded-pill me-1" data-bs-toggle="modal" data-bs-target="#modalGrupoUsuarios" data-id="'.$g['Id'].'" data-nombre="'.$g['grupo'].'" data-dep="'.$g['departamento'].'" data-exp="'.$g['experiencia'].'" title="Ver"><i class="fas fa-eye"></i></button>';
+          echo '    <button class="btn btn-sm btn-outline-danger rounded-pill" data-id="'.$g['Id'].'" title="Eliminar"><i class="fas fa-times"></i></button>';
           echo '  </td>';
           echo '</tr>';
         }
