@@ -34,3 +34,48 @@ document.querySelectorAll('.sidebar-link').forEach(link => {
     }
   });
 });
+
+
+function guardarHorarioSesion() {
+  const horaInicio = document.getElementById("hora_inicio").value;
+  const horaFin = document.getElementById("hora_fin").value;
+
+  if (!horaInicio || !horaFin) {
+    Swal.fire("Campos requeridos", "Debes ingresar ambas horas.", "warning");
+    return;
+  }
+
+  if (horaInicio >= horaFin) {
+    Swal.fire("Rango inválido", "La hora de inicio debe ser menor que la hora de fin.", "error");
+    return;
+  }
+
+  const datos = {
+    hora_inicio: horaInicio,
+    hora_fin: horaFin
+  };
+
+  fetch(`${window.BASE_URL}configuracion/guardarHorario`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest"
+    },
+    body: JSON.stringify(datos)
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        Swal.fire("Horario guardado", "La configuración fue actualizada correctamente.", "success");
+      } else {
+        Swal.fire("Error", data.message || "No se pudo guardar la configuración.", "error");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      Swal.fire("Error", "Hubo un problema al conectar con el servidor.", "error");
+    });
+}
+
+
+

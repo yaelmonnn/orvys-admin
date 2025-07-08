@@ -90,6 +90,9 @@ toggleBtn.addEventListener("click", () => {
 });
 
 
+
+
+
 document.querySelectorAll('.sidebar-link').forEach(link => {
   link.addEventListener('click', (e) => {
     if (sidebar.classList.contains('collapsed')) {

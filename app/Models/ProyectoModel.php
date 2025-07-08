@@ -98,6 +98,72 @@ class ProyectoModel extends Model
 
     }
 
+    public function traerCatalogos() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Catalogos";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    public function guardarHorarioSesion($horaInicio, $horaFin)
+        {
+            $db = \Config\Database::connect();
+            try {
+                $horas = $horaInicio . ' - ' . $horaFin; 
+
+                $query = $db->query("EXEC pa_Guardar_HorarioSesion @horas = ?", [$horas]);
+                $row = $query->getRow();
+
+                if ($row && isset($row->Resultado) && $row->Resultado === 'CORRECTO') {
+                    return [
+                        'success' => true,
+                        'message' => 'Horario guardado correctamente'
+                    ];
+                } else {
+                    return [
+                        'success' => false,
+                        'message' => $row->Resultado ?? 'Error desconocido al guardar'
+                    ];
+                }
+            } catch (\Exception $e) {
+                return [
+                    'success' => false,
+                    'message' => $e->getMessage()
+                ];
+            }
+        }
+
+
+    public function traerPreferencias() {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Preferencias";
+            $result = $db->query($sql);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+
+    }
+
+
+
     public function traerUrgencias() {
         try {
             $db = \Config\Database::connect();

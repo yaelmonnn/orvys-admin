@@ -43,8 +43,30 @@
         <div class="card-body">
           <h5 class="card-title fw-bold">Rango de Inicio de Sesión</h5>
           <div class="d-flex gap-2 mt-2">
-            <input type="time" class="form-control rounded-pill" id="hora_inicio" value="08:00">
-            <input type="time" class="form-control rounded-pill" id="hora_fin" value="17:00">
+            <?php
+              // Valores por defecto
+              $horaInicio = '08:00';
+              $horaFin = '17:00';
+
+              if (!empty($preferencias)) {
+                  foreach ($preferencias as $pref) {
+                      if ($pref['configuracion'] === 'horario_sesion') {
+                          $rango = explode(' - ', $pref['descripcion']);
+                          if (count($rango) === 2) {
+                              $horaInicio = $rango[0];
+                              $horaFin = $rango[1];
+                          }
+                      }
+                  }
+              }
+
+              echo '<input type="time" class="form-control rounded-pill" id="hora_inicio" value="'.$horaInicio.'">';
+              echo '<input type="time" class="form-control rounded-pill" id="hora_fin" value="'.$horaFin.'">';
+              ?>
+
+
+            
+            
           </div>
           <div class="form-text mt-1">Define un horario permitido para iniciar sesión.</div>
         </div>
@@ -88,7 +110,7 @@
 
     <!-- Botones -->
     <div class="col-12 text-center mt-4">
-      <button class="btn btn-primary rounded-pill shadow-sm fw-bold px-4">
+      <button class="btn btn-primary rounded-pill shadow-sm fw-bold px-4"  onclick="guardarHorarioSesion()">
         <i class="fas fa-save me-2"></i> Guardar Cambios
       </button>
     </div>

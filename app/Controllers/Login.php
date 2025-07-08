@@ -3,15 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\UsuarioModel;
+use App\Models\ProyectoModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class Login extends BaseController
 {
     protected $usuarioModel;
+    protected $proyectoModel;
 
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
+        $this->proyectoModel = new ProyectoModel();
     }
 
     public function index()
@@ -295,6 +298,32 @@ class Login extends BaseController
                         'success' => false,
                         'message' => 'Usuario no encontrado'
                     ]);
+                }
+
+                $rol = $usuario['rol_id'];
+                if ($rol == 2) {
+                    date_default_timezone_set('America/Merida');
+                    $preferencias = $this->proyectoModel->traerPreferencias();
+                    $horaInicio = '00:00';
+                    $horaFin = '23:59';
+
+                    foreach ($preferencias as $pref) {
+                        if ($pref['configuracion'] === 'horario_sesion') {
+                            $rango = explode(' - ', $pref['descripcion']);
+                            if (count($rango) === 2) {
+                                $horaInicio = $rango[0];
+                                $horaFin = $rango[1];
+                            }
+                        }
+                    }
+
+                    $horaActual = date('H:i');
+                    if ($horaActual < $horaInicio || $horaActual > $horaFin) {
+                        return $this->response->setJSON([
+                            'success' => false,
+                            'message' => "No puedes iniciar sesión fuera del horario permitido: $horaInicio a $horaFin"
+                        ]);
+                    }
                 }
 
                 if (password_verify($password, $usuario['password'])) {

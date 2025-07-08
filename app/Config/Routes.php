@@ -48,5 +48,7 @@ $routes->post('/sprintbacklog/retrocederTarea/(:num)/(:num)', 'Dashboard::retroc
 
 $routes->get('/sprintbacklog/traerPorSprint/(:num)/(:num)', 'Dashboard::traerSprintCompleto/$1/$2');
 
+$routes->post('/configuracion/guardarHorario', 'Dashboard::guardarHorario');
+
 
 

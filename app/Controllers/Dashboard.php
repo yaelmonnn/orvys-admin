@@ -789,9 +789,11 @@ class Dashboard extends BaseController
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/catalogos'),
+            'vistaExtra' => view('Dashboard/catalogos', [
+                'catalogos' => $this->proyectoModel->traerCatalogos()
+            ]),
             'tituloTop' => $tituloTopbar,
-            'periodoSelectNombre' => $session->get('periodoSelectNombre')
+            'periodoSelectNombre' => $session->get('periodoSelectNombre'),
         ]);
 
         $view .= view('layouts/footer');
@@ -821,10 +823,14 @@ class Dashboard extends BaseController
             'user'     => $session->get('email')
         ]);
 
+        $preferencias = $this->proyectoModel->traerPreferencias();
+
         $view .= view('Dashboard/dashboard', [
             'rol'  => $rol,
             'user' => $session->get('email'),
-            'vistaExtra' => view('Dashboard/configuraciones'),
+            'vistaExtra' => view('Dashboard/configuraciones', [
+                'preferencias' => $preferencias
+            ]),
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')
         ]);
@@ -832,5 +838,32 @@ class Dashboard extends BaseController
         $view .= view('layouts/footer');
         return $view;
     }
+
+    public function guardarHorario()
+    {
+        if ($this->request->isAJAX()) {
+            $data = $this->request->getJSON(true);
+
+            $horaInicio = $data['hora_inicio'] ?? null;
+            $horaFin = $data['hora_fin'] ?? null;
+
+            if (!$horaInicio || !$horaFin) {
+                return $this->response->setJSON([
+                    'success' => false,
+                    'message' => 'Ambas horas son requeridas.'
+                ]);
+            }
+
+            $resultado = $this->proyectoModel->guardarHorarioSesion($horaInicio, $horaFin);
+
+            return $this->response->setJSON($resultado);
+        }
+
+        return $this->response->setStatusCode(400)->setJSON([
+            'success' => false,
+            'message' => 'Petición no válida.'
+        ]);
+    }
+
 
 }
