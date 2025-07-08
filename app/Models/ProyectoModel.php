@@ -116,6 +116,23 @@ class ProyectoModel extends Model
 
     }
 
+    public function traerGruposXProyecto($id) {
+        try {
+            $db = \Config\Database::connect();
+            $sql = "EXEC pa_Traer_Grupos_Proyecto ?";
+            $result = $db->query($sql, [$id]);
+
+            if ($result) {
+                return $result->getResultArray();
+            } else {
+                return [];
+            }
+            
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     public function traerPeriodos() {
         try {
             $db = \Config\Database::connect();

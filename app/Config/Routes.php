@@ -44,5 +44,9 @@ $routes->post('/usuarios/eliminar/(:num)', 'Dashboard::eliminarUsuario/$1');
 $routes->post('/grupos/usuarios/(:num)', 'Dashboard::grupoUsuarios/$1');
 $routes->post('/grupos/eliminar/(:num)', 'Dashboard::eliminarGrupo/$1');
 
+$routes->post('/sprintbacklog/retrocederTarea/(:num)/(:num)', 'Dashboard::retrocederTarea/$1/$2');
+
+$routes->get('/sprintbacklog/traerPorSprint/(:num)/(:num)', 'Dashboard::traerSprintCompleto/$1/$2');
+
 
 

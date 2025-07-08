@@ -120,6 +120,21 @@
             </select>
           </div>
 
+          <div class="col-md-6">
+            <label class="form-label">7.1 Grupo asignado</label>
+            <select class="form-select rounded-pill" id="grupoAsignado">
+                <option selected disabled>Seleccione un grupo</option>
+                <?php
+                  if (!empty($grupos)) {
+                      foreach ($grupos as $g) {
+                          echo "<option value='{$g['Id']}'>{$g['grupo']}</option>";
+                      }
+                  }
+                ?>
+            </select>
+          </div>
+
+
             <div class="col-md-6">
             <label class="form-label">8. Duración estimada (horas)</label>
             <input type="number" class="form-control rounded-pill" min="1" placeholder="Ej. 6" id="duracionEstimada">
@@ -173,6 +188,7 @@
             <li class="list-group-item">Fecha Límite: <strong id="resumenLimite">...</strong></li>
             <li class="list-group-item">Estatus: <strong id="resumenEstatus">...</strong></li>
             <li class="list-group-item">Sprint Asignado: <strong id="resumenSprint">...</strong></li>
+            <li class="list-group-item">Grupo Asignado: <strong id="resumenGrupo">...</strong></li>
           </ul>
           <input type="hidden" id="idProyecto" value="<?=$idProyecto?>">
 

@@ -118,6 +118,17 @@ class Dashboard extends BaseController
         }
     }
 
+    public function traerSprintCompleto($idProyecto, $idSprint)
+    {
+        try {
+            $data = $this->tareaModel->traerSprintCompleto($idProyecto, $idSprint);
+            return $this->response->setJSON($data);
+        } catch (\Exception $e) {
+            return $this->response->setStatusCode(500)->setJSON(['error' => $e->getMessage()]);
+        }
+    }
+
+
     public function traerSprints($idProyecto)
     {
         try {
@@ -139,6 +150,30 @@ class Dashboard extends BaseController
 
         try {
             $resultado = $this->tareaModel->avanzarTarea($etapaActualId, $idTarea);
+
+            return $this->response->setJSON([
+                'success' => $resultado['success'],
+                'message' => $resultado['message']
+            ]);
+        } catch (\Exception $e) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Error interno del servidor: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function retrocederTarea($idTarea, $etapaActualId)
+    {
+        if (!$this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Petición no válida'
+            ]);
+        }
+
+        try {
+            $resultado = $this->tareaModel->retrocederTarea($etapaActualId, $idTarea);
 
             return $this->response->setJSON([
                 'success' => $resultado['success'],
@@ -482,7 +517,8 @@ class Dashboard extends BaseController
                 'proyecto_id'       => (int)$this->request->getPost('idProyecto'),
                 'sprint_id'         => (int)$this->request->getPost('sprintAsignado'),
                 'fr_inicio'         => $this->request->getPost('fechaRegistro'),
-                'fr_fin'            => $this->request->getPost('fechaLimite')
+                'fr_fin'            => $this->request->getPost('fechaLimite'),
+                'grupo_asignado'    => $this->request->getPost('grupoAsignado')
             ];
 
             $resultado = $this->tareaModel->insertarTarea($data);
@@ -630,7 +666,8 @@ class Dashboard extends BaseController
                 'cargos' => $this->tareaModel->traerCargos(),
                 'complejidades' => $this->tareaModel->traerComplejidad(),
                 'sprints' => $this->tareaModel->traerSprints($idProyecto),
-                'fechaFin' => $fechaFin
+                'fechaFin' => $fechaFin,
+                'grupos' => $this->proyectoModel->traerGruposXProyecto($idProyecto)
             ]),
             'tituloTop' => $tituloTopbar,
             'periodoSelectNombre' => $session->get('periodoSelectNombre')

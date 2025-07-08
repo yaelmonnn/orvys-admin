@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const sprintAsignado = document.getElementById("sprintAsignado").value;
         const fechaRegistro = document.getElementById("fechaRegistro").value;
         const fechaLimite = document.getElementById("fechaLimite").value;
-
+        const grupoAsignado = document.getElementById("grupoAsignado").value;
 
 
 
@@ -159,6 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
         formData.append("comentariosAdicionales", comentariosAdicionales);
         formData.append("pruebasUnitarias", pruebasUnitarias);
         formData.append("idProyecto", idProyecto);
+        formData.append("grupoAsignado", grupoAsignado);
 
         try {
           const response = await fetch(`${window.BASE_URL}tareas/guardar`, {
@@ -262,6 +263,11 @@ function actualizarResumen() {
     document.getElementById("estatusTarea").value;
   document.getElementById("resumenSprint").textContent =
     document.getElementById("sprintAsignado").value;
+  document.getElementById("resumenGrupo").textContent =
+  document.getElementById("grupoAsignado").options[
+    document.getElementById("grupoAsignado").selectedIndex
+  ].text;
+
 }
 
 function formatearFechaDMY(fechaISO) {

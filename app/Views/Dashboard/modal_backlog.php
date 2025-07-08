@@ -26,6 +26,7 @@
                 foreach ($etapas as $etapa) {
                   echo '<option value="'.$etapa['Id'].'">'.$etapa['etapa'].'</option>';
                 }
+                echo '<option value="0">Todas</option>';
               } 
             ?>
           </select>

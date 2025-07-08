@@ -204,7 +204,7 @@ document
       btnEnviar.removeAttribute("disabled");
       btnEnviar.innerText = "Guardar";
     }
-  });
+  });7
 
 function mostrarError(mensaje) {
   Swal.fire({
@@ -310,9 +310,10 @@ async function cancelarProyecto(idProyecto) {
   });
 }
 
-// Variables globales
+
 let cargarSprintBacklog;
 let avanzarTarea;
+let retrocederTarea;
 let cancelarTarea;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -382,6 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
     contenedorKanban.addEventListener("click", (e) => {
       const btn = e.target.closest(".btn-avanzar-tarea");
       const cancelarBtn = e.target.closest(".btn-outline-danger");
+      const avanzarBtn = e.target.closest(".btn-retroceder-tarea");
       if (btn) {
         const id = btn.dataset.id;
         const etapa = btn.dataset.etapa;
@@ -389,6 +391,10 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (cancelarBtn) {
         const idTarea = cancelarBtn.dataset.id;
         cancelarTarea(idTarea);
+      } else if (avanzarBtn) {
+        const idTarea = avanzarBtn.dataset.id;
+        const etapaActual = avanzarBtn.dataset.etapa;
+        retrocederTarea(idTarea, etapaActual);
       }
     });
 
@@ -441,71 +447,78 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Asignamos la función a la variable global
-    cargarSprintBacklog = async function () {
-      const idSprint = selectSprint.value;
-      const idEtapa = selectStatus.value;
 
-      if (!idProyecto || !idSprint || !idEtapa) return;
+  cargarSprintBacklog = async function () {
+    const idSprint = selectSprint.value;
+    const idEtapa = selectStatus.value;
 
-      Object.values(columnasKanban).forEach((col) => {
-        col
-          .querySelectorAll(".bg-white, .text-muted, .text-danger")
-          .forEach((e) => e.remove());
-      });
+    if (!idProyecto || !idSprint || idEtapa === null || idEtapa === undefined) return;
 
-      try {
-        const response = await fetch(
-          `${base}sprintbacklog/traerPorSprintEtapa/${idProyecto}/${idEtapa}/${idSprint}`
-        );
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const tareas = await response.json();
+    Object.values(columnasKanban).forEach((col) => {
+      col.querySelectorAll(".bg-white, .text-muted, .text-danger").forEach((e) => e.remove());
+    });
 
-        if (Array.isArray(tareas) && tareas.length > 0) {
-          tareas.forEach((tarea, index) => {
-            const etapa = tarea.etapa?.trim().toLowerCase();
-            let columna = null;
+    try {
+      const endpoint =
+      idEtapa === "0"
+        ? `${base}sprintbacklog/traerPorSprint/${idProyecto}/${idSprint}`
+        : `${base}sprintbacklog/traerPorSprintEtapa/${idProyecto}/${idEtapa}/${idSprint}`;
 
-            switch (etapa) {
-              case "todo":
-                columna = columnasKanban["ToDo"];
-                break;
-              case "en progreso":
-              case "in progress":
-                columna = columnasKanban["In Progress"];
-                break;
-              case "review":
-              case "code review":
-                columna = columnasKanban["Code Review"];
-                break;
-              case "done":
-                columna = columnasKanban["Done"];
-                break;
-              default:
-                columna = columnasKanban["ToDo"];
-                break;
-            }
+      const response = await fetch(endpoint);
 
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "bg-white p-2 rounded mb-2 border";
-            if (tarea.etapa_id !== 4) {
-              tarjeta.innerHTML = `<div class="p-2 rounded shadow-sm mb-3 bg-white border">
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const tareas = await response.json();
+
+      if (Array.isArray(tareas) && tareas.length > 0) {
+        tareas.forEach((tarea, index) => {
+          const etapa = tarea.etapa?.trim().toLowerCase();
+          let columna = null;
+
+          switch (etapa) {
+            case "todo":
+              columna = columnasKanban["ToDo"];
+              break;
+            case "en progreso":
+            case "in progress":
+              columna = columnasKanban["In Progress"];
+              break;
+            case "review":
+            case "code review":
+              columna = columnasKanban["Code Review"];
+              break;
+            case "done":
+              columna = columnasKanban["Done"];
+              break;
+            default:
+              columna = columnasKanban["ToDo"];
+              break;
+          }
+
+          const tarjeta = document.createElement("div");
+          tarjeta.className = "bg-white p-2 rounded mb-2 border";
+
+          const btnRetroceder = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <button class="btn btn-sm btn-outline-secondary rounded-pill btn-retroceder-tarea me-auto"
+                data-id="${tarea.Id}" data-etapa="${tarea.etapa_id}" title="Retroceder"
+                ${tarea.etapa_id == 1 ? "disabled" : ""}>
+                <i class="fas fa-arrow-left"></i>
+              </button>
+            </div>`;
+
+          if (tarea.etapa_id !== 4 && tarea.etapa_id !== 1) {
+            tarjeta.innerHTML = `<div class="p-2 rounded shadow-sm mb-3 bg-white border">
+              ${btnRetroceder}
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <strong>ID: ${tarea.Id}</strong>
                 <div>
-                  <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${
-                    tarea.Id
-                  }" title="Eliminar">
+                  <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${tarea.Id}" title="Eliminar">
                     <i class="fas fa-times"></i>
                   </button>
                   <button class="btn btn-sm btn-outline-primary rounded-pill me-2" data-bs-toggle="collapse" data-bs-target="#detalle${index}" aria-expanded="false" aria-controls="detalle${index}" title="Detalle">
                     <i class="fas fa-chevron-down"></i>
                   </button>
-                  <button class="btn btn-sm btn-outline-primary rounded-pill btn-avanzar-tarea" data-id="${
-                    tarea.Id
-                  }" data-etapa="${
-                tarea.etapa_id
-              }" data-bs-toggle="tooltip" title="Avanzar">
+                  <button class="btn btn-sm btn-outline-primary rounded-pill btn-avanzar-tarea" data-id="${tarea.Id}" data-etapa="${tarea.etapa_id}" data-bs-toggle="tooltip" title="Avanzar">
                     <i class="fas fa-arrow-right"></i>
                   </button>
                 </div>
@@ -518,38 +531,61 @@ document.addEventListener("DOMContentLoaded", () => {
                 <hr class="my-2">
                 <b>Etapa:</b> ${tarea.etapa || "Sin asignar"}<br>
                 <b>Creado Por:</b> ${tarea.CreadoPor || "Sin asignar"}<br>
-                <b>Duración:</b> ${
-                  tarea.duracion || "No especificada"
-                } horas<br>
-                <b>Cargo del Solicitante:</b> ${
-                  tarea.cargo || "No especificado"
-                }<br>
+                <b>Duración:</b> ${tarea.duracion || "No especificada"} horas<br>
+                <b>Cargo del Solicitante:</b> ${tarea.cargo || "No especificado"}<br>
                 <b>Estatus:</b> ${tarea.estatus || "No especificado"}<br>
                 <b>Urgencia:</b> ${tarea.urgencia || "No especificado"}<br>
-                <b>Complejidad:</b> ${
-                  tarea.complejidad || "No especificado"
-                }<br>
+                <b>Complejidad:</b> ${tarea.complejidad || "No especificado"}<br>
                 <b>Modulo:</b> ${tarea.modulo || "No especificado"}<br>
-                <b>Descripción:</b> ${
-                  tarea.descripcion || "No especificado"
-                }<br>
-                <b>Observaciones:</b> ${
-                  tarea.observaciones_tec || "No especificado"
-                }<br>
-                <b>Adicionales:</b> ${
-                  tarea.adicionales || "No especificado"
-                }<br>
+                <b>Descripción:</b> ${tarea.descripcion || "No especificado"}<br>
+                <b>Observaciones:</b> ${tarea.observaciones_tec || "No especificado"}<br>
+                <b>Adicionales:</b> ${tarea.adicionales || "No especificado"}<br>
                 <b>Pruebas:</b> ${tarea.pruebas_unitarias || "No especificado"}
               </div>
             </div>`;
-            } else {
+          } else if (tarea.etapa_id === 1) {
               tarjeta.innerHTML = `<div class="p-2 rounded shadow-sm mb-3 bg-white border">
               <div class="d-flex justify-content-between align-items-center mb-2">
                 <strong>ID: ${tarea.Id}</strong>
                 <div>
-                  <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${
-                    tarea.Id
-                  }" title="Eliminar">
+                  <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${tarea.Id}" title="Eliminar">
+                    <i class="fas fa-times"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary rounded-pill me-2" data-bs-toggle="collapse" data-bs-target="#detalle${index}" aria-expanded="false" aria-controls="detalle${index}" title="Detalle">
+                    <i class="fas fa-chevron-down"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary rounded-pill btn-avanzar-tarea" data-id="${tarea.Id}" data-etapa="${tarea.etapa_id}" data-bs-toggle="tooltip" title="Avanzar">
+                    <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <b>Tarea:</b> ${tarea.nombre}<br>
+                ${tarea.fecha_inicio} - ${tarea.fecha_fin}
+              </div>
+              <div class="mt-2 collapse" id="detalle${index}">
+                <hr class="my-2">
+                <b>Etapa:</b> ${tarea.etapa || "Sin asignar"}<br>
+                <b>Creado Por:</b> ${tarea.CreadoPor || "Sin asignar"}<br>
+                <b>Duración:</b> ${tarea.duracion || "No especificada"} horas<br>
+                <b>Cargo del Solicitante:</b> ${tarea.cargo || "No especificado"}<br>
+                <b>Estatus:</b> ${tarea.estatus || "No especificado"}<br>
+                <b>Urgencia:</b> ${tarea.urgencia || "No especificado"}<br>
+                <b>Complejidad:</b> ${tarea.complejidad || "No especificado"}<br>
+                <b>Modulo:</b> ${tarea.modulo || "No especificado"}<br>
+                <b>Descripción:</b> ${tarea.descripcion || "No especificado"}<br>
+                <b>Observaciones:</b> ${tarea.observaciones_tec || "No especificado"}<br>
+                <b>Adicionales:</b> ${tarea.adicionales || "No especificado"}<br>
+                <b>Pruebas:</b> ${tarea.pruebas_unitarias || "No especificado"}
+              </div>
+            </div>`;
+          } else {
+            tarjeta.innerHTML = `<div class="p-2 rounded shadow-sm mb-3 bg-white border">
+              ${btnRetroceder}
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <strong>ID: ${tarea.Id}</strong>
+                <div>
+                  <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${tarea.Id}" title="Eliminar">
                     <i class="fas fa-times"></i>
                   </button>
                   <button class="btn btn-sm btn-outline-primary rounded-pill me-2" data-bs-toggle="collapse" data-bs-target="#detalle${index}" aria-expanded="false" aria-controls="detalle${index}" title="Detalle">
@@ -565,151 +601,140 @@ document.addEventListener("DOMContentLoaded", () => {
                 <hr class="my-2">
                 <b>Etapa:</b> ${tarea.etapa || "Sin asignar"}<br>
                 <b>Creado Por:</b> ${tarea.CreadoPor || "Sin asignar"}<br>
-                <b>Duración:</b> ${
-                  tarea.duracion || "No especificada"
-                } horas<br>
-                <b>Cargo del Solicitante:</b> ${
-                  tarea.cargo || "No especificado"
-                }<br>
+                <b>Duración:</b> ${tarea.duracion || "No especificada"} horas<br>
+                <b>Cargo del Solicitante:</b> ${tarea.cargo || "No especificado"}<br>
                 <b>Estatus:</b> ${tarea.estatus || "No especificado"}<br>
                 <b>Urgencia:</b> ${tarea.urgencia || "No especificado"}<br>
-                <b>Complejidad:</b> ${
-                  tarea.complejidad || "No especificado"
-                }<br>
+                <b>Complejidad:</b> ${tarea.complejidad || "No especificado"}<br>
                 <b>Modulo:</b> ${tarea.modulo || "No especificado"}<br>
-                <b>Descripción:</b> ${
-                  tarea.descripcion || "No especificado"
-                }<br>
-                <b>Observaciones:</b> ${
-                  tarea.observaciones_tec || "No especificado"
-                }<br>
-                <b>Adicionales:</b> ${
-                  tarea.adicionales || "No especificado"
-                }<br>
+                <b>Descripción:</b> ${tarea.descripcion || "No especificado"}<br>
+                <b>Observaciones:</b> ${tarea.observaciones_tec || "No especificado"}<br>
+                <b>Adicionales:</b> ${tarea.adicionales || "No especificado"}<br>
                 <b>Pruebas:</b> ${tarea.pruebas_unitarias || "No especificado"}
               </div>
             </div>`;
-            }
-
-            columna.appendChild(tarjeta);
-            initTooltips(tarjeta);
-          });
-        } else {
-          const aviso = document.createElement("div");
-          aviso.className = "text-muted text-center";
-          aviso.textContent = "Sin tareas encontradas.";
-          let destino;
-          if (idEtapa === "1") {
-            destino = columnasKanban["ToDo"];
-          } else if (idEtapa === "2") {
-            destino = columnasKanban["In Progress"];
-          } else if (idEtapa === "3") {
-            destino = columnasKanban["Code Review"];
-          } else {
-            destino = columnasKanban["Done"];
           }
+
+          columna.appendChild(tarjeta);
+          initTooltips(tarjeta);
+        });
+      } else {
+        const aviso = document.createElement("div");
+        aviso.className = "text-muted text-center";
+        aviso.textContent = "Sin tareas encontradas.";
+
+        if (idEtapa === "0") {
+          Object.values(columnasKanban).forEach((col) => col.appendChild(aviso.cloneNode(true)));
+        } else {
+          let destino;
+          if (idEtapa === "1") destino = columnasKanban["ToDo"];
+          else if (idEtapa === "2") destino = columnasKanban["In Progress"];
+          else if (idEtapa === "3") destino = columnasKanban["Code Review"];
+          else destino = columnasKanban["Done"];
 
           destino.appendChild(aviso);
         }
-      } catch (error) {
-        console.error("Error cargando Sprint Backlog:", error);
-        const errorDiv = document.createElement("div");
-        errorDiv.className = "text-danger text-center";
-        errorDiv.textContent = "Error al cargar tareas.";
-        columnasKanban["ToDo"].appendChild(errorDiv);
+
       }
-    };
+    } catch (error) {
+      console.error("Error cargando Sprint Backlog:", error);
+      const errorDiv = document.createElement("div");
+      errorDiv.className = "text-danger text-center";
+      errorDiv.textContent = "Error al cargar tareas.";
+      columnasKanban["ToDo"].appendChild(errorDiv);
+    }
+  };
 
-    async function mostrarProductBacklog() {
-      selectSprint.classList.add("d-none");
-      selectStatus.classList.add("d-none");
-      contenedorTarjetas.parentElement.classList.remove("d-none");
-      contenedorKanban.classList.add("d-none");
+      async function mostrarProductBacklog() {
+        selectSprint.classList.add("d-none");
+        selectStatus.classList.add("d-none");
+        contenedorTarjetas.parentElement.classList.remove("d-none");
+        contenedorKanban.classList.add("d-none");
 
-      contenedorTarjetas.innerHTML =
-        '<div class="text-center">Cargando tareas...</div>';
+        contenedorTarjetas.innerHTML =
+          '<div class="text-center">Cargando tareas...</div>';
 
-      try {
-        const response = await fetch(
-          `${base}backlog/traerPorProyecto/${idProyecto}`
-        );
-        const tareas = await response.json();
+        try {
+          const response = await fetch(
+            `${base}backlog/traerPorProyecto/${idProyecto}`
+          );
+          const tareas = await response.json();
 
-        if (Array.isArray(tareas) && tareas.length > 0) {
-          contenedorTarjetas.innerHTML = "";
+          if (Array.isArray(tareas) && tareas.length > 0) {
+            contenedorTarjetas.innerHTML = "";
 
-          tareas.forEach((tarea, index) => {
-            const tarjeta = `
-              <div class="col-md-4">
-                <div class="bg-done p-2 rounded shadow-sm">
-                  <div class="bg-white p-2 rounded border">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                        <strong>ID: ${tarea.Id}</strong><br>
-                        <b>Tarea:</b> ${tarea.nombre}<br>
-                        ${tarea.fecha_inicio} - ${tarea.fecha_fin}
+            tareas.forEach((tarea, index) => {
+              const tarjeta = `
+                <div class="col-md-4">
+                  <div class="bg-done p-2 rounded shadow-sm">
+                    <div class="bg-white p-2 rounded border">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <strong>ID: ${tarea.Id}</strong><br>
+                          <b>Tarea:</b> ${tarea.nombre}<br>
+                          ${tarea.fecha_inicio} - ${tarea.fecha_fin}
+                        </div>
+                        <div class="btn-group">
+                          <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${
+                            tarea.Id
+                          }" title="Eliminar">
+                            <i class="fas fa-times"></i>
+                          </button>
+                          <button class="btn btn-sm btn-outline-primary rounded-pill" data-bs-toggle="collapse" data-bs-target="#detalle${index}" aria-expanded="false" aria-controls="detalle${index}" title="Detalle">
+                            <i class="fas fa-chevron-down"></i>
+                          </button>
+                        </div>
                       </div>
-                      <div class="btn-group">
-                        <button class="btn btn-sm btn-outline-danger rounded-pill me-2" data-bs-toggle="tooltip" data-id="${
-                          tarea.Id
-                        }" title="Eliminar">
-                          <i class="fas fa-times"></i>
-                        </button>
-                        <button class="btn btn-sm btn-outline-primary rounded-pill" data-bs-toggle="collapse" data-bs-target="#detalle${index}" aria-expanded="false" aria-controls="detalle${index}" title="Detalle">
-                          <i class="fas fa-chevron-down"></i>
-                        </button>
+                      <div class="collapse mt-2" id="detalle${index}">
+                        <hr class="my-2">
+                        <b>Etapa:</b> ${tarea.etapa || "Sin asignar"}<br>
+                        <b>Creado Por:</b> ${tarea.CreadoPor || "Sin asignar"}<br>
+                        <b>Duración:</b> ${
+                          tarea.duracion || "No especificada"
+                        } horas<br>
+                        <b>Cargo del Solicitante:</b> ${
+                          tarea.cargo || "No especificado"
+                        }<br>
+                        <b>Estatus:</b> ${tarea.estatus || "No especificado"}<br>
+                        <b>Urgencia:</b> ${
+                          tarea.urgencia || "No especificado"
+                        }<br>
+                        <b>Complejidad:</b> ${
+                          tarea.complejidad || "No especificado"
+                        }<br>
+                        <b>Modulo:</b> ${tarea.modulo || "No especificado"}<br>
+                        <b>Descripción:</b> ${
+                          tarea.descripcion || "No especificado"
+                        }<br>
+                        <b>Observaciones:</b> ${
+                          tarea.observaciones_tec || "No especificado"
+                        }<br>
+                        <b>Adicionales:</b> ${
+                          tarea.adicionales || "No especificado"
+                        }<br>
+                        <b>Pruebas:</b> ${
+                          tarea.pruebas_unitarias || "No especificado"
+                        }
                       </div>
-                    </div>
-                    <div class="collapse mt-2" id="detalle${index}">
-                      <hr class="my-2">
-                      <b>Etapa:</b> ${tarea.etapa || "Sin asignar"}<br>
-                      <b>Creado Por:</b> ${tarea.CreadoPor || "Sin asignar"}<br>
-                      <b>Duración:</b> ${
-                        tarea.duracion || "No especificada"
-                      } horas<br>
-                      <b>Cargo del Solicitante:</b> ${
-                        tarea.cargo || "No especificado"
-                      }<br>
-                      <b>Estatus:</b> ${tarea.estatus || "No especificado"}<br>
-                      <b>Urgencia:</b> ${
-                        tarea.urgencia || "No especificado"
-                      }<br>
-                      <b>Complejidad:</b> ${
-                        tarea.complejidad || "No especificado"
-                      }<br>
-                      <b>Modulo:</b> ${tarea.modulo || "No especificado"}<br>
-                      <b>Descripción:</b> ${
-                        tarea.descripcion || "No especificado"
-                      }<br>
-                      <b>Observaciones:</b> ${
-                        tarea.observaciones_tec || "No especificado"
-                      }<br>
-                      <b>Adicionales:</b> ${
-                        tarea.adicionales || "No especificado"
-                      }<br>
-                      <b>Pruebas:</b> ${
-                        tarea.pruebas_unitarias || "No especificado"
-                      }
                     </div>
                   </div>
-                </div>
-              </div>`;
-            contenedorTarjetas.insertAdjacentHTML("beforeend", tarjeta);
-          });
+                </div>`;
+              contenedorTarjetas.insertAdjacentHTML("beforeend", tarjeta);
+            });
 
-          initTooltips(contenedorTarjetas);
-        } else {
+            initTooltips(contenedorTarjetas);
+          } else {
+            contenedorTarjetas.innerHTML =
+              '<div class="text-muted text-center">No se encontraron tareas.</div>';
+          }
+        } catch (error) {
+          console.error("Error cargando tareas:", error);
           contenedorTarjetas.innerHTML =
-            '<div class="text-muted text-center">No se encontraron tareas.</div>';
+            '<div class="text-danger text-center">Error al cargar las tareas.</div>';
         }
-      } catch (error) {
-        console.error("Error cargando tareas:", error);
-        contenedorTarjetas.innerHTML =
-          '<div class="text-danger text-center">Error al cargar las tareas.</div>';
       }
     }
-  }
-});
+  });
 
 cancelarTarea = async function (idTarea) {
   Swal.fire({
@@ -764,6 +789,60 @@ cancelarTarea = async function (idTarea) {
     }
   });
 };
+
+retrocederTarea = async function (idTarea, idEtapaActual) {
+   Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¿Deseas retroceder esta tarea al siguiente estado?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Sí, retroceder",
+    cancelButtonText: "Cancelar",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(
+          `${window.BASE_URL}sprintbacklog/retrocederTarea/${idTarea}/${idEtapaActual}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Tarea retrocedida!",
+            text: data.message || "La tarea ha sido movida.",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+
+          if (typeof cargarSprintBacklog === "function") {
+            await cargarSprintBacklog();
+          }
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "No se pudo retroceder la tarea.",
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message || "Error de red o del servidor.",
+        });
+      }
+    }
+  });
+}
 
 avanzarTarea = async function (idTarea, idEtapaActual) {
   Swal.fire({

@@ -124,7 +124,8 @@ class TareaModel extends Model
                 @proyecto_id = ?, 
                 @sprint_id = ?, 
                 @fr_inicio = ?,  
-                @fr_fin = ?",
+                @fr_fin = ?,
+                @grupo_asignado = ?",
                 [
                     $data['nombre'],
                     $data['cargo'],
@@ -141,7 +142,8 @@ class TareaModel extends Model
                     $data['proyecto_id'],
                     $data['sprint_id'],
                     $data['fr_inicio'],
-                    $data['fr_fin']
+                    $data['fr_fin'],
+                    $data['grupo_asignado']
                 ]
             );
             return [
@@ -180,6 +182,19 @@ class TareaModel extends Model
         }
     }
 
+    public function traerSprintCompleto($idProyecto, $idSprint)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Tareas_Sprint_Proyecto ?, ?", [$idProyecto, $idSprint]);
+            return $query->getResultArray();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+
     public function traerEtapas()
     {
         $db = \Config\Database::connect();
@@ -215,6 +230,33 @@ class TareaModel extends Model
 
         try {
             $query = $db->query("EXEC pa_Avanzar_Tareas @etapa_act_id = ?, @id_tarea = ?", [$etapaActualId, $idTarea]);
+            $resultado = $query->getRow();
+
+            if (isset($resultado->Resultado)) {
+                return [
+                    'success' => $resultado->Resultado === 'CORRECTO',
+                    'message' => $resultado->Resultado
+                ];
+            }
+
+            return [
+                'success' => false,
+                'message' => 'Sin respuesta del procedimiento almacenado.'
+            ];
+        } catch (\Throwable $e) {
+            return [
+                'success' => false,
+                'message' => 'Error interno: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    public function retrocederTarea($etapaActualId, $idTarea)
+    {
+        $db = \Config\Database::connect();
+
+        try {
+            $query = $db->query("EXEC pa_Retroceder_Tareas @etapa_act_id = ?, @id_tarea = ?", [$etapaActualId, $idTarea]);
             $resultado = $query->getRow();
 
             if (isset($resultado->Resultado)) {
